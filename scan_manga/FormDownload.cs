@@ -10,22 +10,23 @@ namespace scan_manga
     {
 
 
-        public List<Chapter> chapters = new List<Chapter>();
-        private List<Chapter> chaptersToDownload = new List<Chapter>();
+        public List<Chapter> chapters = new();
+        private List<Chapter> chaptersToDownload = new();
         private Chapter tempChapter;
-        private string pathTemp = Properties.Settings.Default.Root + "\\Temp";
-        private string temp = Directory.GetCurrentDirectory() + "\\Temp";
+        private readonly string pathTemp;
+        private readonly string temp;
         public string nameManga;
         private int maxPage;
         private string nameChapter;
         private int oldNbPage;
-        private bool isCancelled;
         private readonly MangaUtility utility;
 
         public FormDownload()
         {
             InitializeComponent();
             utility = new();
+            pathTemp = utility.GetPath(Properties.Settings.Default.Root, "Temp");
+            temp = utility.GetPath(Directory.GetCurrentDirectory(), "Temp");
         }
 
         private void FormDownload_Load(object sender, EventArgs e)
