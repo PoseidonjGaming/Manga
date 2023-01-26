@@ -5,16 +5,52 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "scan_manga", "scan_manga\scan_manga.csproj", "{26638E31-9C00-4851-AF9E-C2B7F9B81754}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "scan_manga_v.1", "scan_manga_v.1\scan_manga_v.1.csproj", "{15227A96-D294-4B43-8610-D8E3325A2601}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "scan_manga_v.2", "scan_manga_v.2\scan_manga_v.2.csproj", "{39B590F2-890F-4DBD-8FF4-1FB4039FBC63}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupScanManga", "SetupScanManga\SetupScanManga.vdproj", "{ADAF79E2-47CA-4984-8641-14F47CDA4F9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{26638E31-9C00-4851-AF9E-C2B7F9B81754}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{26638E31-9C00-4851-AF9E-C2B7F9B81754}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26638E31-9C00-4851-AF9E-C2B7F9B81754}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{26638E31-9C00-4851-AF9E-C2B7F9B81754}.Debug|x64.Build.0 = Debug|Any CPU
 		{26638E31-9C00-4851-AF9E-C2B7F9B81754}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26638E31-9C00-4851-AF9E-C2B7F9B81754}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26638E31-9C00-4851-AF9E-C2B7F9B81754}.Release|x64.ActiveCfg = Release|Any CPU
+		{26638E31-9C00-4851-AF9E-C2B7F9B81754}.Release|x64.Build.0 = Release|Any CPU
+		{15227A96-D294-4B43-8610-D8E3325A2601}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15227A96-D294-4B43-8610-D8E3325A2601}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15227A96-D294-4B43-8610-D8E3325A2601}.Debug|x64.ActiveCfg = Debug|x64
+		{15227A96-D294-4B43-8610-D8E3325A2601}.Debug|x64.Build.0 = Debug|x64
+		{15227A96-D294-4B43-8610-D8E3325A2601}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15227A96-D294-4B43-8610-D8E3325A2601}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15227A96-D294-4B43-8610-D8E3325A2601}.Release|x64.ActiveCfg = Release|x64
+		{15227A96-D294-4B43-8610-D8E3325A2601}.Release|x64.Build.0 = Release|x64
+		{39B590F2-890F-4DBD-8FF4-1FB4039FBC63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39B590F2-890F-4DBD-8FF4-1FB4039FBC63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39B590F2-890F-4DBD-8FF4-1FB4039FBC63}.Debug|x64.ActiveCfg = Debug|x64
+		{39B590F2-890F-4DBD-8FF4-1FB4039FBC63}.Debug|x64.Build.0 = Debug|x64
+		{39B590F2-890F-4DBD-8FF4-1FB4039FBC63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39B590F2-890F-4DBD-8FF4-1FB4039FBC63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39B590F2-890F-4DBD-8FF4-1FB4039FBC63}.Release|x64.ActiveCfg = Release|x64
+		{39B590F2-890F-4DBD-8FF4-1FB4039FBC63}.Release|x64.Build.0 = Release|x64
+		{ADAF79E2-47CA-4984-8641-14F47CDA4F9A}.Debug|Any CPU.ActiveCfg = Debug
+		{ADAF79E2-47CA-4984-8641-14F47CDA4F9A}.Debug|Any CPU.Build.0 = Debug
+		{ADAF79E2-47CA-4984-8641-14F47CDA4F9A}.Debug|x64.ActiveCfg = Debug
+		{ADAF79E2-47CA-4984-8641-14F47CDA4F9A}.Debug|x64.Build.0 = Debug
+		{ADAF79E2-47CA-4984-8641-14F47CDA4F9A}.Release|Any CPU.ActiveCfg = Release
+		{ADAF79E2-47CA-4984-8641-14F47CDA4F9A}.Release|Any CPU.Build.0 = Release
+		{ADAF79E2-47CA-4984-8641-14F47CDA4F9A}.Release|x64.ActiveCfg = Release
+		{ADAF79E2-47CA-4984-8641-14F47CDA4F9A}.Release|x64.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
