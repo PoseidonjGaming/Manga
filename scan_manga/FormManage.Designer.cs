@@ -37,6 +37,7 @@
             this.lstBoxThrash = new System.Windows.Forms.ListBox();
             this.btnSuppManga = new System.Windows.Forms.Button();
             this.btnDoWork = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,7 +55,7 @@
             this.cmbManga.FormattingEnabled = true;
             this.cmbManga.Location = new System.Drawing.Point(418, 12);
             this.cmbManga.Name = "cmbManga";
-            this.cmbManga.Size = new System.Drawing.Size(200, 23);
+            this.cmbManga.Size = new System.Drawing.Size(270, 23);
             this.cmbManga.TabIndex = 1;
             this.cmbManga.SelectedIndexChanged += new System.EventHandler(this.cmbManga_SelectedIndexChanged);
             // 
@@ -63,7 +64,7 @@
             this.cmbChapter.FormattingEnabled = true;
             this.cmbChapter.Location = new System.Drawing.Point(418, 41);
             this.cmbChapter.Name = "cmbChapter";
-            this.cmbChapter.Size = new System.Drawing.Size(200, 23);
+            this.cmbChapter.Size = new System.Drawing.Size(270, 23);
             this.cmbChapter.TabIndex = 2;
             this.cmbChapter.SelectedIndexChanged += new System.EventHandler(this.cmbChapter_SelectedIndexChanged);
             // 
@@ -73,7 +74,7 @@
             this.lstBoxPage.ItemHeight = 15;
             this.lstBoxPage.Location = new System.Drawing.Point(418, 70);
             this.lstBoxPage.Name = "lstBoxPage";
-            this.lstBoxPage.Size = new System.Drawing.Size(200, 304);
+            this.lstBoxPage.Size = new System.Drawing.Size(270, 304);
             this.lstBoxPage.TabIndex = 3;
             this.lstBoxPage.SelectedIndexChanged += new System.EventHandler(this.lstBoxPage_SelectedIndexChanged);
             // 
@@ -81,7 +82,7 @@
             // 
             this.btnSuppChapter.AutoSize = true;
             this.btnSuppChapter.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnSuppChapter.Location = new System.Drawing.Point(624, 41);
+            this.btnSuppChapter.Location = new System.Drawing.Point(694, 43);
             this.btnSuppChapter.Name = "btnSuppChapter";
             this.btnSuppChapter.Size = new System.Drawing.Size(179, 25);
             this.btnSuppChapter.TabIndex = 4;
@@ -95,13 +96,14 @@
             this.lstBoxThrash.ItemHeight = 15;
             this.lstBoxThrash.Location = new System.Drawing.Point(418, 410);
             this.lstBoxThrash.Name = "lstBoxThrash";
+            this.lstBoxThrash.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lstBoxThrash.Size = new System.Drawing.Size(615, 199);
             this.lstBoxThrash.TabIndex = 5;
             // 
             // btnSuppManga
             // 
             this.btnSuppManga.AutoSize = true;
-            this.btnSuppManga.Location = new System.Drawing.Point(624, 12);
+            this.btnSuppManga.Location = new System.Drawing.Point(694, 12);
             this.btnSuppManga.Name = "btnSuppManga";
             this.btnSuppManga.Size = new System.Drawing.Size(179, 25);
             this.btnSuppManga.TabIndex = 6;
@@ -121,11 +123,22 @@
             this.btnDoWork.UseVisualStyleBackColor = true;
             this.btnDoWork.Click += new System.EventHandler(this.btnDoWork_Click);
             // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(581, 380);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 8;
+            this.btnCancel.Text = "Annuler";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
             // FormManage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1045, 622);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnDoWork);
             this.Controls.Add(this.btnSuppManga);
             this.Controls.Add(this.lstBoxThrash);
@@ -155,5 +168,6 @@
         private ListBox lstBoxThrash;
         private Button btnSuppManga;
         private Button btnDoWork;
+        private Button btnCancel;
     }
 }

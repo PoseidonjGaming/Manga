@@ -47,6 +47,7 @@
             this.checkBoxPuge = new System.Windows.Forms.CheckBox();
             this.backgroundWorkerCopy = new System.ComponentModel.BackgroundWorker();
             this.buttonOpenTemp = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxScan)).BeginInit();
             this.SuspendLayout();
             // 
@@ -223,12 +224,23 @@
             this.buttonOpenTemp.UseVisualStyleBackColor = true;
             this.buttonOpenTemp.Click += new System.EventHandler(this.buttonOpenTemp_Click);
             // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(499, 307);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 24;
+            this.btnCancel.Text = "Annuler";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
             // FormDownload
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1010, 561);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.buttonOpenTemp);
             this.Controls.Add(this.checkBoxPuge);
             this.Controls.Add(this.pictureBoxScan);
@@ -280,5 +292,6 @@
         private System.ComponentModel.BackgroundWorker backgroundWorkerCopy;
         private Button buttonOpenTemp;
         private Button btnCopier;
+        private Button btnCancel;
     }
 }

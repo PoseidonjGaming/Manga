@@ -44,15 +44,6 @@ namespace scan_manga
 
             foreach (Manga manga in mangas)
             {
-                foreach (string directoryChapter in Directory.GetDirectories(utility.GetPath(Root, "Manga",manga.Nom)))
-                {
-                    Chapter chapter = new()
-                    {
-                        NameChapter = Path.GetFileName(directoryChapter),
-                        ListScan = Directory.GetFiles(directoryChapter).ToList()
-                    };
-                    manga.Chapters.Add(chapter);
-                }
                 cmbManga.Items.Add(manga.Nom);
             }
             if (cmbManga.Items.Count > 0)
@@ -97,7 +88,7 @@ namespace scan_manga
         {
             if (lstBoxPage.SelectedIndex != -1)
             {
-                string[] pages = Directory.GetFiles(utility.GetPath(Root, "Manga",cmbManga.Text, cmbChapter.Text));
+                string[] pages = Directory.GetFiles(utility.GetPath(Root, "Manga", cmbManga.Text, cmbChapter.Text));
                 pictureBoxPage.ImageLocation = pages.Where(e => Path.GetFileNameWithoutExtension(e).Replace('_', ' ') == lstBoxPage.SelectedItem.ToString()).First();
             }
         }
@@ -114,12 +105,13 @@ namespace scan_manga
         private void PopulateThrash()
         {
             lstBoxThrash.Items.Clear();
-            lstBoxThrash.Items.AddRange(utility.Sort(thrash," Chapitre ", cmbManga.Text +" Chapitre ",false));
+            lstBoxThrash.Items.AddRange(utility.Sort(thrash, " Chapitre ", cmbManga.Text + " Chapitre ", false));
         }
 
         private void btnSuppManga_Click(object sender, EventArgs e)
         {
             Manga manga = mangas.Where(e => e.Nom == cmbManga.Text).First();
+            MessageBox.Show(manga.Chapters.Count.ToString());
             foreach (Chapter chapter in manga.Chapters)
             {
                 thrash.Add(Path.GetFileName(chapter.NameChapter));
@@ -132,9 +124,9 @@ namespace scan_manga
             foreach (string chapter in thrash)
             {
                 string[] strChapter = chapter.Split(" Chapitre ");
-                Directory.Delete(utility.GetPath(Root, strChapter[0], " Chapitre "), true);
-                
-                
+                Directory.Delete(utility.GetPath(Root, "Manga", strChapter[0], chapter), true);
+                lstBoxThrash.Items.Clear();
+
             }
         }
 
@@ -144,5 +136,13 @@ namespace scan_manga
             return tempManga.Where(e => e.Nom == search).First();
         }
 
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            for (int i = lstBoxThrash.SelectedIndices.Count - 1; i >= 0; i--)
+            {
+                lstBoxThrash.Items.RemoveAt(lstBoxThrash.SelectedIndices[i]);
+                thrash.RemoveAt(lstBoxThrash.SelectedIndices[i]);
+            }
+        }
     }
 }

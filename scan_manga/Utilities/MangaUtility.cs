@@ -78,7 +78,6 @@ namespace scan_manga.Utilities
         public void DeleteDirectory(params string[] parts)
         {
             string path=GetPath(parts);
-            MessageBox.Show(path);
             if(Directory.Exists(path))
             {
                 Directory.Delete(path, true);

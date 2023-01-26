@@ -242,10 +242,12 @@ namespace scan_manga
                 nameChapter = Path.GetFileName(strChapter);
                 CreateDirectory(Properties.Settings.Default.Root + "\\Temp\\" + nameManga + "\\" + nameChapter);
                 CreateDirectory(Properties.Settings.Default.Root + "\\Manga\\" + nameManga + "\\" + nameChapter);
+                MessageBox.Show(utility.GetPath(Properties.Settings.Default.Root, "Manga", nameManga, nameChapter));
                 Chapter chapter = chaptersToDownload.Where(e => e.NameChapter == nameChapter).First();
                 foreach (string page in Directory.GetFiles(strChapter))
                 {
                     int numPage = chapter.ListScan.IndexOf(chapter.ListScan.Where(e => Path.GetFileNameWithoutExtension(e) == Path.GetFileNameWithoutExtension(page)).First()) + 1;
+                    string dirManga = utility.GetPath(Properties.Settings.Default.Root, "Manga", nameManga, Path.GetFileName(strChapter));
                     if (numPage < 10)
                     {
                         File.Copy(page, Properties.Settings.Default.Root + "\\Manga\\" + nameManga + "\\" + Path.GetFileName(strChapter) + "\\page_0" + numPage + Path.GetExtension(page));
@@ -297,9 +299,10 @@ namespace scan_manga
             foreach (string item in listIn)
             {
 
-                if ((!Path.GetFileNameWithoutExtension(item).Contains("captcha")
+                if (!Path.GetFileNameWithoutExtension(item).Contains("captcha")
                     && !Path.GetFileNameWithoutExtension(item).Contains("google")
-                    && !Path.GetFileNameWithoutExtension(item).Contains("go")))
+                    && !Path.GetFileNameWithoutExtension(item).Contains("go")
+                    && list.Where(e => Path.GetFileNameWithoutExtension(e) == Path.GetFileNameWithoutExtension(item)).FirstOrDefault() == null)
                 {
                     list.Add(item);
                 }
@@ -310,14 +313,9 @@ namespace scan_manga
 
         private void FormDownload_FormClosed(object sender, FormClosedEventArgs e)
         {
-            backgroundWorkerCopy.CancelAsync();
-            backgroundWorkerDownload.CancelAsync();
-
             foreach (string chapter in Directory.GetDirectories(temp))
             {
                 utility.DeleteDirectory(chapter);
-                utility.DeleteDirectory(pathTemp, nameManga);
-                utility.DeleteDirectory(Properties.Settings.Default.Root, "Manga", nameManga, Path.GetFileNameWithoutExtension(chapter));
             }
         }
 
@@ -333,6 +331,17 @@ namespace scan_manga
             //backgroundWorkerCopy.RunWorkerAsync();
         }
 
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            backgroundWorkerCopy.CancelAsync();
+            backgroundWorkerDownload.CancelAsync();
 
+            foreach (string chapter in Directory.GetDirectories(temp))
+            {
+                utility.DeleteDirectory(chapter);
+                utility.DeleteDirectory(pathTemp, nameManga);
+                utility.DeleteDirectory(Properties.Settings.Default.Root, "Manga", nameManga, Path.GetFileNameWithoutExtension(chapter));
+            }
+        }
     }
 }
