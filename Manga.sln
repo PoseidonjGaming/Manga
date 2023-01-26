@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "scan_manga", "scan_manga\scan_manga.csproj", "{4A506AD6-5076-4FAF-A1AE-FBC57CECB3C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "scan_manga", "scan_manga\scan_manga.csproj", "{26638E31-9C00-4851-AF9E-C2B7F9B81754}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4A506AD6-5076-4FAF-A1AE-FBC57CECB3C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4A506AD6-5076-4FAF-A1AE-FBC57CECB3C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4A506AD6-5076-4FAF-A1AE-FBC57CECB3C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4A506AD6-5076-4FAF-A1AE-FBC57CECB3C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26638E31-9C00-4851-AF9E-C2B7F9B81754}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26638E31-9C00-4851-AF9E-C2B7F9B81754}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26638E31-9C00-4851-AF9E-C2B7F9B81754}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26638E31-9C00-4851-AF9E-C2B7F9B81754}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

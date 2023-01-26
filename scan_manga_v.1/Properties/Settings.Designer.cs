@@ -8,9 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using scan_manga.Models;
-
-namespace scan_manga.Properties {
+namespace scan_manga_v._1.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -27,6 +25,17 @@ namespace scan_manga.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Generic.List<System.String> Manga {
+            get {
+                return ((global::System.Collections.Generic.List<System.String>)(this["Manga"]));
+            }
+            set {
+                this["Manga"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string Root {
             get {
@@ -34,17 +43,6 @@ namespace scan_manga.Properties {
             }
             set {
                 this["Root"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.Generic.List<Manga> Manga {
-            get {
-                return ((global::System.Collections.Generic.List<Manga>)(this["Manga"]));
-            }
-            set {
-                this["Manga"] = value;
             }
         }
     }

@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Compile Update="FormArchive.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="FormDownload.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -13,7 +10,7 @@
     <Compile Update="FormManage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FormSelectChapter.cs">
+    <Compile Update="FormRename.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FormSetting.cs">

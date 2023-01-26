@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32901.215
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "scan_manga", "scan_manga.csproj", "{430089BC-F860-4634-8EBB-C2D87BD0ABEE}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupManga", "..\SetupManga\SetupManga.vdproj", "{886D2ECA-B4AB-4D1E-80C0-5824B788C59B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{430089BC-F860-4634-8EBB-C2D87BD0ABEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{430089BC-F860-4634-8EBB-C2D87BD0ABEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{430089BC-F860-4634-8EBB-C2D87BD0ABEE}.Debug|x64.ActiveCfg = Debug|x64
+		{430089BC-F860-4634-8EBB-C2D87BD0ABEE}.Debug|x64.Build.0 = Debug|x64
+		{430089BC-F860-4634-8EBB-C2D87BD0ABEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{430089BC-F860-4634-8EBB-C2D87BD0ABEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{430089BC-F860-4634-8EBB-C2D87BD0ABEE}.Release|x64.ActiveCfg = Release|x64
+		{430089BC-F860-4634-8EBB-C2D87BD0ABEE}.Release|x64.Build.0 = Release|x64
+		{886D2ECA-B4AB-4D1E-80C0-5824B788C59B}.Debug|Any CPU.ActiveCfg = Debug
+		{886D2ECA-B4AB-4D1E-80C0-5824B788C59B}.Debug|x64.ActiveCfg = Debug
+		{886D2ECA-B4AB-4D1E-80C0-5824B788C59B}.Debug|x64.Build.0 = Debug
+		{886D2ECA-B4AB-4D1E-80C0-5824B788C59B}.Release|Any CPU.ActiveCfg = Release
+		{886D2ECA-B4AB-4D1E-80C0-5824B788C59B}.Release|x64.ActiveCfg = Release
+		{886D2ECA-B4AB-4D1E-80C0-5824B788C59B}.Release|x64.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F2B9649C-2035-468A-8682-D3A8A827D476}
+	EndGlobalSection
+EndGlobal

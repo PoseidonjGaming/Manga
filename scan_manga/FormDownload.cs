@@ -104,34 +104,21 @@ namespace scan_manga
                 tempChapter = chapter;
                 chapter.ListScan = Verif(chapter.ListScan);
                 maxPage = chapter.ListScan.Count;
-                CreateDirectory(utility.GetPath(temp, chapter.NameChapter));
                 WebClient client = new();
+                CreateDirectory(utility.GetPath(temp, chapter.NameChapter));
                 foreach (string page in chapter.ListScan)
                 {
                     try
                     {
                         client.DownloadFile(page, utility.GetPath(temp, chapter.NameChapter, Path.GetFileName(page)));
-                        if (backgroundWorkerDownload.CancellationPending)
-                        {
-                            backgroundWorkerDownload.Dispose();
-                            client.Dispose();
-                            e.Cancel = true;
-                            break;
-                            
-                        }
-                        
-
                     }
                     catch
                     {
-
+                        
                     }
+                   
                     backgroundWorkerDownload.ReportProgress(0);
                     Thread.Sleep(100);
-
-
-
-
                 }
                 backgroundWorkerDownload.ReportProgress(0);
             }
@@ -289,11 +276,10 @@ namespace scan_manga
             List<string> list = new();
             foreach (string item in listIn)
             {
-
-                if (!Path.GetFileNameWithoutExtension(item).Contains("captcha")
-                    && !Path.GetFileNameWithoutExtension(item).Contains("google")
-                    && !Path.GetFileNameWithoutExtension(item).Contains("go")
-                    && list.Where(e=>Path.GetFileNameWithoutExtension(e)==Path.GetFileNameWithoutExtension(item)).FirstOrDefault() == null);   
+                
+                if ((!Path.GetFileNameWithoutExtension(item).Contains("captcha") 
+                    && !Path.GetFileNameWithoutExtension(item).Contains("google") 
+                    && !Path.GetFileNameWithoutExtension(item).Contains("go")))
                 {
                     list.Add(item);
                 }
@@ -304,8 +290,10 @@ namespace scan_manga
 
         private void FormDownload_FormClosed(object sender, FormClosedEventArgs e)
         {
-            backgroundWorkerDownload.CancelAsync();
             backgroundWorkerCopy.CancelAsync();
+            backgroundWorkerCopy.Dispose();
+            backgroundWorkerDownload.CancelAsync();
+            backgroundWorkerDownload.Dispose();
 
             foreach (string chapter in Directory.GetDirectories(temp))
             {
