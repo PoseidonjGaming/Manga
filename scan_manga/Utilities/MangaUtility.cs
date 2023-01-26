@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Bson;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -72,6 +73,15 @@ namespace scan_manga.Utilities
             }
 
             return chaptersOut;
+        }
+
+        public void DeleteDirectory(params string[] parts)
+        {
+            string path=GetPath(parts);
+            if(Directory.Exists(path))
+            {
+                Directory.Delete(path, true);
+            }
         }
 
 

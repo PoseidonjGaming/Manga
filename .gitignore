@@ -2,7 +2,7 @@
 # Ce fichier .gitignore a été automatiquement créé par Microsoft(R) Visual Studio.
 ################################################################################
 
-.vs/
+/.vs/Manga
 /scan_manga/.vs/
 /scan_manga/bin/
 /scan_manga/obj/
@@ -14,3 +14,10 @@
 /scan_manga_v.2/bin/
 /SetupScanManga/Debug/
 /SetupScanManga/Release/
+/.vs/ProjectEvaluation
+/scan_manga/obj/Debug/net6.0-windows/scan_manga.csproj.AssemblyReference.cache
+/scan_manga/obj/Debug/net6.0-windows/scan_manga.assets.cache
+/scan_manga/obj/project.assets.json
+/scan_manga/obj/project.nuget.cache
+/scan_manga/obj/scan_manga.csproj.nuget.dgspec.json
+/.vs/Manga/v17/.suo

@@ -111,12 +111,19 @@ namespace scan_manga
                     try
                     {
                         client.DownloadFile(page, utility.GetPath(temp, chapter.NameChapter, Path.GetFileName(page)));
+                        if (backgroundWorkerDownload.CancellationPending)
+                        {
+                            backgroundWorkerDownload.Dispose();
+                            client.Dispose();
+                            e.Cancel = true;
+                            break;
+                        }
                     }
                     catch
                     {
-                        
+
                     }
-                   
+
                     backgroundWorkerDownload.ReportProgress(0);
                     Thread.Sleep(100);
                 }
@@ -247,6 +254,13 @@ namespace scan_manga
                         File.Copy(page, Properties.Settings.Default.Root + "\\Manga\\" + nameManga + "\\" + Path.GetFileName(strChapter) + "\\page_" + numPage + Path.GetExtension(page));
                         File.Copy(page, Properties.Settings.Default.Root + "\\Temp\\" + nameManga + "\\" + Path.GetFileName(strChapter) + "\\page_" + numPage + Path.GetExtension(page));
                     }
+                    if (backgroundWorkerCopy.CancellationPending)
+                    {
+                        backgroundWorkerCopy.Dispose();
+                        e.Cancel = true;
+                        break;
+                    }
+
                     backgroundWorkerCopy.ReportProgress(0);
                     Thread.Sleep(100);
                 }
@@ -256,11 +270,15 @@ namespace scan_manga
 
         private void backgroundWorkerCopy_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            progressBarChapter.Maximum = Directory.GetDirectories(temp).Length;
-            progressBarChapter.Value = Directory.GetDirectories(pathTemp + nameManga).Length - oldNbPage;
+            string dirTempManga = utility.GetPath(pathTemp, nameManga);
+            string dirTemp = utility.GetPath(temp, nameChapter);
+            string dirManga = utility.GetPath(pathTemp, nameManga, nameChapter);
 
-            progressBarPage.Value = Directory.GetFiles(pathTemp + "\\Manga\\" + nameManga + "\\" + nameChapter).Length;
-            progressBarPage.Maximum = Directory.GetFiles(temp + "\\" + nameChapter).Length;
+            progressBarChapter.Maximum = Directory.GetDirectories(temp).Length;
+            progressBarChapter.Value = Directory.GetDirectories(dirTempManga).Length - oldNbPage;
+
+            progressBarPage.Value = Directory.GetFiles(dirManga).Length;
+            progressBarPage.Maximum = Directory.GetFiles(dirTemp).Length;
 
             labelChapter.Text = "Chapitre: " + progressBarChapter.Value + "/" + progressBarChapter.Maximum + " copiées";
             labelPage.Text = "Page: " + progressBarPage.Value + "/" + progressBarPage.Maximum + " copiés";
@@ -276,9 +294,9 @@ namespace scan_manga
             List<string> list = new();
             foreach (string item in listIn)
             {
-                
-                if ((!Path.GetFileNameWithoutExtension(item).Contains("captcha") 
-                    && !Path.GetFileNameWithoutExtension(item).Contains("google") 
+
+                if ((!Path.GetFileNameWithoutExtension(item).Contains("captcha")
+                    && !Path.GetFileNameWithoutExtension(item).Contains("google")
                     && !Path.GetFileNameWithoutExtension(item).Contains("go")))
                 {
                     list.Add(item);
@@ -291,13 +309,13 @@ namespace scan_manga
         private void FormDownload_FormClosed(object sender, FormClosedEventArgs e)
         {
             backgroundWorkerCopy.CancelAsync();
-            backgroundWorkerCopy.Dispose();
             backgroundWorkerDownload.CancelAsync();
-            backgroundWorkerDownload.Dispose();
 
             foreach (string chapter in Directory.GetDirectories(temp))
             {
-                Directory.Delete(chapter, true);
+                utility.DeleteDirectory(chapter);
+                utility.DeleteDirectory(pathTemp, nameManga);
+                utility.DeleteDirectory(Properties.Settings.Default.Root, "Manga", nameManga, Path.GetFileNameWithoutExtension(chapter));
             }
         }
 
