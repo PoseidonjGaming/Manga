@@ -10,8 +10,8 @@ namespace scan_manga
     {
 
 
-        public List<Chapter> chapters = new();
-        private List<Chapter> chaptersToDownload = new();
+        public List<Chapter> chapters = new List<Chapter>();
+        private List<Chapter> chaptersToDownload = new List<Chapter>();
         private Chapter tempChapter;
         private readonly string pathTemp;
         private readonly string temp;
@@ -19,6 +19,7 @@ namespace scan_manga
         private int maxPage;
         private string nameChapter;
         private int oldNbPage;
+        private readonly bool isCancelled;
         private readonly MangaUtility utility;
 
         public FormDownload()
