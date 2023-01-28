@@ -35,7 +35,6 @@
             this.progressBarChapter = new System.Windows.Forms.ProgressBar();
             this.labelManga = new System.Windows.Forms.Label();
             this.progressBarManga = new System.Windows.Forms.ProgressBar();
-            this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // progressBarPage
@@ -85,14 +84,7 @@
             this.progressBarManga.Name = "progressBarManga";
             this.progressBarManga.Size = new System.Drawing.Size(360, 23);
             this.progressBarManga.TabIndex = 5;
-            // 
-            // backgroundWorker
-            // 
-            this.backgroundWorker.WorkerReportsProgress = true;
-            this.backgroundWorker.WorkerSupportsCancellation = true;
-            this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_DoWork);
-            this.backgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker_ProgressChanged);
-            this.backgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker_RunWorkerCompleted);
+           
             // 
             // FormArchive
             // 
@@ -128,6 +120,5 @@
         private ProgressBar progressBarChapter;
         private Label labelManga;
         private ProgressBar progressBarManga;
-        private System.ComponentModel.BackgroundWorker backgroundWorker;
     }
 }

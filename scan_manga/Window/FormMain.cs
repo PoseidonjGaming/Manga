@@ -330,7 +330,7 @@ namespace scan_manga
 
         private void backupToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormArchive formArchive = new("\\Manga\\", "\\Backup\\");
+            FormProgress formArchive = new(new BackGroundBackup());
             formArchive.ShowDialog(this);
         }
         private void CreateDirectory(string path)
@@ -343,8 +343,8 @@ namespace scan_manga
 
         private void restaurationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormArchive formArchive = new("\\Backup\\", "\\Manga\\");
-            formArchive.ShowDialog(this);
+            //FormArchive formArchive = new("\\Backup\\", "\\Manga\\");
+            //formArchive.ShowDialog(this);
         }
 
         private void uploadToolStripMenuItem_Click(object sender, EventArgs e)
