@@ -1,6 +1,6 @@
 ﻿namespace scan_manga
 {
-    partial class FormArchive
+    partial class FormProgress
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormArchive));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormProgress));
             this.progressBarPage = new System.Windows.Forms.ProgressBar();
             this.labelPage = new System.Windows.Forms.Label();
             this.labelChapter = new System.Windows.Forms.Label();

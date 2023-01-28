@@ -14,11 +14,11 @@ using System.Windows.Forms;
 
 namespace scan_manga
 {
-    public partial class FormArchive : Form
+    public partial class FormProgress : Form
     {
         private readonly BaseBackGroundWorker Worker;
 
-        public FormArchive(BaseBackGroundWorker background)
+        public FormProgress(BaseBackGroundWorker background)
         {
             InitializeComponent();
             Worker = background;
@@ -29,11 +29,18 @@ namespace scan_manga
             background.labelPage = labelPage;
             background.labelManga = labelManga;
             background.labelChapter = labelChapter;
+
+            background.Worker.RunWorkerCompleted += backgroundWorker_RunCompleted;
         }
         private void FormArchive_Load(object sender, EventArgs e)
         {
             Worker.Load();
 
+        }
+
+        private void backgroundWorker_RunCompleted(object sender, EventArgs e)
+        {
+            Close();
         }
 
     }

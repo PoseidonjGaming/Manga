@@ -201,9 +201,11 @@ namespace scan_manga
             if (chapters.Count != 0)
             {
                 numChapitre = 0;
-                FormDownload formDownload = new();
-                formDownload.chapters = chapters;
-                formDownload.nameManga = manga.Nom;
+                FormDownload formDownload = new()
+                {
+                    chapters = chapters,
+                    nameManga = manga.Nom
+                };
 
                 formDownload.ShowDialog(this);
                 chapters.Clear();
