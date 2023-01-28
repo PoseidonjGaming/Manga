@@ -349,46 +349,21 @@ namespace scan_manga
 
         private void uploadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach (string chapter in Directory.GetDirectories(root + "\\" + comboBoxManga.SelectedItem.ToString()))
-            {
-                CreateDirectory(root + "\\Temp\\" + comboBoxManga.SelectedItem.ToString() + "\\" + Path.GetFileName(chapter));
-                foreach (string file in Directory.GetFiles(chapter))
-                {
-                    File.Copy(file, root + "\\Temp\\" + comboBoxManga.SelectedItem.ToString() + "\\" + Path.GetFileName(chapter) + "\\" + Path.GetFileName(file));
-                }
-            }
-            Process.Start("powershell", "E:\\test_boucle.ps1");
+            
         }
 
         private void extractToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //foreach (string manga in Directory.GetDirectories("E:\\Drive\\Mon Drive\\Manga Scan"))
-            //{
-            //    CreateDirectory(root + "\\Temp\\" + Path.GetFileName(manga));
-            //    foreach (string chapter in Directory.GetFiles(manga))
-            //    {
-            //        File.Copy(chapter, root + "\\Temp\\" + Path.GetFileName(manga) + "\\" + Path.GetFileName(chapter));
-
-            //    }
-            //}
-            //Process.Start("powershell", "E:\\Manga Scan\\TestExtract.ps1");
-
-            foreach (Manga manga in Properties.Settings.Default.Manga)
+            foreach (string manga in Directory.GetDirectories("E:\\Drive\\Mon Drive\\Manga Scan"))
             {
-                foreach (string chapter in Directory.GetDirectories(root + "\\" + manga.Nom))
+                CreateDirectory(root + "\\Temp\\" + Path.GetFileName(manga));
+                foreach (string chapter in Directory.GetFiles(manga))
                 {
-                    foreach (string page in Directory.GetFiles(chapter))
-                    {
-                        string pageName = Path.GetFileNameWithoutExtension(page);
-                        int numPage = int.Parse(pageName.Split('_').Last());
-                        string Ext = Path.GetExtension(page);
-                        if (numPage < 10)
-                        {
-                            File.Move(page, root + "\\" + manga.Nom + "\\" + Path.GetFileName(chapter) + "\\page_0" + numPage.ToString() + Ext);
-                        }
-                    }
+                    File.Copy(chapter, root + "\\Temp\\" + Path.GetFileName(manga) + "\\" + Path.GetFileName(chapter));
+
                 }
             }
+            Process.Start("powershell", "E:\\Manga Scan\\TestExtract.ps1");
 
         }
     }

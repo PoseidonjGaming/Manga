@@ -103,10 +103,7 @@ namespace scan_manga
                 formDownload.nameManga = comboBoxManga.Text;
                 formDownload.ShowDialog(this.Parent);
             }
-            else
-            {
-                this.Close();
-            }
+           
             
         }
 

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -21,17 +22,15 @@ namespace scan_manga
     public partial class FormManage : Form
     {
         private List<Manga> mangas;
-        private List<Manga> tempManga;
         public List<string> thrash;
-        private string Root;
-        private MangaUtility utility;
+        private readonly string Root;
+        private readonly MangaUtility utility;
 
         public FormManage()
         {
             InitializeComponent();
             Root = Properties.Settings.Default.Root;
             thrash = new();
-            tempManga = new();
             utility = new();
         }
 
@@ -58,8 +57,7 @@ namespace scan_manga
             if (cmbManga.SelectedIndex != -1)
             {
                 cmbChapter.Items.Clear();
-                Manga manga = mangas[cmbManga.SelectedIndex];
-                foreach (string chapter in utility.Sort(utility.SetChapters(manga.Chapters), " ", manga.Nom + " Chapitre ", false))
+                foreach (string chapter in Directory.GetDirectories(utility.GetPath(Root, "Manga", cmbManga.Text)))
                 {
                     cmbChapter.Items.Add(Path.GetFileName(chapter));
                 }
@@ -76,9 +74,8 @@ namespace scan_manga
             if (cmbChapter.SelectedIndex != -1)
             {
                 lstBoxPage.Items.Clear();
-                Manga manga = mangas[cmbManga.SelectedIndex];
-                Chapter chapter = manga.Chapters[cmbChapter.SelectedIndex];
-                foreach (string page in utility.Sort(chapter.ListScan, "_", "page ", true))
+                string dir = utility.GetPath(Root, "Manga", cmbManga.Text, cmbChapter.Text);
+                foreach (string page in utility.Sort(Directory.GetFiles(dir).ToList(), "_", "page ", true))
                 {
                     lstBoxPage.Items.Add(page);
                 }
@@ -130,12 +127,6 @@ namespace scan_manga
             }
         }
 
-
-        private Manga SearchManga(string search)
-        {
-            return tempManga.Where(e => e.Nom == search).First();
-        }
-
         private void btnCancel_Click(object sender, EventArgs e)
         {
             for (int i = lstBoxThrash.SelectedIndices.Count - 1; i >= 0; i--)
@@ -143,6 +134,17 @@ namespace scan_manga
                 lstBoxThrash.Items.RemoveAt(lstBoxThrash.SelectedIndices[i]);
                 thrash.RemoveAt(lstBoxThrash.SelectedIndices[i]);
             }
+        }
+
+        private void uploadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string[] dirTempManga=new string[3]{ Root, "Temp", cmbManga.Text};
+            //utility.CreaterDirectory(dirTempManga);
+            foreach(string chapter in Directory.GetDirectories(utility.GetPath(Root, "Manga", cmbManga.Text)))
+            {
+                MessageBox.Show(chapter);
+            }
+
         }
     }
 }

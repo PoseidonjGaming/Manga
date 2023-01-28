@@ -61,9 +61,9 @@ namespace scan_manga
                 
                 save();
                 populateManga();
-                if(!Directory.Exists(root + "\\" + manga.Nom))
+                if(!Directory.Exists(root + "\\Manga\\" + manga.Nom))
                 {
-                    Directory.CreateDirectory(root + "\\" + manga.Nom);
+                    Directory.CreateDirectory(root + "\\Manga\\" + manga.Nom);
                 }
                 Clear();
             }

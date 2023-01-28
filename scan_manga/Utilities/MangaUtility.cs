@@ -84,6 +84,15 @@ namespace scan_manga.Utilities
             }
         }
 
+        public void CreaterDirectory(params string[] parts)
+        {
+            string path = GetPath(parts);
+            if (!Directory.Exists(path))
+            {
+                Directory.Delete(path, true);
+            }
+        }
+
 
     }
 }
