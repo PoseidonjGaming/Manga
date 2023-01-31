@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormProgress));
             this.progressBarPage = new System.Windows.Forms.ProgressBar();
             this.labelPage = new System.Windows.Forms.Label();
             this.labelChapter = new System.Windows.Forms.Label();
@@ -84,9 +83,8 @@
             this.progressBarManga.Name = "progressBarManga";
             this.progressBarManga.Size = new System.Drawing.Size(360, 23);
             this.progressBarManga.TabIndex = 5;
-           
             // 
-            // FormArchive
+            // FormProgress
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -99,13 +97,13 @@
             this.Controls.Add(this.labelPage);
             this.Controls.Add(this.progressBarPage);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "FormArchive";
+            this.Name = "FormProgress";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Archive";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormProgress_FormClosed);
             this.Load += new System.EventHandler(this.FormArchive_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

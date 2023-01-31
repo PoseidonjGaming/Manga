@@ -2,7 +2,9 @@ using HtmlAgilityPack;
 using Microsoft.VisualBasic.Logging;
 using Newtonsoft.Json;
 using scan_manga.Models;
+using scan_manga.Properties;
 using scan_manga.Utilities;
+using scan_manga.Utilities.BackgroudWorker;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
@@ -54,6 +56,7 @@ namespace scan_manga
 
             listBoxManga.Items.Clear();
             listBoxManga.Items.AddRange(Populate().ToArray());
+            utility.StartPack(Settings.Default.Root);
         }
 
         private List<string> Populate()
@@ -181,7 +184,7 @@ namespace scan_manga
 
         private void backgroundWorkerScan_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
         {
-            if (Directory.Exists(utility.GetPath(root, "Manga",comboBoxManga.Text, comboBoxManga.Text + " Chapitre " + numChapitre)))
+            if (Directory.Exists(utility.GetPath(root, "Manga", comboBoxManga.Text, comboBoxManga.Text + " Chapitre " + numChapitre)))
             {
                 labelChpater.Text = "Le Chapitre " + numChapitre.ToString() + " de " + manga.Nom + " est déjà possédé";
             }
@@ -209,8 +212,6 @@ namespace scan_manga
 
                 formDownload.ShowDialog(this);
                 chapters.Clear();
-                numChapitre = 0;
-
             }
             else
             {
@@ -345,8 +346,8 @@ namespace scan_manga
 
         private void restaurationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //FormArchive formArchive = new("\\Backup\\", "\\Manga\\");
-            //formArchive.ShowDialog(this);
+            FormProgress formArchive = new(new BackgroundWorkerRestore());
+            formArchive.ShowDialog(this);
         }
 
         private void uploadToolStripMenuItem_Click(object sender, EventArgs e)

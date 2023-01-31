@@ -107,11 +107,9 @@ namespace scan_manga
 
         private void btnSuppManga_Click(object sender, EventArgs e)
         {
-            Manga manga = mangas.Where(e => e.Nom == cmbManga.Text).First();
-            MessageBox.Show(manga.Chapters.Count.ToString());
-            foreach (Chapter chapter in manga.Chapters)
+            foreach (string chapter in Directory.GetDirectories(utility.GetPath(Root, "Manga", cmbManga.Text)))
             {
-                thrash.Add(Path.GetFileName(chapter.NameChapter));
+                thrash.Add(Path.GetFileName(chapter));
             }
             PopulateThrash();
         }

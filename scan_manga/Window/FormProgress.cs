@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using scan_manga.Models;
-using scan_manga.Utilities;
+using scan_manga.Utilities.BackgroudWorker;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -35,7 +35,6 @@ namespace scan_manga
         private void FormArchive_Load(object sender, EventArgs e)
         {
             Worker.Load();
-
         }
 
         private void backgroundWorker_RunCompleted(object sender, EventArgs e)
@@ -43,6 +42,10 @@ namespace scan_manga
             Close();
         }
 
+        private void FormProgress_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Worker.Cancel();
+        }
     }
 
     

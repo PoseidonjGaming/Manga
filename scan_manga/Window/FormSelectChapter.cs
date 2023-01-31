@@ -98,9 +98,11 @@ namespace scan_manga
         {
             if(chapter.Count != 0)
             {
-                FormDownload formDownload = new FormDownload();
-                formDownload.chapters = chapter;
-                formDownload.nameManga = comboBoxManga.Text;
+                FormDownload formDownload = new()
+                {
+                    chapters = chapter,
+                    nameManga = comboBoxManga.Text
+                };
                 formDownload.ShowDialog(this.Parent);
             }
            

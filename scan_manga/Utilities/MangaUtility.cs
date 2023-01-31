@@ -84,13 +84,24 @@ namespace scan_manga.Utilities
             }
         }
 
-        public void CreaterDirectory(params string[] parts)
+        public void CreateDirectory(params string[] parts)
         {
             string path = GetPath(parts);
             if (!Directory.Exists(path))
             {
-                Directory.Delete(path, true);
+                Directory.CreateDirectory(path);
             }
+        }
+
+        public void StartPack(string root)
+        {
+            if(root != null)
+            {
+                CreateDirectory(root, "Manga");
+                CreateDirectory(root, "Temp");
+                CreateDirectory(root, "Backup");
+            }
+            
         }
 
 

@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace scan_manga.Utilities
+namespace scan_manga.Utilities.BackgroudWorker
 {
     public class BackGroundBackup : BaseBackGroundWorker
     {
@@ -20,12 +20,8 @@ namespace scan_manga.Utilities
         private string nameManga;
         private readonly MangaUtility utility;
 
-
-
         public BackGroundBackup() : base()
         {
-            Worker.DoWork += backgroundWorker_DoWork;
-            Worker.ProgressChanged += backgroundWorker_ProgressChanged;
             utility = new();
             root = Settings.Default.Root;
         }
@@ -45,7 +41,7 @@ namespace scan_manga.Utilities
             Worker.RunWorkerAsync();
         }
 
-        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        protected override void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             foreach (Manga manga in mangaList)
             {
@@ -132,14 +128,9 @@ namespace scan_manga.Utilities
             return listOut.ToArray();
         }
 
-        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        protected override void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-
-        }
-
-        private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            progressBarManga.Value = Directory.GetDirectories(utility.GetPath(root, "Manga")).Length;
+            progressBarManga.Value = Directory.GetDirectories(utility.GetPath(root, "Backup")).Length;
             progressBarChapter.Maximum = Directory.GetDirectories(utility.GetPath(root, "Manga", nameManga)).Length;
             progressBarChapter.Value = Directory.GetDirectories(utility.GetPath(root, "Backup", nameManga)).Length;
             progressBarPage.Maximum = Directory.GetFiles(utility.GetPath(root, "Manga", nameManga, nameChapter)).Length;
