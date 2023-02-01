@@ -38,17 +38,20 @@
             this.btnSuppManga = new System.Windows.Forms.Button();
             this.btnDoWork = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.uploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listBoxNewPage = new System.Windows.Forms.ListBox();
+            this.comboBoxNewManga = new System.Windows.Forms.ComboBox();
+            this.comboBoxNewChapter = new System.Windows.Forms.ComboBox();
+            this.btnAddChapter = new System.Windows.Forms.Button();
+            this.txtBoxNewChapter = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPage)).BeginInit();
-            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBoxPage
             // 
-            this.pictureBoxPage.Location = new System.Drawing.Point(12, 27);
+            this.pictureBoxPage.Location = new System.Drawing.Point(12, 12);
             this.pictureBoxPage.Name = "pictureBoxPage";
-            this.pictureBoxPage.Size = new System.Drawing.Size(400, 583);
+            this.pictureBoxPage.Size = new System.Drawing.Size(400, 598);
             this.pictureBoxPage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxPage.TabIndex = 0;
             this.pictureBoxPage.TabStop = false;
@@ -56,7 +59,7 @@
             // cmbManga
             // 
             this.cmbManga.FormattingEnabled = true;
-            this.cmbManga.Location = new System.Drawing.Point(418, 27);
+            this.cmbManga.Location = new System.Drawing.Point(418, 12);
             this.cmbManga.Name = "cmbManga";
             this.cmbManga.Size = new System.Drawing.Size(270, 23);
             this.cmbManga.TabIndex = 1;
@@ -65,7 +68,7 @@
             // cmbChapter
             // 
             this.cmbChapter.FormattingEnabled = true;
-            this.cmbChapter.Location = new System.Drawing.Point(418, 56);
+            this.cmbChapter.Location = new System.Drawing.Point(418, 41);
             this.cmbChapter.Name = "cmbChapter";
             this.cmbChapter.Size = new System.Drawing.Size(270, 23);
             this.cmbChapter.TabIndex = 2;
@@ -75,9 +78,9 @@
             // 
             this.lstBoxPage.FormattingEnabled = true;
             this.lstBoxPage.ItemHeight = 15;
-            this.lstBoxPage.Location = new System.Drawing.Point(418, 85);
+            this.lstBoxPage.Location = new System.Drawing.Point(418, 70);
             this.lstBoxPage.Name = "lstBoxPage";
-            this.lstBoxPage.Size = new System.Drawing.Size(270, 289);
+            this.lstBoxPage.Size = new System.Drawing.Size(270, 304);
             this.lstBoxPage.TabIndex = 3;
             this.lstBoxPage.SelectedIndexChanged += new System.EventHandler(this.lstBoxPage_SelectedIndexChanged);
             // 
@@ -85,7 +88,7 @@
             // 
             this.btnSuppChapter.AutoSize = true;
             this.btnSuppChapter.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnSuppChapter.Location = new System.Drawing.Point(694, 56);
+            this.btnSuppChapter.Location = new System.Drawing.Point(694, 41);
             this.btnSuppChapter.Name = "btnSuppChapter";
             this.btnSuppChapter.Size = new System.Drawing.Size(179, 25);
             this.btnSuppChapter.TabIndex = 4;
@@ -100,13 +103,13 @@
             this.lstBoxThrash.Location = new System.Drawing.Point(418, 410);
             this.lstBoxThrash.Name = "lstBoxThrash";
             this.lstBoxThrash.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstBoxThrash.Size = new System.Drawing.Size(615, 199);
+            this.lstBoxThrash.Size = new System.Drawing.Size(731, 199);
             this.lstBoxThrash.TabIndex = 5;
             // 
             // btnSuppManga
             // 
             this.btnSuppManga.AutoSize = true;
-            this.btnSuppManga.Location = new System.Drawing.Point(694, 25);
+            this.btnSuppManga.Location = new System.Drawing.Point(694, 12);
             this.btnSuppManga.Name = "btnSuppManga";
             this.btnSuppManga.Size = new System.Drawing.Size(179, 25);
             this.btnSuppManga.TabIndex = 6;
@@ -136,28 +139,69 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // menuStrip1
+            // listBoxNewPage
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.uploadToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1045, 24);
-            this.menuStrip1.TabIndex = 9;
-            this.menuStrip1.Text = "menuStrip1";
+            this.listBoxNewPage.FormattingEnabled = true;
+            this.listBoxNewPage.ItemHeight = 15;
+            this.listBoxNewPage.Location = new System.Drawing.Point(879, 70);
+            this.listBoxNewPage.Name = "listBoxNewPage";
+            this.listBoxNewPage.Size = new System.Drawing.Size(270, 304);
+            this.listBoxNewPage.TabIndex = 9;
             // 
-            // uploadToolStripMenuItem
+            // comboBoxNewManga
             // 
-            this.uploadToolStripMenuItem.Name = "uploadToolStripMenuItem";
-            this.uploadToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
-            this.uploadToolStripMenuItem.Text = "Upload";
-            this.uploadToolStripMenuItem.Click += new System.EventHandler(this.uploadToolStripMenuItem_Click);
+            this.comboBoxNewManga.FormattingEnabled = true;
+            this.comboBoxNewManga.Location = new System.Drawing.Point(879, 12);
+            this.comboBoxNewManga.Name = "comboBoxNewManga";
+            this.comboBoxNewManga.Size = new System.Drawing.Size(270, 23);
+            this.comboBoxNewManga.TabIndex = 10;
+            // 
+            // comboBoxNewChapter
+            // 
+            this.comboBoxNewChapter.FormattingEnabled = true;
+            this.comboBoxNewChapter.Location = new System.Drawing.Point(879, 41);
+            this.comboBoxNewChapter.Name = "comboBoxNewChapter";
+            this.comboBoxNewChapter.Size = new System.Drawing.Size(270, 23);
+            this.comboBoxNewChapter.TabIndex = 11;
+            // 
+            // btnAddChapter
+            // 
+            this.btnAddChapter.Location = new System.Drawing.Point(694, 93);
+            this.btnAddChapter.Name = "btnAddChapter";
+            this.btnAddChapter.Size = new System.Drawing.Size(179, 23);
+            this.btnAddChapter.TabIndex = 12;
+            this.btnAddChapter.Text = "Ajouter un chapter";
+            this.btnAddChapter.UseVisualStyleBackColor = true;
+            this.btnAddChapter.Click += new System.EventHandler(this.btnAddChapter_Click);
+            // 
+            // txtBoxNewChapter
+            // 
+            this.txtBoxNewChapter.Location = new System.Drawing.Point(694, 122);
+            this.txtBoxNewChapter.Name = "txtBoxNewChapter";
+            this.txtBoxNewChapter.Size = new System.Drawing.Size(179, 23);
+            this.txtBoxNewChapter.TabIndex = 13;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(694, 151);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(179, 23);
+            this.button1.TabIndex = 14;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // FormManage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1045, 622);
+            this.ClientSize = new System.Drawing.Size(1161, 622);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.txtBoxNewChapter);
+            this.Controls.Add(this.btnAddChapter);
+            this.Controls.Add(this.comboBoxNewChapter);
+            this.Controls.Add(this.comboBoxNewManga);
+            this.Controls.Add(this.listBoxNewPage);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnDoWork);
             this.Controls.Add(this.btnSuppManga);
@@ -167,16 +211,12 @@
             this.Controls.Add(this.cmbChapter);
             this.Controls.Add(this.cmbManga);
             this.Controls.Add(this.pictureBoxPage);
-            this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormManage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Manage";
             this.Load += new System.EventHandler(this.FormManage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPage)).EndInit();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -193,7 +233,11 @@
         private Button btnSuppManga;
         private Button btnDoWork;
         private Button btnCancel;
-        private MenuStrip menuStrip1;
-        private ToolStripMenuItem uploadToolStripMenuItem;
+        private ListBox listBoxNewPage;
+        private ComboBox comboBoxNewManga;
+        private ComboBox comboBoxNewChapter;
+        private Button btnAddChapter;
+        private TextBox txtBoxNewChapter;
+        private Button button1;
     }
 }

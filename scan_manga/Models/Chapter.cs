@@ -1,32 +1,32 @@
-﻿using System.Runtime.Serialization;
+﻿using scan_manga.Models;
+using System.Runtime.Serialization;
 
 namespace scan_manga
 {
     [Serializable]
     [DataContract]
-    public class Chapter
+    public class Chapter : ChapterBase
     {
         [DataMember]
-        private string nameChapter;
+        private string NameChapter { get ; set ; }
         [DataMember]
-        private List<string> listScan;
+        private List<string> ListScan { get ; set  ; }
         [DataMember]
-        private string firstScan;
+        private string FirstScan { get; set; }
 
-        public List<string> ListScan { get => listScan; set => listScan = value; }
-        public string NameChapter { get => nameChapter; set => nameChapter = value; }
-        public string FirstScan { get => firstScan; set => firstScan = value; }
+        public List<Page> Pages { get; set; }
 
         public Chapter(string nameChapter, List<string> listScan)
         {
-            this.nameChapter = nameChapter;
-            this.listScan = listScan;
-            this.FirstScan = listScan[0];
+            NameChapter = nameChapter;
+            ListScan = listScan;
+            FirstScan = listScan[0];
         }
 
         public Chapter()
         {
-            listScan = new List<string>();
+            ListScan = new List<string>();
+            Pages= new List<Page>();
         }
     }
 }

@@ -1,21 +1,6 @@
-﻿using HtmlAgilityPack;
-using Newtonsoft.Json;
-using scan_manga.Models;
+﻿using scan_manga.Models;
 using scan_manga.Utilities;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace scan_manga
 {
@@ -23,6 +8,7 @@ namespace scan_manga
     {
         private List<Manga> mangas;
         public List<string> thrash;
+        public List<Manga> newManga;
         private readonly string Root;
         private readonly MangaUtility utility;
 
@@ -32,6 +18,7 @@ namespace scan_manga
             Root = Properties.Settings.Default.Root;
             thrash = new();
             utility = new();
+            newManga = new();
         }
 
         private void FormManage_Load(object sender, EventArgs e)
@@ -43,6 +30,7 @@ namespace scan_manga
 
             foreach (Manga manga in mangas)
             {
+                manga.Chapters.Clear();
                 cmbManga.Items.Add(manga.Nom);
             }
             if (cmbManga.Items.Count > 0)
@@ -57,7 +45,8 @@ namespace scan_manga
             if (cmbManga.SelectedIndex != -1)
             {
                 cmbChapter.Items.Clear();
-                foreach (string chapter in Directory.GetDirectories(utility.GetPath(Root, "Manga", cmbManga.Text)))
+
+                foreach (string chapter in utility.Sort(Directory.GetDirectories(utility.GetPath(Root, "Manga", cmbManga.Text)).ToList(), " Chapitre ", cmbManga.Text + " Chapitre ", false))
                 {
                     cmbChapter.Items.Add(Path.GetFileName(chapter));
                 }
@@ -73,6 +62,7 @@ namespace scan_manga
         {
             if (cmbChapter.SelectedIndex != -1)
             {
+                txtBoxNewChapter.Text = cmbChapter.Text;
                 lstBoxPage.Items.Clear();
                 string dir = utility.GetPath(Root, "Manga", cmbManga.Text, cmbChapter.Text);
                 foreach (string page in utility.Sort(Directory.GetFiles(dir).ToList(), "_", "page ", true))
@@ -134,15 +124,34 @@ namespace scan_manga
             }
         }
 
-        private void uploadToolStripMenuItem_Click(object sender, EventArgs e)
+        private void btnAddChapter_Click(object sender, EventArgs e)
         {
-            string[] dirTempManga=new string[3]{ Root, "Temp", cmbManga.Text};
-            //utility.CreaterDirectory(dirTempManga);
-            foreach(string chapter in Directory.GetDirectories(utility.GetPath(Root, "Manga", cmbManga.Text)))
+            if (txtBoxNewChapter.Text != string.Empty)
             {
-                MessageBox.Show(chapter);
+                Chapter chapter = new();
+                Manga? manga = newManga.Where(e => comboBoxNewManga.Text != string.Empty && e.Nom == comboBoxNewManga.Text).FirstOrDefault();
+                manga ??= new()
+                {
+                    Nom= cmbManga.Text,
+                };
+                manga.Chapters.Add(new()
+                {
+                    NameChapter = txtBoxNewChapter.Text
+                });
             }
+        }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (cmbChapter.SelectedIndex != -1)
+            {
+                OpenFileDialog fileDialog = new OpenFileDialog();
+                if (fileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    File.Move(fileDialog.FileName, utility.GetPath(Root, "Manga", cmbManga.Text, cmbChapter.Text, Path.GetFileName(fileDialog.FileName)));
+                }
+            }
+            
         }
     }
 }

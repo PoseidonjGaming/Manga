@@ -9,16 +9,18 @@ namespace scan_manga.Utilities.BackgroudWorker
 {
     public abstract class BaseBackGroundWorker
     {
-        public Label labelChapter { get; set; }
-        public Label labelManga { get; set; }
-        public Label labelPage { get; set; }
+        public Label LabelChapter { get; set; }
+        public Label LabelManga { get; set; }
+        public Label LabelPage { get; set; }
 
         public BackgroundWorker Worker { get; set; }
-        public ProgressBar progressBarManga { get; set; }
-        public ProgressBar progressBarChapter { get; set; }
-        public ProgressBar progressBarPage { get; set; }
+        public ProgressBar ProgressBarManga { get; set; }
+        public ProgressBar ProgressBarChapter { get; set; }
+        public ProgressBar ProgressBarPage { get; set; }
 
         protected readonly MangaUtility utility;
+
+        public bool isCancelled;
 
         public BaseBackGroundWorker()
         {

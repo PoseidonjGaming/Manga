@@ -37,7 +37,7 @@ namespace scan_manga.Utilities.BackgroudWorker
             {
                 root = Settings.Default.Root;
             }
-            progressBarManga.Maximum = mangaList.Count;
+            ProgressBarManga.Maximum = mangaList.Count;
             Worker.RunWorkerAsync();
         }
 
@@ -130,15 +130,15 @@ namespace scan_manga.Utilities.BackgroudWorker
 
         protected override void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            progressBarManga.Value = Directory.GetDirectories(utility.GetPath(root, "Backup")).Length;
-            progressBarChapter.Maximum = Directory.GetDirectories(utility.GetPath(root, "Manga", nameManga)).Length;
-            progressBarChapter.Value = Directory.GetDirectories(utility.GetPath(root, "Backup", nameManga)).Length;
-            progressBarPage.Maximum = Directory.GetFiles(utility.GetPath(root, "Manga", nameManga, nameChapter)).Length;
-            progressBarPage.Value = Directory.GetFiles(utility.GetPath(root, "Backup", nameManga, nameChapter)).Length;
+            ProgressBarManga.Value = Directory.GetDirectories(utility.GetPath(root, "Backup")).Length;
+            ProgressBarChapter.Maximum = Directory.GetDirectories(utility.GetPath(root, "Manga", nameManga)).Length;
+            ProgressBarChapter.Value = Directory.GetDirectories(utility.GetPath(root, "Backup", nameManga)).Length;
+            ProgressBarPage.Maximum = Directory.GetFiles(utility.GetPath(root, "Manga", nameManga, nameChapter)).Length;
+            ProgressBarPage.Value = Directory.GetFiles(utility.GetPath(root, "Backup", nameManga, nameChapter)).Length;
 
-            labelChapter.Text = "Backup de " + progressBarChapter.Value + "/" + progressBarChapter.Maximum;
-            labelPage.Text = "Backup de " + progressBarPage.Value + "/" + progressBarPage.Maximum;
-            labelManga.Text = "Backup de " + progressBarManga.Value + "/" + progressBarManga.Maximum;
+            LabelChapter.Text = "Backup de " + ProgressBarChapter.Value + "/" + ProgressBarChapter.Maximum;
+            LabelPage.Text = "Backup de " + ProgressBarPage.Value + "/" + ProgressBarPage.Maximum;
+            LabelManga.Text = "Backup de " + ProgressBarManga.Value + "/" + ProgressBarManga.Maximum;
         }
     }
 }

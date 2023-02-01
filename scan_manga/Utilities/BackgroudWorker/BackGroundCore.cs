@@ -10,7 +10,6 @@
         protected int maxPage;
         protected string nameChapter;
         protected int oldNbPage;
-        public bool isCancelled;
 
         public BackGroundCore():base()
         {
