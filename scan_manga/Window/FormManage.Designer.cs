@@ -42,8 +42,9 @@
             this.comboBoxNewManga = new System.Windows.Forms.ComboBox();
             this.comboBoxNewChapter = new System.Windows.Forms.ComboBox();
             this.btnAddChapter = new System.Windows.Forms.Button();
-            this.txtBoxNewChapter = new System.Windows.Forms.TextBox();
+            this.txtBoxNewPage = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.btnAddPage = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -155,6 +156,7 @@
             this.comboBoxNewManga.Name = "comboBoxNewManga";
             this.comboBoxNewManga.Size = new System.Drawing.Size(270, 23);
             this.comboBoxNewManga.TabIndex = 10;
+            this.comboBoxNewManga.SelectedIndexChanged += new System.EventHandler(this.comboBoxNewManga_SelectedIndexChanged);
             // 
             // comboBoxNewChapter
             // 
@@ -163,6 +165,7 @@
             this.comboBoxNewChapter.Name = "comboBoxNewChapter";
             this.comboBoxNewChapter.Size = new System.Drawing.Size(270, 23);
             this.comboBoxNewChapter.TabIndex = 11;
+            this.comboBoxNewChapter.SelectedIndexChanged += new System.EventHandler(this.comboBoxNewChapter_SelectedIndexChanged);
             // 
             // btnAddChapter
             // 
@@ -174,16 +177,16 @@
             this.btnAddChapter.UseVisualStyleBackColor = true;
             this.btnAddChapter.Click += new System.EventHandler(this.btnAddChapter_Click);
             // 
-            // txtBoxNewChapter
+            // txtBoxNewPage
             // 
-            this.txtBoxNewChapter.Location = new System.Drawing.Point(694, 122);
-            this.txtBoxNewChapter.Name = "txtBoxNewChapter";
-            this.txtBoxNewChapter.Size = new System.Drawing.Size(179, 23);
-            this.txtBoxNewChapter.TabIndex = 13;
+            this.txtBoxNewPage.Location = new System.Drawing.Point(694, 122);
+            this.txtBoxNewPage.Name = "txtBoxNewPage";
+            this.txtBoxNewPage.Size = new System.Drawing.Size(179, 23);
+            this.txtBoxNewPage.TabIndex = 13;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(694, 151);
+            this.button1.Location = new System.Drawing.Point(694, 236);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(179, 23);
             this.button1.TabIndex = 14;
@@ -191,13 +194,24 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // btnAddPage
+            // 
+            this.btnAddPage.Location = new System.Drawing.Point(694, 151);
+            this.btnAddPage.Name = "btnAddPage";
+            this.btnAddPage.Size = new System.Drawing.Size(179, 23);
+            this.btnAddPage.TabIndex = 15;
+            this.btnAddPage.Text = "Add page";
+            this.btnAddPage.UseVisualStyleBackColor = true;
+            this.btnAddPage.Click += new System.EventHandler(this.btnAddPage_Click);
+            // 
             // FormManage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1161, 622);
+            this.Controls.Add(this.btnAddPage);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.txtBoxNewChapter);
+            this.Controls.Add(this.txtBoxNewPage);
             this.Controls.Add(this.btnAddChapter);
             this.Controls.Add(this.comboBoxNewChapter);
             this.Controls.Add(this.comboBoxNewManga);
@@ -237,7 +251,8 @@
         private ComboBox comboBoxNewManga;
         private ComboBox comboBoxNewChapter;
         private Button btnAddChapter;
-        private TextBox txtBoxNewChapter;
+        private TextBox txtBoxNewPage;
         private Button button1;
+        private Button btnAddPage;
     }
 }

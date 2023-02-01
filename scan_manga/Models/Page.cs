@@ -11,6 +11,8 @@ namespace scan_manga.Models
         public string OldPage { get; set; }
         public string NewPage { get; set; }
 
+
+
         public Page(string oldPage, string newPage)
         {
             OldPage = oldPage;

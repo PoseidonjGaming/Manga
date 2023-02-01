@@ -5,14 +5,14 @@ namespace scan_manga
 {
     [Serializable]
     [DataContract]
-    public class Chapter : ChapterBase
+    public class Chapter
     {
         [DataMember]
-        private string NameChapter { get ; set ; }
+        public string NameChapter { get ; set ; }
         [DataMember]
-        private List<string> ListScan { get ; set  ; }
+        public List<string> ListScan { get ; set  ; }
         [DataMember]
-        private string FirstScan { get; set; }
+        public string FirstScan { get; set; }
 
         public List<Page> Pages { get; set; }
 
