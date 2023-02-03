@@ -206,7 +206,7 @@
             // 
             // FormManage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1161, 622);
             this.Controls.Add(this.btnAddPage);
@@ -236,27 +236,9 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private PictureBox pictureBoxPage;
-        private ComboBox cmbManga;
-        private ComboBox cmbChapter;
-        private ListBox lstBoxPage;
-        private Button btnSuppChapter;
-        private ListBox lstBoxThrash;
-        private Button btnSuppManga;
-        private Button btnDoWork;
-        private Button btnCancel;
-        private ListBox listBoxNewPage;
-        private ComboBox comboBoxNewManga;
-        private ComboBox comboBoxNewChapter;
-        private Button btnAddChapter;
-        private TextBox txtBoxNewPage;
-        private Button button1;
-        private Button btnAddPage;
     }
 }
