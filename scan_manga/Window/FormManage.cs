@@ -40,7 +40,7 @@ namespace scan_manga.Window
         {
             if (cmbBoxManga.SelectedIndex != -1)
             {
-                foreach(string chapter in utility.GetChapter(root, "Manga", cmbBoxManga.Text))
+                foreach(string chapter in utility.GetChapter(" Chapitre ", cmbBoxManga.Text + " Chapitre ",root, "Manga", cmbBoxManga.Text))
                 {
                     
                 }
