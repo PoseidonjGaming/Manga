@@ -1,5 +1,4 @@
-﻿using scan_manga.Models;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace scan_manga
 {
@@ -14,8 +13,6 @@ namespace scan_manga
         [DataMember]
         public string FirstScan { get; set; }
 
-        public List<Page> Pages { get; set; }
-
         public Chapter(string nameChapter, List<string> listScan)
         {
             NameChapter = nameChapter;
@@ -26,7 +23,6 @@ namespace scan_manga
         public Chapter()
         {
             ListScan = new List<string>();
-            Pages= new List<Page>();
         }
     }
 }

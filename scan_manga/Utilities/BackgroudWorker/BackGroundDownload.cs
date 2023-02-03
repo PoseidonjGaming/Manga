@@ -21,24 +21,23 @@ namespace scan_manga.Utilities.BackgroudWorker
             MessageBox.Show(chaptersToDownload.Count.ToString());
             if (chaptersToDownload.Count > 0)
             {
-                ProgressBarManga.Maximum = 1;
-                ProgressBarManga.Value = 1;
-                ProgressBarChapter.Value = 1;
-                ProgressBarChapter.Maximum = chaptersToDownload.Count;
+                progressBarManga.Maximum = 1;
+                progressBarManga.Value = 1;
+                progressBarChapter.Value = 1;
+                progressBarChapter.Maximum = chaptersToDownload.Count;
 
-                ProgressBarPage.Value = 1;
+                progressBarPage.Value = 1;
                 chaptersToDownload[0].ListScan = Verif(chaptersToDownload[0].ListScan);
-                ProgressBarPage.Maximum = chaptersToDownload[0].ListScan.Count;
+                progressBarPage.Maximum = chaptersToDownload[0].ListScan.Count;
 
-                LabelChapter.Text = "Chapitre: " + ProgressBarChapter.Value + "/" + ProgressBarChapter.Maximum;
-                LabelPage.Text = "Page: " + ProgressBarPage.Value + "/" + ProgressBarPage.Maximum;
+                labelChapter.Text = "Chapitre: " + progressBarChapter.Value + "/" + progressBarChapter.Maximum;
+                labelPage.Text = "Page: " + progressBarPage.Value + "/" + progressBarPage.Maximum;
                 Worker.RunWorkerAsync();
             }
         }
 
         protected override void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            WebClient client = new();
             foreach (Chapter chapter in chaptersToDownload)
             {
                 tempChapter = chapter;
@@ -79,8 +78,9 @@ namespace scan_manga.Utilities.BackgroudWorker
             {
 
                 if (!Path.GetFileNameWithoutExtension(item).Contains("captcha")
-                    || !Path.GetFileNameWithoutExtension(item).Contains("google")
-                    || !Path.GetFileNameWithoutExtension(item).Contains("go"))
+                    && !Path.GetFileNameWithoutExtension(item).Contains("google")
+                    && !Path.GetFileNameWithoutExtension(item).Contains("go")
+                    && list.Where(e => Path.GetFileNameWithoutExtension(e) == Path.GetFileNameWithoutExtension(item)).FirstOrDefault() == null)
                 {
                     list.Add(item);
                 }
@@ -91,20 +91,20 @@ namespace scan_manga.Utilities.BackgroudWorker
 
         protected override void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            ProgressBarChapter.Value = Directory.GetDirectories(temp).Length;
-            ProgressBarPage.Maximum = maxPage;
+            progressBarChapter.Value = Directory.GetDirectories(temp).Length;
+            progressBarPage.Maximum = maxPage;
 
             if (Directory.Exists(temp + "\\" + tempChapter.NameChapter))
             {
-                ProgressBarPage.Value = Directory.GetFiles(temp + "\\" + tempChapter.NameChapter).Length;
+                progressBarPage.Value = Directory.GetFiles(temp + "\\" + tempChapter.NameChapter).Length;
             }
             else
             {
-                ProgressBarPage.Value = 0;
+                progressBarPage.Value = 0;
             }
 
-            LabelChapter.Text = "Chapitre: " + ProgressBarChapter.Value + "/" + ProgressBarChapter.Maximum + " téléchargées";
-            LabelPage.Text = "Page: " + ProgressBarPage.Value + "/" + ProgressBarPage.Maximum + " téléchargés";
+            labelChapter.Text = "Chapitre: " + progressBarChapter.Value + "/" + progressBarChapter.Maximum + " téléchargées";
+            labelPage.Text = "Page: " + progressBarPage.Value + "/" + progressBarPage.Maximum + " téléchargés";
         }
     }
 }

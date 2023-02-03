@@ -119,6 +119,9 @@ namespace scan_manga.Utilities
             return chapterList.Where(e => e.NameChapter == name).First();
         }
 
-
+        public string[] GetChapter(string separator, string toAdd, params string[] parts)
+        {
+            return Sort(Directory.GetDirectories(GetPath(parts)).ToList(), separator, toAdd, false);
+        }
     }
 }

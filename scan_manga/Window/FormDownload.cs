@@ -72,9 +72,9 @@ namespace scan_manga
         private void buttonDownload_Click(object sender, EventArgs e)
         {
             BackGroundDownload.chaptersToDownload = chaptersToDownload;
-            BackGroundDownload.nameManga = nameManga;
             FormProgress formProgressDownload = new(BackGroundDownload);
             formProgressDownload.ShowDialog();
+            BackGroundDownload.nameManga = nameManga;
             if (!BackGroundDownload.isCancelled)
             {
                 BackGroundCopy.nameManga = nameManga;

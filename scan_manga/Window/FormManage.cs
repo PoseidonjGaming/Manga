@@ -1,9 +1,17 @@
 ﻿using scan_manga.Models;
+using scan_manga.Properties;
 using scan_manga.Utilities;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
-using System.Runtime.CompilerServices;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
-namespace scan_manga
+namespace scan_manga.Window
 {
     public partial class FormManage : Form
     {
@@ -22,26 +30,19 @@ namespace scan_manga
 
         private void FormManage_Load(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.Manga != null)
+            foreach (Manga manga in Settings.Default.Manga)
             {
-                mangas = Properties.Settings.Default.Manga;
+                cmbBoxManga.Items.Add(manga.Nom);
             }
-
-            foreach (Manga manga in mangas)
+            if (cmbBoxManga.Items.Count > 0)
             {
-                manga.Chapters.Clear();
-                cmbManga.Items.Add(manga.Nom);
+                cmbBoxManga.SelectedIndex = 0;
             }
-            if (cmbManga.Items.Count > 0)
-            {
-                cmbManga.SelectedIndex = 0;
-            }
-
         }
 
-        private void cmbManga_SelectedIndexChanged(object sender, EventArgs e)
+        private void cmbBoxManga_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbManga.SelectedIndex != -1)
+            if (cmbBoxManga.SelectedIndex != -1)
             {
                 cmbChapter.Items.Clear();
 

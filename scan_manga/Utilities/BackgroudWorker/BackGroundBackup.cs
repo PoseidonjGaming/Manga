@@ -37,7 +37,7 @@ namespace scan_manga.Utilities.BackgroudWorker
             {
                 root = Settings.Default.Root;
             }
-            ProgressBarManga.Maximum = mangaList.Count;
+            progressBarManga.Maximum = mangaList.Count;
             Worker.RunWorkerAsync();
         }
 
@@ -136,9 +136,9 @@ namespace scan_manga.Utilities.BackgroudWorker
             ProgressBarPage.Maximum = Directory.GetFiles(MangaUtility.GetPath(root, "Manga", nameManga, nameChapter)).Length;
             ProgressBarPage.Value = Directory.GetFiles(MangaUtility.GetPath(root, "Backup", nameManga, nameChapter)).Length;
 
-            LabelChapter.Text = "Backup de " + ProgressBarChapter.Value + "/" + ProgressBarChapter.Maximum;
-            LabelPage.Text = "Backup de " + ProgressBarPage.Value + "/" + ProgressBarPage.Maximum;
-            LabelManga.Text = "Backup de " + ProgressBarManga.Value + "/" + ProgressBarManga.Maximum;
+            labelChapter.Text = "Backup de " + progressBarChapter.Value + "/" + progressBarChapter.Maximum;
+            labelPage.Text = "Backup de " + progressBarPage.Value + "/" + progressBarPage.Maximum;
+            labelManga.Text = "Backup de " + progressBarManga.Value + "/" + progressBarManga.Maximum;
         }
     }
 }

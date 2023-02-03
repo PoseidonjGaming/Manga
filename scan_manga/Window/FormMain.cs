@@ -5,6 +5,7 @@ using scan_manga.Models;
 using scan_manga.Properties;
 using scan_manga.Utilities;
 using scan_manga.Utilities.BackgroudWorker;
+using scan_manga.Window;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
