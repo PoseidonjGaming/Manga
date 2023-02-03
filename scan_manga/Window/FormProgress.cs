@@ -22,13 +22,13 @@ namespace scan_manga
         {
             InitializeComponent();
             Worker = background;
-            background.ProgressBarPage = progressBarPage;
-            background.ProgressBarChapter = progressBarChapter;
-            background.ProgressBarManga = progressBarManga;
+            background.progressBarPage = progressBarPage;
+            background.progressBarChapter = progressBarChapter;
+            background.progressBarManga = progressBarManga;
 
-            background.LabelPage = labelPage;
-            background.LabelManga = labelManga;
-            background.LabelChapter = labelChapter;
+            background.labelPage = labelPage;
+            background.labelManga = labelManga;
+            background.labelChapter = labelChapter;
 
             background.Worker.RunWorkerCompleted += backgroundWorker_RunCompleted;
         }
@@ -42,14 +42,9 @@ namespace scan_manga
             Close();
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void FormProgress_FormClosed(object sender, FormClosedEventArgs e)
         {
             Worker.Cancel();
-        }
-
-        public BackGroundCore GetWorker()
-        {
-            return (BackGroundCore)Worker;
         }
     }
 

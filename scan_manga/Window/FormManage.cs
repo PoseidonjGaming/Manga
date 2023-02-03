@@ -1,7 +1,21 @@
-﻿using scan_manga.Models;
+﻿using HtmlAgilityPack;
+using Newtonsoft.Json;
+using scan_manga.Models;
 using scan_manga.Utilities;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Net;
 using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace scan_manga
 {
@@ -9,7 +23,6 @@ namespace scan_manga
     {
         private List<Manga> mangas;
         public List<string> thrash;
-        public List<Manga> newManga;
         private readonly string Root;
         private readonly MangaUtility utility;
 
@@ -19,7 +32,6 @@ namespace scan_manga
             Root = Properties.Settings.Default.Root;
             thrash = new();
             utility = new();
-            newManga = new();
         }
 
         private void FormManage_Load(object sender, EventArgs e)
@@ -31,7 +43,6 @@ namespace scan_manga
 
             foreach (Manga manga in mangas)
             {
-                manga.Chapters.Clear();
                 cmbManga.Items.Add(manga.Nom);
             }
             if (cmbManga.Items.Count > 0)
@@ -46,8 +57,7 @@ namespace scan_manga
             if (cmbManga.SelectedIndex != -1)
             {
                 cmbChapter.Items.Clear();
-
-                foreach (string chapter in utility.Sort(Directory.GetDirectories(utility.GetPath(Root, "Manga", cmbManga.Text)).ToList(), " Chapitre ", cmbManga.Text + " Chapitre ", false))
+                foreach (string chapter in Directory.GetDirectories(utility.GetPath(Root, "Manga", cmbManga.Text)))
                 {
                     cmbChapter.Items.Add(Path.GetFileName(chapter));
                 }
@@ -125,7 +135,7 @@ namespace scan_manga
             }
         }
 
-        private void btnAddChapter_Click(object sender, EventArgs e)
+        private void uploadToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }

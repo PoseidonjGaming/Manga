@@ -15,7 +15,7 @@ namespace scan_manga
 {
     public partial class FormDownload : Form
     {
-
+        
         public List<Chapter> listChapters = new List<Chapter>();
         private string pathTemp = Properties.Settings.Default.Root + "\\Temp";
         private string temp = Directory.GetCurrentDirectory() + "\\Temp";
@@ -26,22 +26,22 @@ namespace scan_manga
 
         public FormDownload()
         {
-
+            
             InitializeComponent();
         }
 
         private void FormDownload_Load(object sender, EventArgs e)
         {
             List<string> list = new List<string>();
-            foreach (Chapter chapter in listChapters)
+            foreach(Chapter chapter in listChapters)
             {
                 list.Add(chapter.NameChapter);
             }
-
+            
 
             listBoxTempChapter.Items.AddRange(sort(list).ToArray());
-
-
+            
+            
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
@@ -54,34 +54,34 @@ namespace scan_manga
             transfer(listBoxChapter, listBoxTempChapter);
         }
 
+        
 
-
-
+        
 
         private void listBoxTempChapter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listBoxTempChapter.SelectedIndex != -1)
+            if(listBoxTempChapter.SelectedIndex != -1)
             {
 
-
+                
                 pictureBoxScan.ImageLocation = listChapters.Find(e => e.NameChapter == listBoxTempChapter.SelectedItem).FirstScan;
             }
-
+            
         }
 
         private void buttonDownload_Click(object sender, EventArgs e)
         {
-            if (!backgroundWorkerDownload.IsBusy && listBoxChapter.Items.Count > 0)
+            if (!backgroundWorkerDownload.IsBusy && listBoxChapter.Items.Count >0)
             {
                 progressBarChapter.Maximum = listBoxChapter.Items.Count;
                 progressBarChapter.Value = 0;
                 maxPage = listChapters.Find(e => e.NameChapter == listBoxChapter.Items[0].ToString()).ListScan.Count;
-                progressBarPage.Maximum = maxPage;
+                progressBarPage.Maximum=maxPage;
                 progressBarPage.Value = 1;
 
                 createDirectory(pathTemp + "\\" + nameManga);
                 labelChapter.Text = "Chapitre: 1/" + listBoxChapter.Items.Count;
-                labelPage.Text = "Page: 1/" + listBoxChapter;
+                labelPage.Text= "Page: 1/" + listBoxChapter;
 
                 oldNbChapter = Directory.GetDirectories(pathTemp + "\\" + nameManga).Length;
 
@@ -100,8 +100,8 @@ namespace scan_manga
 
         private void backgroundWorkerDownload_DoWork(object sender, DoWorkEventArgs e)
         {
-            int numScan = 0;
-
+            int numScan=0;
+            
             foreach (string strChapter in listBoxChapter.Items)
             {
 
@@ -112,7 +112,7 @@ namespace scan_manga
                 foreach (string scan in chapter.ListScan)
                 {
                     string nameFile = chapter.ListScan.IndexOf(scan) + 1 + ".jpg";
-
+                    
                     try
                     {
                         WebClient webClient = new WebClient();
@@ -123,32 +123,32 @@ namespace scan_manga
                     {
 
                     }
-
+                   
                     backgroundWorkerDownload.ReportProgress(0);
                     Thread.Sleep(1000);
                 }
 
                 backgroundWorkerDownload.ReportProgress(0);
             }
-
-
+            
+            
         }
 
         private void backgroundWorkerDownload_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-
-            if (progressBarPage.Value == maxPage)
+            
+            if(progressBarPage.Value == maxPage)
             {
                 progressBarChapter.Value = Directory.GetDirectories(pathTemp + "\\" + nameManga).Length - oldNbChapter;
                 progressBarPage.Value = 0;
-
+                
             }
             else
             {
                 progressBarPage.Value = Directory.GetFiles(pathTemp + "\\" + nameManga + "\\" + nameChapter).Length;
             }
             progressBarPage.Maximum = maxPage;
-            labelChapter.Text = "Chapitre: " + progressBarChapter.Value + "/" + progressBarChapter.Maximum;
+            labelChapter.Text= "Chapitre: " +progressBarChapter.Value + "/" + progressBarChapter.Maximum;
             labelPage.Text = "Page: " + progressBarPage.Value + "/" + maxPage;
         }
 
@@ -158,7 +158,7 @@ namespace scan_manga
             progressBarPage.Value = progressBarPage.Maximum;
             labelPage.Text = "Page: " + progressBarPage.Value + "/" + progressBarPage.Maximum;
 
-            if (Directory.Exists(pathTemp + "\\" + nameManga))
+            if(Directory.Exists(pathTemp + "\\" + nameManga))
             {
                 if (Directory.GetDirectories(pathTemp + "\\" + nameManga).Length == oldNbChapter + listBoxChapter.Items.Count)
                 {
@@ -177,7 +177,7 @@ namespace scan_manga
 
                 }
             }
-
+            
             foreach (string chapter in Directory.GetDirectories(temp))
             {
                 Directory.Delete(chapter, true);
@@ -186,7 +186,7 @@ namespace scan_manga
 
         }
 
-
+        
 
         private void buttonSelectAllTemp_Click(object sender, EventArgs e)
         {
@@ -222,7 +222,7 @@ namespace scan_manga
             List<string> list = new List<string>();
             foreach (string chapter in chapters)
             {
-
+                
                 strNum = chapter.Split(" ")[^1];
                 numChapter.Add(int.Parse(strNum));
 
@@ -233,10 +233,10 @@ namespace scan_manga
                 foreach (string chapter in chapters)
                 {
                     strNum = num.ToString();
-
+                    
                     if (strNum == chapter.Split(" ")[^1])
                     {
-
+                        
                         list.Add(chapter);
                     }
 
@@ -254,10 +254,10 @@ namespace scan_manga
             {
 
                 listTarget.Add(listBoxSource.SelectedItems[i].ToString());
-
+                
 
             }
-            foreach (string chapter in listBoxSource.Items)
+            foreach(string chapter in listBoxSource.Items)
             {
                 if (!listBoxSource.SelectedItems.Contains(chapter))
                 {
@@ -270,7 +270,7 @@ namespace scan_manga
 
 
             listBoxTarget.Items.AddRange(sort(listTarget).ToArray());
-
+            
 
         }
 
@@ -289,9 +289,9 @@ namespace scan_manga
 
         private void backgroundWorkerCopy_DoWork(object sender, DoWorkEventArgs e)
         {
+            
 
-
-
+            
         }
 
         private void backgroundWorkerCopy_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

@@ -352,12 +352,7 @@ namespace scan_manga
 
         private void uploadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Manga manga = mangaList.Where(e => e.Nom == comboBoxManga.Text).First();
-            foreach (string chapter in Directory.GetDirectories(utility.GetPath(root, "Manga", manga.Nom)))
-            {
-                utility.CreateDirectory(root, "Temp", manga.Nom);
-                ZipFile.CreateFromDirectory(utility.GetPath(root, "Manga", manga.Nom, Path.GetFileName(chapter)), utility.GetPath(root, "Temp", manga.Nom, Path.GetFileName(chapter) + ".zip"));
-            }
+            
         }
 
         private void extractToolStripMenuItem_Click(object sender, EventArgs e)
