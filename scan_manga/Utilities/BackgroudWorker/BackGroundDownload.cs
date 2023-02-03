@@ -45,12 +45,12 @@ namespace scan_manga.Utilities.BackgroudWorker
                 chapter.ListScan = Verif(chapter.ListScan);
                 maxPage = chapter.ListScan.Count;
                 
-                utility.CreateDirectory(temp, chapter.NameChapter);
+                MangaUtility.CreateDirectory(temp, chapter.NameChapter);
                 foreach (string page in chapter.ListScan)
                 {
                     try
                     {
-                        client.DownloadFile(page, utility.GetPath(temp, chapter.NameChapter, Path.GetFileName(page)));
+                        client.DownloadFile(page, MangaUtility.GetPath(temp, chapter.NameChapter, Path.GetFileName(page)));
                         if (Worker.CancellationPending)
                         {
                             Worker.Dispose();

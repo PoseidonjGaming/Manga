@@ -38,18 +38,18 @@ namespace scan_manga.Utilities.BackgroudWorker
         protected override void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             
-            utility.CreateDirectory(pathTemp, nameManga);
+            MangaUtility.CreateDirectory(pathTemp, nameManga);
             oldNbPage = Directory.GetDirectories(pathTemp + "\\" + nameManga).Length;
             foreach (string strChapter in Directory.GetDirectories(temp))
             {
                 nameChapter = Path.GetFileName(strChapter);
-                utility.CreateDirectory(Properties.Settings.Default.Root, "Temp", nameManga, nameChapter);
-                utility.CreateDirectory(Properties.Settings.Default.Root, "Manga", nameManga, nameChapter);
+                MangaUtility.CreateDirectory(Properties.Settings.Default.Root, "Temp", nameManga, nameChapter);
+                MangaUtility.CreateDirectory(Properties.Settings.Default.Root, "Manga", nameManga, nameChapter);
                 Chapter chapter = chaptersToDownload.Where(e => e.NameChapter == nameChapter).First();
                 foreach (string page in Directory.GetFiles(strChapter))
                 {
                     int numPage = chapter.ListScan.IndexOf(chapter.ListScan.Where(e => Path.GetFileNameWithoutExtension(e) == Path.GetFileNameWithoutExtension(page)).First()) + 1;
-                    string dirManga = utility.GetPath(Properties.Settings.Default.Root, "Manga", nameManga, Path.GetFileName(strChapter));
+                    string dirManga = MangaUtility.GetPath(Properties.Settings.Default.Root, "Manga", nameManga, Path.GetFileName(strChapter));
                     if (numPage < 10)
                     {
                         File.Copy(page, Properties.Settings.Default.Root + "\\Manga\\" + nameManga + "\\" + Path.GetFileName(strChapter) + "\\page_0" + numPage + Path.GetExtension(page), true);
@@ -76,9 +76,9 @@ namespace scan_manga.Utilities.BackgroudWorker
 
         protected override void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            string dirTempManga = utility.GetPath(pathTemp, nameManga);
-            string dirTemp = utility.GetPath(temp, nameChapter);
-            string dirManga = utility.GetPath(pathTemp, nameManga, nameChapter);
+            string dirTempManga = MangaUtility.GetPath(pathTemp, nameManga);
+            string dirTemp = MangaUtility.GetPath(temp, nameChapter);
+            string dirManga = MangaUtility.GetPath(pathTemp, nameManga, nameChapter);
 
             ProgressBarChapter.Maximum = Directory.GetDirectories(temp).Length;
             ProgressBarChapter.Value = Directory.GetDirectories(dirTempManga).Length - oldNbPage;

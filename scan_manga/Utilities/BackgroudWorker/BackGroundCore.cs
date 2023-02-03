@@ -13,8 +13,8 @@
 
         public BackGroundCore():base()
         {
-            pathTemp = utility.GetPath(Properties.Settings.Default.Root, "Temp");
-            temp = utility.GetPath(Directory.GetCurrentDirectory(), "Temp");
+            pathTemp = MangaUtility.GetPath(Properties.Settings.Default.Root, "Temp");
+            temp = MangaUtility.GetPath(Directory.GetCurrentDirectory(), "Temp");
         }
 
         

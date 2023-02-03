@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Bson;
+using scan_manga.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace scan_manga.Utilities
 {
     public class MangaUtility
     {
-        public string[] Sort(List<string> listIn, string separator, string toAdd, bool IsPage)
+        public static string[] Sort(List<string> listIn, string separator, string toAdd, bool IsPage)
         {
             List<string> listOut = new();
             List<float> nums = new();
@@ -44,7 +45,7 @@ namespace scan_manga.Utilities
             return listOut.ToArray();
         }
 
-        public string GetPath(params string[] parts)
+        public static string GetPath(params string[] parts)
         {
             string path = string.Empty;
             foreach (string part in parts)
@@ -58,12 +59,12 @@ namespace scan_manga.Utilities
                     path += part;
 
                 }
-                
+
             }
             return path;
         }
 
-        public List<string> SetChapters(List<Chapter> chaptersIn)
+        public static List<string> SetChapters(List<Chapter> chaptersIn)
         {
             List<string> chaptersOut = new();
 
@@ -75,16 +76,16 @@ namespace scan_manga.Utilities
             return chaptersOut;
         }
 
-        public void DeleteDirectory(params string[] parts)
+        public static void DeleteDirectory(params string[] parts)
         {
-            string path=GetPath(parts);
-            if(Directory.Exists(path))
+            string path = GetPath(parts);
+            if (Directory.Exists(path))
             {
                 Directory.Delete(path, true);
             }
         }
 
-        public void CreateDirectory(params string[] parts)
+        public static void CreateDirectory(params string[] parts)
         {
             string path = GetPath(parts);
             if (!Directory.Exists(path))
@@ -93,15 +94,29 @@ namespace scan_manga.Utilities
             }
         }
 
-        public void StartPack(string root)
+        public static void StartPack(string root)
         {
-            if(root != null)
+            if (root != null)
             {
                 CreateDirectory(root, "Manga");
                 CreateDirectory(root, "Temp");
                 CreateDirectory(root, "Backup");
             }
-            
+        }
+
+        public static string? GetPage(string[] directory, string page)
+        {
+            return directory.Where(e => Path.GetFileNameWithoutExtension(e).Replace('_', ' ') == page).FirstOrDefault();
+        }
+
+        public static Manga GetManga(string name, List<Manga> mangaList)
+        {
+            return mangaList.Where(e=>e.Nom==name).First();
+        }
+
+        public static Chapter GetChapter(string name, List<Chapter> chapterList)
+        {
+            return chapterList.Where(e => e.NameChapter == name).First();
         }
 
 

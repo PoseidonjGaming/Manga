@@ -11,14 +11,12 @@ namespace scan_manga
         public List<string> thrash;
         public List<Manga> newManga;
         private readonly string Root;
-        private readonly MangaUtility utility;
 
         public FormManage()
         {
             InitializeComponent();
             Root = Properties.Settings.Default.Root;
             thrash = new();
-            utility = new();
             newManga = new();
         }
 
@@ -47,7 +45,7 @@ namespace scan_manga
             {
                 cmbChapter.Items.Clear();
 
-                foreach (string chapter in utility.Sort(Directory.GetDirectories(utility.GetPath(Root, "Manga", cmbManga.Text)).ToList(), " Chapitre ", cmbManga.Text + " Chapitre ", false))
+                foreach (string chapter in MangaUtility.Sort(Directory.GetDirectories(MangaUtility.GetPath(Root, "Manga", cmbManga.Text)).ToList(), " Chapitre ", cmbManga.Text + " Chapitre ", false))
                 {
                     cmbChapter.Items.Add(Path.GetFileName(chapter));
                 }
@@ -65,8 +63,8 @@ namespace scan_manga
             {
                 txtBoxNewPage.Text = cmbChapter.Text;
                 lstBoxPage.Items.Clear();
-                string dir = utility.GetPath(Root, "Manga", cmbManga.Text, cmbChapter.Text);
-                foreach (string page in utility.Sort(Directory.GetFiles(dir).ToList(), "_", "page ", true))
+                string dir = MangaUtility.GetPath(Root, "Manga", cmbManga.Text, cmbChapter.Text);
+                foreach (string page in MangaUtility.Sort(Directory.GetFiles(dir).ToList(), "_", "page ", true))
                 {
                     lstBoxPage.Items.Add(page);
                 }
@@ -76,8 +74,7 @@ namespace scan_manga
         {
             if (lstBoxPage.SelectedIndex != -1)
             {
-                string[] pages = Directory.GetFiles(utility.GetPath(Root, "Manga", cmbManga.Text, cmbChapter.Text));
-                pictureBoxPage.ImageLocation = pages.Where(e => Path.GetFileNameWithoutExtension(e).Replace('_', ' ') == lstBoxPage.SelectedItem.ToString()).First();
+                pictureBoxPage.ImageLocation = MangaUtility.GetPage(Directory.GetFiles(MangaUtility.GetPath(Root, "Manga", cmbManga.Text, cmbChapter.Text)), lstBoxPage.Text);
             }
         }
 
@@ -93,12 +90,12 @@ namespace scan_manga
         private void PopulateThrash()
         {
             lstBoxThrash.Items.Clear();
-            lstBoxThrash.Items.AddRange(utility.Sort(thrash, " Chapitre ", cmbManga.Text + " Chapitre ", false));
+            lstBoxThrash.Items.AddRange(MangaUtility.Sort(thrash, " Chapitre ", cmbManga.Text + " Chapitre ", false));
         }
 
         private void btnSuppManga_Click(object sender, EventArgs e)
         {
-            foreach (string chapter in Directory.GetDirectories(utility.GetPath(Root, "Manga", cmbManga.Text)))
+            foreach (string chapter in Directory.GetDirectories(MangaUtility.GetPath(Root, "Manga", cmbManga.Text)))
             {
                 thrash.Add(Path.GetFileName(chapter));
             }
@@ -110,7 +107,7 @@ namespace scan_manga
             foreach (string chapter in thrash)
             {
                 string[] strChapter = chapter.Split(" Chapitre ");
-                Directory.Delete(utility.GetPath(Root, "Manga", strChapter[0], chapter), true);
+                Directory.Delete(MangaUtility.GetPath(Root, "Manga", strChapter[0], chapter), true);
                 lstBoxThrash.Items.Clear();
 
             }
@@ -137,7 +134,7 @@ namespace scan_manga
                 OpenFileDialog fileDialog = new OpenFileDialog();
                 if (fileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    File.Move(fileDialog.FileName, utility.GetPath(Root, "Manga", cmbManga.Text, cmbChapter.Text, Path.GetFileName(fileDialog.FileName)));
+                    File.Move(fileDialog.FileName, MangaUtility.GetPath(Root, "Manga", cmbManga.Text, cmbChapter.Text, Path.GetFileName(fileDialog.FileName)));
                 }
             }
 
@@ -147,17 +144,19 @@ namespace scan_manga
         {
             if (txtBoxNewPage.Text != string.Empty)
             {
-                Chapter chapter = new()
-                {
-                    NameChapter=cmbChapter.Text
-                };
-                Page page = new(utility.GetPath(Root, "Manga", cmbManga.Text, cmbChapter.Text, listBoxNewPage.Text),
-                    utility.GetPath(Root, "Manga", cmbManga.Text, cmbChapter.Text, txtBoxNewPage.Text));
-                chapter.Pages.Add(page);
+
+                Page page = new(MangaUtility.GetPath(Root, "Manga", cmbManga.Text, cmbChapter.Text, listBoxNewPage.Text),
+                    MangaUtility.GetPath(Root, "Manga", cmbManga.Text, cmbChapter.Text, txtBoxNewPage.Text));
+                
                 Manga? manga = newManga.Where(e => comboBoxNewManga.Text != string.Empty && e.Nom == comboBoxNewManga.Text).FirstOrDefault();
                 manga ??= new()
                 {
                     Nom = cmbManga.Text,
+                };
+                Chapter? chapter = manga.Chapters.Where(e => e.NameChapter==comboBoxNewChapter.Text).First();
+                chapter ??= new()
+                {
+                    NameChapter = cmbManga.Text
                 };
                 manga.Chapters.Add(chapter);
 
@@ -177,13 +176,13 @@ namespace scan_manga
                 }
                 PopulateNewChapter(newManga.First());
             }
-           
+
         }
 
         private void PopulateNewChapter(Manga manga)
         {
             comboBoxNewChapter.Items.Clear();
-            foreach(Chapter chapter in manga.Chapters)
+            foreach (Chapter chapter in manga.Chapters)
             {
                 comboBoxNewChapter.Items.Add(chapter.NameChapter);
             }
@@ -200,16 +199,26 @@ namespace scan_manga
 
         private void comboBoxNewChapter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(comboBoxNewChapter.SelectedIndex != -1)
+            if (comboBoxNewChapter.SelectedIndex != -1)
             {
                 Manga manga = newManga.Where(e => e.Nom == comboBoxNewManga.Text).First();
-                Chapter chapter = manga.Chapters.Where(e=>e.NameChapter==comboBoxNewChapter.Text).First();
-                foreach(Page page in chapter.Pages)
+                Chapter chapter = manga.Chapters.Where(e => e.NameChapter == comboBoxNewChapter.Text).First();
+                foreach (Page page in chapter.Pages)
                 {
-                    string oldPage = Directory.GetFiles(utility.GetPath(Root, "Manga", comboBoxNewManga.Text, comboBoxNewChapter.Text)).Where(e=> Path.GetFileNameWithoutExtension(e)== Path.GetFileNameWithoutExtension(page.OldPage)).FirstOrDefault();
-                    MessageBox.Show(oldPage);
-                    //listBoxNewPage.Items.Add();
+                    listBoxNewPage.Items.Add(Path.GetFileName(page.NewPage));
                 }
+            }
+        }
+
+        private void btnUp_Click(object sender, EventArgs e)
+        {
+            if (listBoxNewPage.SelectedIndex != -1)
+            {
+                Manga manga = MangaUtility.GetManga(comboBoxNewManga.Text, newManga);
+                Chapter chapter = MangaUtility.GetChapter(comboBoxNewChapter.Text, manga.Chapters);
+
+                Page tempPage1 = chapter.Pages[listBoxNewPage.Items.IndexOf(listBoxNewPage.SelectedIndex)];
+                MessageBox.Show(tempPage1.OldPage);
             }
         }
     }

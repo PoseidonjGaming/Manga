@@ -45,6 +45,8 @@
             this.txtBoxNewPage = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.btnAddPage = new System.Windows.Forms.Button();
+            this.btnUp = new System.Windows.Forms.Button();
+            this.btnDown = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -204,11 +206,32 @@
             this.btnAddPage.UseVisualStyleBackColor = true;
             this.btnAddPage.Click += new System.EventHandler(this.btnAddPage_Click);
             // 
+            // btnUp
+            // 
+            this.btnUp.Location = new System.Drawing.Point(879, 381);
+            this.btnUp.Name = "btnUp";
+            this.btnUp.Size = new System.Drawing.Size(75, 23);
+            this.btnUp.TabIndex = 16;
+            this.btnUp.Text = "Up";
+            this.btnUp.UseVisualStyleBackColor = true;
+            this.btnUp.Click += new System.EventHandler(this.btnUp_Click);
+            // 
+            // btnDown
+            // 
+            this.btnDown.Location = new System.Drawing.Point(960, 380);
+            this.btnDown.Name = "btnDown";
+            this.btnDown.Size = new System.Drawing.Size(75, 23);
+            this.btnDown.TabIndex = 17;
+            this.btnDown.Text = "Down";
+            this.btnDown.UseVisualStyleBackColor = true;
+            // 
             // FormManage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1161, 622);
+            this.Controls.Add(this.btnDown);
+            this.Controls.Add(this.btnUp);
             this.Controls.Add(this.btnAddPage);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.txtBoxNewPage);
@@ -254,5 +277,7 @@
         private TextBox txtBoxNewPage;
         private Button button1;
         private Button btnAddPage;
+        private Button btnUp;
+        private Button btnDown;
     }
 }
