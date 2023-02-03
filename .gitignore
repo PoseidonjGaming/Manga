@@ -21,3 +21,4 @@
 /scan_manga/obj/project.nuget.cache
 /scan_manga/obj/scan_manga.csproj.nuget.dgspec.json
 /.vs/Manga/v17/.suo
+*.sqlite
