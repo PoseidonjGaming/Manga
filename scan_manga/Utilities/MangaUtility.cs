@@ -58,7 +58,7 @@ namespace scan_manga.Utilities
                     path += part;
 
                 }
-                
+
             }
             return path;
         }
@@ -77,8 +77,8 @@ namespace scan_manga.Utilities
 
         public void DeleteDirectory(params string[] parts)
         {
-            string path=GetPath(parts);
-            if(Directory.Exists(path))
+            string path = GetPath(parts);
+            if (Directory.Exists(path))
             {
                 Directory.Delete(path, true);
             }
@@ -95,15 +95,18 @@ namespace scan_manga.Utilities
 
         public void StartPack(string root)
         {
-            if(root != null)
+            if (root != null)
             {
                 CreateDirectory(root, "Manga");
                 CreateDirectory(root, "Temp");
                 CreateDirectory(root, "Backup");
             }
-            
+
         }
 
-
+        public string[] GetChapter(string separator, string toAdd, params string[] parts)
+        {
+            return Sort(Directory.GetDirectories(GetPath(parts)).ToList(), separator, toAdd, false);
+        }
     }
 }
