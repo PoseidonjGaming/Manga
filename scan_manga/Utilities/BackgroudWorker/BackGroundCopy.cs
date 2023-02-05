@@ -17,18 +17,18 @@ namespace scan_manga.Utilities.BackgroudWorker
         {
             if (!isCancelled)
             {
-                progressBarManga.Maximum = 1;
-                progressBarManga.Value = 1;
+                ProgressBarManga.Maximum = 1;
+                ProgressBarManga.Value = 1;
 
-                progressBarChapter.Maximum = chaptersToDownload.Count;
-                progressBarPage.Maximum = chaptersToDownload[0].ListScan.Count;
+                ProgressBarChapter.Maximum = chaptersToDownload.Count;
+                ProgressBarPage.Maximum = chaptersToDownload[0].ListScan.Count;
 
-                progressBarChapter.Value = 0;
-                progressBarPage.Value = 0;
+                ProgressBarChapter.Value = 0;
+                ProgressBarPage.Value = 0;
 
 
-                labelChapter.Text = "Chapitre: " + progressBarChapter.Value + "/" + progressBarChapter.Maximum;
-                labelPage.Text = "Page: " + progressBarPage.Value + "/" + progressBarPage.Maximum;
+                labelChapter.Text = "Chapitre: " + ProgressBarChapter.Value + "/" + ProgressBarChapter.Maximum;
+                labelPage.Text = "Page: " + ProgressBarPage.Value + "/" + ProgressBarPage.Maximum;
 
                 Worker.RunWorkerAsync();
 
@@ -80,14 +80,14 @@ namespace scan_manga.Utilities.BackgroudWorker
             string dirTemp = MangaUtility.GetPath(temp, nameChapter);
             string dirManga = MangaUtility.GetPath(pathTemp, nameManga, nameChapter);
 
-            progressBarChapter.Maximum = Directory.GetDirectories(temp).Length;
-            progressBarChapter.Value = Directory.GetDirectories(dirTempManga).Length - oldNbPage;
+            ProgressBarChapter.Maximum = Directory.GetDirectories(temp).Length;
+            ProgressBarChapter.Value = Directory.GetDirectories(dirTempManga).Length - oldNbPage;
 
-            progressBarPage.Value = Directory.GetFiles(dirManga).Length;
-            progressBarPage.Maximum = Directory.GetFiles(dirTemp).Length;
+            ProgressBarPage.Value = Directory.GetFiles(dirManga).Length;
+            ProgressBarPage.Maximum = Directory.GetFiles(dirTemp).Length;
 
-            labelChapter.Text = "Chapitre: " + progressBarChapter.Value + "/" + progressBarChapter.Maximum + " copiées";
-            labelPage.Text = "Page: " + progressBarPage.Value + "/" + progressBarPage.Maximum + " copiés";
+            labelChapter.Text = "Chapitre: " + ProgressBarChapter.Value + "/" + ProgressBarChapter.Maximum + " copiées";
+            labelPage.Text = "Page: " + ProgressBarPage.Value + "/" + ProgressBarPage.Maximum + " copiés";
         }
     }
 }

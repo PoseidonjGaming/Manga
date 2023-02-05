@@ -14,9 +14,9 @@ namespace scan_manga.Utilities.BackgroudWorker
         public Label labelPage { get; set; }
 
         public BackgroundWorker Worker { get; set; }
-        public ProgressBar progressBarManga { get; set; }
-        public ProgressBar progressBarChapter { get; set; }
-        public ProgressBar progressBarPage { get; set; }
+        public ProgressBar ProgressBarManga { get; set; }
+        public ProgressBar ProgressBarChapter { get; set; }
+        public ProgressBar ProgressBarPage { get; set; }
 
         protected readonly MangaUtility utility;
 

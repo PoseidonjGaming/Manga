@@ -34,6 +34,7 @@
             this.progressBarChapter = new System.Windows.Forms.ProgressBar();
             this.labelManga = new System.Windows.Forms.Label();
             this.progressBarManga = new System.Windows.Forms.ProgressBar();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // progressBarPage
@@ -84,12 +85,23 @@
             this.progressBarManga.Size = new System.Drawing.Size(360, 23);
             this.progressBarManga.TabIndex = 5;
             // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(12, 144);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 6;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
             // FormProgress
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(384, 153);
+            this.ClientSize = new System.Drawing.Size(384, 178);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.progressBarManga);
             this.Controls.Add(this.labelManga);
             this.Controls.Add(this.progressBarChapter);
@@ -103,7 +115,6 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Archive";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormProgress_FormClosed);
             this.Load += new System.EventHandler(this.FormArchive_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -118,5 +129,6 @@
         private ProgressBar progressBarChapter;
         private Label labelManga;
         private ProgressBar progressBarManga;
+        private Button btnCancel;
     }
 }

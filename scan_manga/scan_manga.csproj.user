@@ -19,8 +19,5 @@
     <Compile Update="Window\FormSetting.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Window\WindowUploadRestau.cs">
-      <SubType>Form</SubType>
-    </Compile>
   </ItemGroup>
 </Project>

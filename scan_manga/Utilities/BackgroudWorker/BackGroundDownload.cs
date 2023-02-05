@@ -21,23 +21,24 @@ namespace scan_manga.Utilities.BackgroudWorker
             MessageBox.Show(chaptersToDownload.Count.ToString());
             if (chaptersToDownload.Count > 0)
             {
-                progressBarManga.Maximum = 1;
-                progressBarManga.Value = 1;
-                progressBarChapter.Value = 1;
-                progressBarChapter.Maximum = chaptersToDownload.Count;
+                ProgressBarManga.Maximum = 1;
+                ProgressBarManga.Value = 1;
+                ProgressBarChapter.Value = 1;
+                ProgressBarChapter.Maximum = chaptersToDownload.Count;
 
-                progressBarPage.Value = 1;
+                ProgressBarPage.Value = 1;
                 chaptersToDownload[0].ListScan = Verif(chaptersToDownload[0].ListScan);
-                progressBarPage.Maximum = chaptersToDownload[0].ListScan.Count;
+                ProgressBarPage.Maximum = chaptersToDownload[0].ListScan.Count;
 
-                labelChapter.Text = "Chapitre: " + progressBarChapter.Value + "/" + progressBarChapter.Maximum;
-                labelPage.Text = "Page: " + progressBarPage.Value + "/" + progressBarPage.Maximum;
+                labelChapter.Text = "Chapitre: " + ProgressBarChapter.Value + "/" + ProgressBarChapter.Maximum;
+                labelPage.Text = "Page: " + ProgressBarPage.Value + "/" + ProgressBarPage.Maximum;
                 Worker.RunWorkerAsync();
             }
         }
 
         protected override void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            WebClient client = new();
             foreach (Chapter chapter in chaptersToDownload)
             {
                 tempChapter = chapter;
@@ -91,20 +92,20 @@ namespace scan_manga.Utilities.BackgroudWorker
 
         protected override void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            progressBarChapter.Value = Directory.GetDirectories(temp).Length;
-            progressBarPage.Maximum = maxPage;
+            ProgressBarChapter.Value = Directory.GetDirectories(temp).Length;
+            ProgressBarPage.Maximum = maxPage;
 
             if (Directory.Exists(temp + "\\" + tempChapter.NameChapter))
             {
-                progressBarPage.Value = Directory.GetFiles(temp + "\\" + tempChapter.NameChapter).Length;
+                ProgressBarPage.Value = Directory.GetFiles(temp + "\\" + tempChapter.NameChapter).Length;
             }
             else
             {
-                progressBarPage.Value = 0;
+                ProgressBarPage.Value = 0;
             }
 
-            labelChapter.Text = "Chapitre: " + progressBarChapter.Value + "/" + progressBarChapter.Maximum + " téléchargées";
-            labelPage.Text = "Page: " + progressBarPage.Value + "/" + progressBarPage.Maximum + " téléchargés";
+            labelChapter.Text = "Chapitre: " + ProgressBarChapter.Value + "/" + ProgressBarChapter.Maximum + " téléchargées";
+            labelPage.Text = "Page: " + ProgressBarPage.Value + "/" + ProgressBarPage.Maximum + " téléchargés";
         }
     }
 }

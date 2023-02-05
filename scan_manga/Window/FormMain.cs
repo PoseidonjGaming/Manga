@@ -137,7 +137,6 @@ namespace scan_manga
 
                                         if (node.Attributes["data-src"] != null)
                                         {
-
                                             listScanTemp.Add(node.Attributes["data-src"].Value);
                                         }
                                         else

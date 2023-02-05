@@ -25,9 +25,9 @@ namespace scan_manga
 
         private void FormDownloadOneChapter_Load(object sender, EventArgs e)
         {
-            if(Properties.Settings.Default.Manga != null)
+            if (Properties.Settings.Default.Manga != null)
             {
-                foreach(Manga manga in Properties.Settings.Default.Manga)
+                foreach (Manga manga in Properties.Settings.Default.Manga)
                 {
                     comboBoxManga.Items.Add(manga.Nom);
                 }
@@ -42,7 +42,7 @@ namespace scan_manga
                 var result = client.GetAsync(textBoxUrl.Text).Result;
                 if (result.IsSuccessStatusCode)
                 {
-                    
+
                     try
                     {
                         List<string> listScanTemp = new List<string>();
@@ -62,12 +62,12 @@ namespace scan_manga
                                 }
                                 else
                                 {
-                                    
+                                    MessageBox.Show(node.Attributes["src"].Value);
                                     listScanTemp.Add(node.Attributes["src"].Value);
                                 }
                             }
-                            
-                            chapter.Add(new Chapter(textBoxNameChapter.Text,listScanTemp));
+
+                            chapter.Add(new Chapter(textBoxNameChapter.Text, listScanTemp));
                         }
                         catch
                         {
@@ -81,7 +81,7 @@ namespace scan_manga
                 }
                 else
                 {
-                    
+
                 }
             }
             catch
@@ -89,14 +89,14 @@ namespace scan_manga
                 MessageBox.Show("L'url spécifié est erroné");
             }
             this.Close();
-            
+
         }
 
-        
+
 
         private void FormDownloadOneChapter_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if(chapter.Count != 0)
+            if (chapter.Count != 0)
             {
                 FormDownload formDownload = new()
                 {
@@ -105,8 +105,8 @@ namespace scan_manga
                 };
                 formDownload.ShowDialog(this.Parent);
             }
-           
-            
+
+
         }
 
         private void comboBoxManga_SelectedIndexChanged(object sender, EventArgs e)

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Bson;
 using scan_manga.Models;
+using scan_manga.Utilities.BackgroudWorker;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,17 +65,7 @@ namespace scan_manga.Utilities
             return path;
         }
 
-        public static List<string> SetChapters(List<Chapter> chaptersIn)
-        {
-            List<string> chaptersOut = new();
-
-            foreach (Chapter chapter in chaptersIn)
-            {
-                chaptersOut.Add(chapter.NameChapter);
-            }
-
-            return chaptersOut;
-        }
+     
 
         public static void DeleteDirectory(params string[] parts)
         {
@@ -109,6 +100,11 @@ namespace scan_manga.Utilities
             return directory.Where(e => Path.GetFileNameWithoutExtension(e).Replace('_', ' ') == page).FirstOrDefault();
         }
 
+        public static string[] GetPages(params string[] part)
+        {
+            return Sort(Directory.GetFiles(GetPath(part)).ToList(), "_", "page ", true);
+        }
+
         public static Manga GetManga(string name, List<Manga> mangaList)
         {
             return mangaList.Where(e=>e.Nom==name).First();
@@ -119,9 +115,20 @@ namespace scan_manga.Utilities
             return chapterList.Where(e => e.NameChapter == name).First();
         }
 
-        public string[] GetChapter(string separator, string toAdd, params string[] parts)
+        public static string[] GetChapters(string separator, string toAdd, params string[] parts)
         {
             return Sort(Directory.GetDirectories(GetPath(parts)).ToList(), separator, toAdd, false);
+        }
+
+        public static string[] GetChapters(params string[] parts)
+        {
+            return Directory.GetDirectories(GetPath(parts));
+        }
+
+        public static void Progress(BaseBackGroundWorker bg)
+        {
+            FormProgress form = new(bg);
+            form.Show();
         }
     }
 }

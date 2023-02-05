@@ -22,9 +22,9 @@ namespace scan_manga
         {
             InitializeComponent();
             Worker = background;
-            background.progressBarPage = progressBarPage;
-            background.progressBarChapter = progressBarChapter;
-            background.progressBarManga = progressBarManga;
+            background.ProgressBarPage = progressBarPage;
+            background.ProgressBarChapter = progressBarChapter;
+            background.ProgressBarManga = progressBarManga;
 
             background.labelPage = labelPage;
             background.labelManga = labelManga;
@@ -42,7 +42,7 @@ namespace scan_manga
             Close();
         }
 
-        private void FormProgress_FormClosed(object sender, FormClosedEventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             Worker.Cancel();
         }
