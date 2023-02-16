@@ -1,4 +1,5 @@
-﻿using System;
+﻿using scan_manga_v._1.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,9 +21,9 @@ namespace scan_manga
 
         private void FormManage_Load(object sender, EventArgs e)
         {
-            if(Properties.Settings.Default.Root != string.Empty)
+            if(Settings.Default.Root != string.Empty)
             {
-                var dirs= Directory.GetDirectories(Properties.Settings.Default.Root);
+                var dirs= Directory.GetDirectories(Settings.Default.Root);
                 foreach(var dir in dirs)
                 {
                     string nom= Path.GetFileName(dir);
@@ -39,10 +40,10 @@ namespace scan_manga
         {
             if(comboBoxManga.SelectedIndex != -1)
             {
-                if (Properties.Settings.Default.Root != string.Empty)
+                if (Settings.Default.Root != string.Empty)
                 {
                     comboBoxChapter.Items.Clear();
-                    var chapters = sort(Directory.GetDirectories(Properties.Settings.Default.Root + "\\" + comboBoxManga.SelectedItem).ToList()," ", comboBoxManga.Text + " Chapitre ");
+                    var chapters = sort(Directory.GetDirectories(Settings.Default.Root + "\\" + comboBoxManga.SelectedItem).ToList()," ", comboBoxManga.Text + " Chapitre ");
                     foreach (string chapter in chapters)
                     {
                         if(chapter != null)
@@ -65,7 +66,7 @@ namespace scan_manga
             if(comboBoxChapter.SelectedIndex != -1)
             {
                 listBoxPage.Items.Clear();
-                var pages = sort(Directory.GetFiles(Properties.Settings.Default.Root + "\\" +
+                var pages = sort(Directory.GetFiles(Settings.Default.Root + "\\" +
                     comboBoxManga.Text + "\\" + comboBoxChapter.Text).ToList(),"_", "page_");
                 
                 foreach (string page in pages)
@@ -84,7 +85,7 @@ namespace scan_manga
         {
             if(listBoxPage.SelectedIndex != -1)
             {
-                pictureBoxPage.ImageLocation = Properties.Settings.Default.Root +
+                pictureBoxPage.ImageLocation = Settings.Default.Root +
                     "\\" + comboBoxManga.Text +
                     "\\" + comboBoxChapter.Text +
                     "\\" + listBoxPage.SelectedItem.ToString().Replace(' ', '_') + ".jpg";

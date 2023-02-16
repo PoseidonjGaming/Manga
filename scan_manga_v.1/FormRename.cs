@@ -1,4 +1,5 @@
-﻿using System;
+﻿using scan_manga_v._1.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,9 +22,9 @@ namespace scan_manga
         public FormRename()
         {
             InitializeComponent();
-            if (Properties.Settings.Default.Root != null)
+            if (Settings.Default.Root != null)
             {
-                root = Properties.Settings.Default.Root;
+                root = Settings.Default.Root;
             }
         }
 

@@ -1,5 +1,6 @@
 using HtmlAgilityPack;
 using Newtonsoft.Json;
+using scan_manga_v._1.Properties;
 using System.IO;
 using System.Net;
 
@@ -16,14 +17,14 @@ namespace scan_manga
         {
             InitializeComponent();
             labelChpater.Text = string.Empty;
-            if(!(Properties.Settings.Default.Manga is null))
+            if(!(Settings.Default.Manga is null))
             {
-                mangaList=Properties.Settings.Default.Manga;
+                mangaList=Settings.Default.Manga;
                 poputlateCombo();
             }
-            if(Properties.Settings.Default.Root != string.Empty)
+            if(Settings.Default.Root != string.Empty)
             {
-                root=Properties.Settings.Default.Root;
+                root=Settings.Default.Root;
                 foreach (var dir in Directory.GetDirectories(root))
                 {
 
@@ -247,7 +248,6 @@ namespace scan_manga
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show();
         }
     }
 }

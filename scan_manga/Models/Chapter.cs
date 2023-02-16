@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Drawing.Imaging;
+using System.Runtime.Serialization;
 
 namespace scan_manga
 {
@@ -7,11 +8,11 @@ namespace scan_manga
     public class Chapter
     {
         [DataMember]
-        public string NameChapter { get ; set ; }
+        public string NameChapter { get; set; } = string.Empty;
         [DataMember]
-        public List<string> ListScan { get ; set  ; }
+        public List<string> ListScan { get; set; } = new();
         [DataMember]
-        public string FirstScan { get; set; }
+        public string FirstScan { get; set; } = string.Empty;
 
         public Chapter(string nameChapter, List<string> listScan)
         {

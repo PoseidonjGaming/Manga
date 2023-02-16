@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using scan_manga_v._1.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,7 +18,7 @@ namespace scan_manga
     {
         
         public List<Chapter> listChapters = new List<Chapter>();
-        private string pathTemp = scan_manga_v_1.Properties.Default.Root + "\\Temp";
+        private string pathTemp = Settings.Default.Root + "\\Temp";
         private string temp = Directory.GetCurrentDirectory() + "\\Temp";
         public string nameManga;
         private int maxPage;
@@ -261,15 +262,15 @@ namespace scan_manga
 
         private void backgroundWorkerCopy_DoWork(object sender, DoWorkEventArgs e)
         {
-            createDirectory(Properties.Settings.Default.Root + "\\" + nameManga);
+            createDirectory(Settings.Default.Root + "\\" + nameManga);
             foreach (var chapter in Directory.GetDirectories(pathTemp + "\\" + nameManga))
             {
                 string nameChapter = Path.GetFileName(chapter);
-                createDirectory(Properties.Settings.Default.Root + "\\" + nameManga + "\\" + nameChapter);
+                createDirectory(Settings.Default.Root + "\\" + nameManga + "\\" + nameChapter);
                 foreach (var page in Directory.GetFiles(pathTemp + "\\" + nameManga + "\\" + nameChapter))
                 {
                     string namePage = Path.GetFileName(page);
-                    File.Copy(page, Properties.Settings.Default.Root + "\\" + nameManga + "\\" + nameChapter + "\\" + namePage, true);
+                    File.Copy(page, Settings.Default.Root + "\\" + nameManga + "\\" + nameChapter + "\\" + namePage, true);
                 }
             }
 

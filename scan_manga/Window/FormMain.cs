@@ -1,53 +1,40 @@
 using HtmlAgilityPack;
-using Microsoft.VisualBasic.Logging;
-using Newtonsoft.Json;
 using scan_manga.Models;
 using scan_manga.Properties;
 using scan_manga.Utilities;
 using scan_manga.Utilities.BackgroudWorker;
 using scan_manga.Window;
 using System.Diagnostics;
-using System.IO;
 using System.IO.Compression;
-using System.Net;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace scan_manga
 {
     public partial class FormMain : Form
     {
         private List<Manga> mangaList = new();
-        private string root;
+        private readonly string root;
         private Manga manga;
         private readonly string tempdir;
         private readonly List<Chapter> chapters = new();
         private int numChapitre = 1;
         private string chapitre;
-        private readonly MangaUtility utility;
 
         public FormMain()
         {
             InitializeComponent();
-            utility = new();
-            tempdir = Directory.GetCurrentDirectory() + "\\Temp";
-        }
-        private void FormMain_Load(object sender, EventArgs e)
-        {
-
+            tempdir = MangaUtility.GetPath(Directory.GetCurrentDirectory(),"Temp");
             labelChpater.Text = string.Empty;
-
-            if (Properties.Settings.Default.Manga is not null)
+            if (Settings.Default.Manga is not null)
             {
-                mangaList = Properties.Settings.Default.Manga;
+                mangaList = Settings.Default.Manga;
                 comboBoxManga.Items.AddRange(Populate().ToArray());
 
             }
-            if (Properties.Settings.Default.Root != string.Empty)
+            if (Settings.Default.Root != string.Empty)
             {
-                root = Properties.Settings.Default.Root;
+                root = Settings.Default.Root;
                 listBoxManga.Items.AddRange(Populate().ToArray());
             }
-
         }
 
         private void Settings_FormClosed(object sender, FormClosedEventArgs e)
@@ -294,8 +281,8 @@ namespace scan_manga
         {
             if (comboBoxManga.SelectedIndex != -1)
             {
-                clear();
-                manga = mangaList.Find(e => e.Nom == comboBoxManga.Text);
+                Clear();
+                manga = mangaList.Where(e => e.Nom == comboBoxManga.Text).First();
                 chapters.Clear();
                 if (!backgroundWorkerScan.IsBusy)
                 {
@@ -306,7 +293,7 @@ namespace scan_manga
             }
         }
 
-        private void clear()
+        private void Clear()
         {
             foreach (string chapter in Directory.GetDirectories(tempdir))
             {
