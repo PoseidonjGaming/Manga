@@ -15,16 +15,17 @@ namespace scan_manga
         private List<Manga> mangaList = new();
         private readonly string root;
         private Manga manga;
-        private readonly string tempdir;
-        private readonly List<Chapter> chapters = new();
-        private int numChapitre = 1;
-        private string chapitre;
+        private readonly List<Chapter> chapters;
+
+
+
 
         public FormMain()
         {
             InitializeComponent();
-            tempdir = MangaUtility.GetPath(Directory.GetCurrentDirectory(), "Temp");
+            
             labelChpater.Text = string.Empty;
+            chapters = new();
             if (Settings.Default.Manga is not null)
             {
                 mangaList = Settings.Default.Manga;
@@ -73,118 +74,11 @@ namespace scan_manga
         private void backgroundWorkerScan_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
 
-            string source = manga.Source;
-            bool isChapterExist;
-
-            try
-            {
-                HttpClient client = new();
-                var result = client.GetAsync(source.Replace("[num_chapitre]", "1")).Result;
-                if (result.IsSuccessStatusCode)
-                {
-                    isChapterExist = true;
-                }
-                else
-                {
-                    isChapterExist = false;
-                }
-            }
-            catch
-            {
-                isChapterExist = false;
-            }
-
-            if (isChapterExist)
-            {
-
-                do
-                {
-                    string pathChapter = MangaUtility.GetPath(root, "Manga", manga.Nom, manga.Nom + " Chapitre " + numChapitre.ToString());
-                    string pathTempChapter = MangaUtility.GetPath(tempdir, "Manga", manga.Nom, manga.Nom + " Chapitre " + numChapitre.ToString());
-                    string url = source.Replace("[num_chapitre]", numChapitre.ToString());
-
-                    if (!Directory.Exists(pathChapter))
-                    {
-
-                        List<string> listScanTemp = new();
-                        try
-                        {
-                            HttpClient client = new();
-                            var result = client.GetAsync(source.Replace("[num_chapitre]", numChapitre.ToString())).Result;
-                            if (result.IsSuccessStatusCode)
-                            {
-                                isChapterExist = true;
-                                try
-                                {
-                                    HtmlWeb web = new();
-
-                                    var doc = web.Load(url);
-                                    var nodes = doc.DocumentNode.Descendants("img");
-
-                                    foreach (HtmlNode node in nodes)
-                                    {
-
-                                        if (node.Attributes["data-src"] != null)
-                                        {
-                                            listScanTemp.Add(node.Attributes["data-src"].Value);
-                                        }
-                                        else
-                                        {
-                                            listScanTemp.Add(node.Attributes["src"].Value);
-                                        }
-                                    }
-                                    chapters.Add(new Chapter(manga.Nom + " Chapitre " + numChapitre.ToString(),
-                                        listScanTemp));
-                                    isChapterExist = true;
-
-
-                                }
-                                catch
-                                {
-
-                                    isChapterExist = false;
-
-
-                                }
-                            }
-                            else
-                            {
-                                isChapterExist = false;
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-
-                        }
-
-                    }
-
-                    backgroundWorkerScan.ReportProgress(chapters.Count);
-
-                    Thread.Sleep(100);
-                    numChapitre++;
-                } while (isChapterExist);
-                numChapitre = 0;
-            }
-
-
-
+            
         }
 
         private void backgroundWorkerScan_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
         {
-            if (Directory.Exists(MangaUtility.GetPath(root, "Manga", comboBoxManga.Text, comboBoxManga.Text + " Chapitre " + numChapitre)))
-            {
-                labelChpater.Text = "Le Chapitre " + numChapitre.ToString() + " de " + manga.Nom + " est déjà possédé";
-            }
-            else if (e.ProgressPercentage > 0)
-            {
-                if (chapters.Last().NameChapter == manga.Nom + " Chapitre " + numChapitre.ToString())
-                {
-                    labelChpater.Text = "Le Chapitre " + numChapitre.ToString() + " de " + manga.Nom + " a été trouvé";
-                }
-
-            }
 
         }
 
@@ -193,13 +87,9 @@ namespace scan_manga
             if (chapters.Count != 0)
             {
                 numChapitre = 0;
-                FormDownload formDownload = new()
-                {
-                    chapters = chapters,
-                    nameManga = manga.Nom
-                };
+                
 
-                formDownload.ShowDialog(this);
+                
                 chapters.Clear();
             }
             else
@@ -240,34 +130,7 @@ namespace scan_manga
             }
         }
 
-        private string[] sort(string[] listIn, string toAdd, string split)
-        {
-            List<float> numChapter = new List<float>();
-            List<string> listOut = new List<string>();
-            foreach (string chapter in listIn)
-            {
-                string strNum = Path.GetFileNameWithoutExtension(chapter).Split(split)[^1];
-                if (chapter.Contains('.'))
-                {
-                    strNum = strNum.Replace('.', ',');
-                }
-
-                numChapter.Add(float.Parse(strNum));
-            }
-
-
-            numChapter.Sort();
-            foreach (float num in numChapter)
-            {
-                string strNum = num.ToString();
-                if (strNum.Contains(','))
-                {
-                    strNum = strNum.Replace(',', '.');
-                }
-                listOut.Add(toAdd + strNum);
-            }
-            return listOut.ToArray();
-        }
+        
 
         private void comboBoxPage_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -291,6 +154,12 @@ namespace scan_manga
                     numChapitre = 1;
                     chapters.Clear();
                     backgroundWorkerScan.RunWorkerAsync();
+                    FormDownload formDownload = new()
+                    {
+                        chapters = chapters,
+                        nameManga = manga.Nom
+                    };
+                    formDownload.ShowDialog(this);
                 }
             }
         }
