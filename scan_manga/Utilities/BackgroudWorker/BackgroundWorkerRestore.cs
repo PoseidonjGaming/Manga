@@ -24,6 +24,7 @@ namespace scan_manga.Utilities.BackgroudWorker
             Worker.ProgressChanged += backgroundWorker_ProgressChanged;
             utility = new();
             root = Settings.Default.Root;
+            NameWindow = "Restore";
         }
 
         public override void Load()

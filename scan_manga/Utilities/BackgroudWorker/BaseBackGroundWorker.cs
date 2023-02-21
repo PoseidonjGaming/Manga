@@ -18,7 +18,8 @@ namespace scan_manga.Utilities.BackgroudWorker
         public ProgressBar ProgressBarChapter { get; set; }
         public ProgressBar ProgressBarPage { get; set; }
 
-        protected readonly MangaUtility utility;
+        public string NameWindow { get; set; }
+
 
         public BaseBackGroundWorker()
         {
@@ -28,7 +29,7 @@ namespace scan_manga.Utilities.BackgroudWorker
             Worker.WorkerReportsProgress = true;
             Worker.WorkerSupportsCancellation = true;
 
-            utility = new();
+           
         }
 
         protected virtual void backgroundWorker_ProgressChanged(object? sender, ProgressChangedEventArgs e)

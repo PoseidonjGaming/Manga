@@ -13,7 +13,7 @@ namespace scan_manga.Utilities.BackgroudWorker
     {
         public BackGroundDownload():base()
         {
-            
+            NameWindow = "Download";
         }
 
         public override void Load()
@@ -106,6 +106,7 @@ namespace scan_manga.Utilities.BackgroudWorker
 
             labelChapter.Text = "Chapitre: " + ProgressBarChapter.Value + "/" + ProgressBarChapter.Maximum + " téléchargées";
             labelPage.Text = "Page: " + ProgressBarPage.Value + "/" + ProgressBarPage.Maximum + " téléchargés";
+            labelManga.Text = "Manga: 1/1";
         }
     }
 }

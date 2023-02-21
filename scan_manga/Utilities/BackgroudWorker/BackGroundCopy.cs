@@ -11,7 +11,7 @@ namespace scan_manga.Utilities.BackgroudWorker
     {
         public BackGroundCopy() : base()
         {
-
+            NameWindow = "Copy";
         }
         public override void Load()
         {

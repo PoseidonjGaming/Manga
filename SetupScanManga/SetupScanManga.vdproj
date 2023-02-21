@@ -15,6 +15,12 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_2A01D958D811402684EF2592D96FC8F5"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_689A193C1C5F419D87A1DAA66ABA793E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -124,6 +130,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2A01D958D811402684EF2592D96FC8F5"
+            {
+            "SourcePath" = "8:..\\scan_manga\\bin\\Release\\net6.0-windows\\scan_manga.exe"
+            "TargetName" = "8:scan_manga.exe"
+            "Tag" = "8:"
+            "Folder" = "8:_3090196F04C74C59823AEB11505AE719"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_689A193C1C5F419D87A1DAA66ABA793E"
             {
             "SourcePath" = "8:..\\..\\livre.ico"
@@ -212,7 +238,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:SetupScanManga"
         "ProductCode" = "8:{A8879283-5F95-4748-A6AA-49AEEC9EB087}"
-        "PackageCode" = "8:{B37480F5-252F-49E5-AECC-3C892117E179}"
+        "PackageCode" = "8:{64746603-0CFC-4677-B414-E65458E2BCA2}"
         "UpgradeCode" = "8:{66B12EC2-4787-4360-A7CB-07D2FB769993}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -332,20 +358,6 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_743C4C28B3BA4739AA5FD4507ADC8774"
-            {
-            "Name" = "8:Scan Manga.exe"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:"
-            "Folder" = "8:_E8EF89B0F10F4317BEB47434CB14D1A8"
-            "WorkingFolder" = "8:_3090196F04C74C59823AEB11505AE719"
-            "Icon" = "8:_689A193C1C5F419D87A1DAA66ABA793E"
-            "Feature" = "8:"
-            }
         }
         "UserInterface"
         {
@@ -747,7 +759,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_6BC3B3FBD630432489E32AE84E0E9F22"
             {
-            "SourcePath" = "8:"
+            "SourcePath" = "8:..\\scan_manga\\obj\\Release\\net6.0-windows\\scan_manga.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_3090196F04C74C59823AEB11505AE719"

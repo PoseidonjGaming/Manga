@@ -1,4 +1,5 @@
 using HtmlAgilityPack;
+using Newtonsoft.Json;
 using scan_manga.Models;
 using scan_manga.Properties;
 using scan_manga.Utilities;
@@ -22,7 +23,7 @@ namespace scan_manga
         public FormMain()
         {
             InitializeComponent();
-            tempdir = MangaUtility.GetPath(Directory.GetCurrentDirectory(),"Temp");
+            tempdir = MangaUtility.GetPath(Directory.GetCurrentDirectory(), "Temp");
             labelChpater.Text = string.Empty;
             if (Settings.Default.Manga is not null)
             {
@@ -64,7 +65,8 @@ namespace scan_manga
             if (listBoxManga.SelectedIndex != -1)
             {
                 listBoxChapter.Items.Clear();
-                listBoxChapter.Items.AddRange(sort(Directory.GetDirectories(MangaUtility.GetPath(root, "Manga", listBoxManga.Text)), listBoxManga.Text + " Chapitre ", " "));
+                listBoxChapter.Items.AddRange(MangaUtility.Sort(Directory.GetDirectories(MangaUtility.GetPath(root, "Manga", listBoxManga.Text)).ToList(),
+                    listBoxManga.Text + " Chapitre ", listBoxManga.Text + " Chapitre ", false));
             }
         }
 
@@ -360,6 +362,22 @@ namespace scan_manga
             }
             Process.Start("powershell", "E:\\Manga Scan\\TestExtract.ps1");
 
+        }
+
+        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog fileDialog = new()
+            {
+                InitialDirectory = Directory.GetCurrentDirectory(),
+                FileName = "exportManga.json",
+                Filter = "File JSON|*json",
+                Title = "Exportation des Mangas"
+            };
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+            {
+                File.WriteAllText(fileDialog.FileName,
+                    JsonConvert.SerializeObject(Settings.Default.Manga, Formatting.Indented));
+            }
         }
     }
 }

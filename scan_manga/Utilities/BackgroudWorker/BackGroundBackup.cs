@@ -24,6 +24,7 @@ namespace scan_manga.Utilities.BackgroudWorker
         {
             utility = new();
             root = Settings.Default.Root;
+            NameWindow = "Backup";
         }
 
         public override void Load()

@@ -17,6 +17,7 @@ namespace scan_manga.Utilities.BackgroudWorker
         public BackGroundZipper(string manga) : base()
         {
             Manga = manga;
+            NameWindow = "Uploads";
         }
 
         protected override void backgroundWorker_DoWork(object? sender, DoWorkEventArgs e)

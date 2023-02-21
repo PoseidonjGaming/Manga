@@ -30,6 +30,8 @@ namespace scan_manga
             background.labelManga = labelManga;
             background.labelChapter = labelChapter;
 
+            Text = background.NameWindow;
+
             background.Worker.RunWorkerCompleted += backgroundWorker_RunCompleted;
         }
         private void FormArchive_Load(object sender, EventArgs e)
