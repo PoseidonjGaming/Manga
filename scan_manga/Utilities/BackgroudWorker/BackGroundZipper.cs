@@ -52,7 +52,7 @@ namespace scan_manga.Utilities.BackgroudWorker
                 SelectedPath = folderBrowserDialog.SelectedPath;
                 ProgressBarManga.Maximum = 1;
                 ProgressBarManga.Value = 1;
-                backgroundWorker_RunWorker();
+                base.Load();
             }
         }
     }

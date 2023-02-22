@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Bson;
 using scan_manga.Models;
+using scan_manga.Properties;
 using scan_manga.Utilities.BackgroudWorker;
 using System;
 using System.Collections.Generic;
@@ -92,12 +93,16 @@ namespace scan_manga.Utilities
                 CreateDirectory(root, "Manga");
                 CreateDirectory(root, "Temp");
                 CreateDirectory(root, "Backup");
+                foreach(Manga manga in Settings.Default.Manga)
+                {
+                    CreateDirectory(root, "Manga", manga.Nom);
+                }
             }
         }
 
-        public static string? GetPage(string[] directory, string page)
+        public static string? GetPage(string page,params string[] directory)
         {
-            return directory.Where(e => Path.GetFileNameWithoutExtension(e).Replace('_', ' ') == page).FirstOrDefault();
+            return Directory.GetFiles(GetPath(directory)).Where(e => Path.GetFileNameWithoutExtension(e).Replace('_', ' ') == page).FirstOrDefault();
         }
 
         public static string[] GetPages(params string[] part)
@@ -128,7 +133,7 @@ namespace scan_manga.Utilities
         public static void Progress(BaseBackGroundWorker bg)
         {
             FormProgress form = new(bg);
-            form.Show();
+            form.ShowDialog();
         }
     }
 }

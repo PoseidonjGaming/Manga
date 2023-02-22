@@ -32,7 +32,6 @@
             this.listBoxManga = new System.Windows.Forms.ListBox();
             this.listBoxChapter = new System.Windows.Forms.ListBox();
             this.comboBoxManga = new System.Windows.Forms.ComboBox();
-            this.backgroundWorkerScan = new System.ComponentModel.BackgroundWorker();
             this.labelChpater = new System.Windows.Forms.Label();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,6 +40,9 @@
             this.archiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restaurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importExportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.téléchargementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scannerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.charcherUnChapitreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,9 +50,6 @@
             this.extractToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBoxPage = new System.Windows.Forms.PictureBox();
             this.comboBoxPage = new System.Windows.Forms.ComboBox();
-            this.importExportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPage)).BeginInit();
             this.SuspendLayout();
@@ -89,13 +88,6 @@
             this.comboBoxManga.Sorted = true;
             this.comboBoxManga.TabIndex = 4;
             // 
-            // backgroundWorkerScan
-            // 
-            this.backgroundWorkerScan.WorkerReportsProgress = true;
-            this.backgroundWorkerScan.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerScan_DoWork);
-            this.backgroundWorkerScan.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorkerScan_ProgressChanged);
-            this.backgroundWorkerScan.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerScan_RunWorkerCompleted);
-            // 
             // labelChpater
             // 
             this.labelChpater.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -133,14 +125,14 @@
             // optionToolStripMenuItem
             // 
             this.optionToolStripMenuItem.Name = "optionToolStripMenuItem";
-            this.optionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.optionToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.optionToolStripMenuItem.Text = "Option";
             this.optionToolStripMenuItem.Click += new System.EventHandler(this.optionToolStripMenuItem_Click);
             // 
             // manageToolStripMenuItem
             // 
             this.manageToolStripMenuItem.Name = "manageToolStripMenuItem";
-            this.manageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.manageToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.manageToolStripMenuItem.Text = "Manage";
             this.manageToolStripMenuItem.Click += new System.EventHandler(this.manageToolStripMenuItem_Click);
             // 
@@ -151,22 +143,44 @@
             this.restaurationToolStripMenuItem,
             this.importExportToolStripMenuItem});
             this.archiveToolStripMenuItem.Name = "archiveToolStripMenuItem";
-            this.archiveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.archiveToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.archiveToolStripMenuItem.Text = "Archive";
             // 
             // backupToolStripMenuItem
             // 
             this.backupToolStripMenuItem.Name = "backupToolStripMenuItem";
-            this.backupToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.backupToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.backupToolStripMenuItem.Text = "Backup";
             this.backupToolStripMenuItem.Click += new System.EventHandler(this.backupToolStripMenuItem_Click);
             // 
             // restaurationToolStripMenuItem
             // 
             this.restaurationToolStripMenuItem.Name = "restaurationToolStripMenuItem";
-            this.restaurationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.restaurationToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.restaurationToolStripMenuItem.Text = "Restauration";
             this.restaurationToolStripMenuItem.Click += new System.EventHandler(this.restaurationToolStripMenuItem_Click);
+            // 
+            // importExportToolStripMenuItem
+            // 
+            this.importExportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportToolStripMenuItem,
+            this.importToolStripMenuItem});
+            this.importExportToolStripMenuItem.Name = "importExportToolStripMenuItem";
+            this.importExportToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.importExportToolStripMenuItem.Text = "Import/Export";
+            // 
+            // exportToolStripMenuItem
+            // 
+            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.exportToolStripMenuItem.Text = "Export";
+            this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
+            // 
+            // importToolStripMenuItem
+            // 
+            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.importToolStripMenuItem.Text = "Import";
             // 
             // téléchargementToolStripMenuItem
             // 
@@ -230,28 +244,6 @@
             this.comboBoxPage.TabIndex = 10;
             this.comboBoxPage.SelectedIndexChanged += new System.EventHandler(this.comboBoxPage_SelectedIndexChanged);
             // 
-            // importExportToolStripMenuItem
-            // 
-            this.importExportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exportToolStripMenuItem,
-            this.importToolStripMenuItem});
-            this.importExportToolStripMenuItem.Name = "importExportToolStripMenuItem";
-            this.importExportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.importExportToolStripMenuItem.Text = "Import/Export";
-            // 
-            // exportToolStripMenuItem
-            // 
-            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.exportToolStripMenuItem.Text = "Export";
-            this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
-            // 
-            // importToolStripMenuItem
-            // 
-            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.importToolStripMenuItem.Text = "Import";
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -283,7 +275,6 @@
         private ListBox listBoxManga;
         private ListBox listBoxChapter;
         private ComboBox comboBoxManga;
-        private System.ComponentModel.BackgroundWorker backgroundWorkerScan;
         private Label labelChpater;
         private MenuStrip menuStrip;
         private ToolStripMenuItem menuToolStripMenuItem;

@@ -1,4 +1,6 @@
-﻿namespace scan_manga.Utilities.BackgroudWorker
+﻿using scan_manga.Models;
+
+namespace scan_manga.Utilities.BackgroudWorker
 {
     public class BackGroundCore: BaseBackGroundWorker
     {

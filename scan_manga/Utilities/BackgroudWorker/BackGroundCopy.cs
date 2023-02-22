@@ -1,4 +1,5 @@
-﻿using System;
+﻿using scan_manga.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace scan_manga.Utilities.BackgroudWorker
                 labelChapter.Text = "Chapitre: " + ProgressBarChapter.Value + "/" + ProgressBarChapter.Maximum;
                 labelPage.Text = "Page: " + ProgressBarPage.Value + "/" + ProgressBarPage.Maximum;
 
-                Worker.RunWorkerAsync();
+                base.Load();
 
             }
         }

@@ -1,4 +1,5 @@
 ﻿using HtmlAgilityPack;
+using scan_manga.Models;
 using scan_manga.Utilities;
 using scan_manga.Utilities.BackgroudWorker;
 using System.ComponentModel;
@@ -18,13 +19,15 @@ namespace scan_manga
 
         private readonly MangaUtility utility;
 
-        public FormDownload()
+        public FormDownload(List<Chapter> list, string name)
         {
             InitializeComponent();
             utility = new();
             BackGroundDownload = new();
             BackGroundCopy = new();
             chaptersToDownload = new();
+            chapters = list;
+            nameManga = name;
 
         }
 
@@ -81,6 +84,7 @@ namespace scan_manga
                 BackGroundCopy.chaptersToDownload = chaptersToDownload;
                 FormProgress formProgressCopy = new(BackGroundCopy);
                 formProgressCopy.ShowDialog();
+                Close();
             }
 
 
@@ -127,10 +131,7 @@ namespace scan_manga
 
 
 
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void Select(ListBox listBox, bool selectType)
         {

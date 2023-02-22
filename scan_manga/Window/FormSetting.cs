@@ -1,23 +1,12 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using scan_manga.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Net.WebRequestMethods;
+﻿using scan_manga.Models;
+using scan_manga.Utilities;
 
 namespace scan_manga
 {
     public partial class FormSetting : Form
     {
         private string root;
-        private List<Manga> mangas = new List<Manga>();
+        private readonly List<Manga> mangas = new();
         public FormSetting()
         {
             InitializeComponent();
@@ -50,21 +39,19 @@ namespace scan_manga
             if(textBoxCh1.Text != string.Empty && textBoxCh2.Text != string.Empty
                 && textBoxNameManga.Text != string.Empty)
             {
-                Manga manga = new Manga();
-                manga.Source = textBoxCh2.Text.Replace(FindDiff(), "[num_chapitre]");
-                manga.Nom = textBoxNameManga.Text;
-                
-                manga.ToRemove = textBoxToRemove.Text;
-               
+                Manga manga = new()
+                {
+                    Source = textBoxCh2.Text.Replace(FindDiff(), "[num_chapitre]"),
+                    Nom = textBoxNameManga.Text,
+                    ToRemove = textBoxToRemove.Text
+                };
+
                 mangas.Add(manga);
                 
                 
                 Save();
                 PopulateManga();
-                if(!Directory.Exists(root + "\\Manga\\" + manga.Nom))
-                {
-                    Directory.CreateDirectory(root + "\\Manga\\" + manga.Nom);
-                }
+                MangaUtility.StartPack(root);
                 Clear();
             }
         }
@@ -86,10 +73,17 @@ namespace scan_manga
             if (listBoxManga.SelectedIndex != -1)
             {
                 Manga manga = mangas[listBoxManga.SelectedIndex];
-                textBoxCh1.Text = manga.Source.Replace("[num_chapitre]", "1");
-                textBoxCh2.Text = manga.Source.Replace("[num_chapitre]", "2");
+                if (manga.Source is not null)
+                {
+                    textBoxCh1.Text = manga.Source.Replace("[num_chapitre]", "1");
+                    textBoxCh2.Text = manga.Source.Replace("[num_chapitre]", "2");
+                }
                 textBoxNameManga.Text = manga.Nom;
-                textBoxToRemove.Text = manga.ToRemove;
+                if(manga.ToRemove is not null)
+                {
+                    textBoxToRemove.Text = manga.ToRemove;
+                }
+                
 
             }
             

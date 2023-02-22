@@ -44,18 +44,16 @@ namespace scan_manga.Utilities.BackgroudWorker
 
         public virtual void Load()
         {
-
-        }
-
-        public void backgroundWorker_RunWorker()
-        {
             Worker.RunWorkerAsync();
         }
+
+        
 
         public void Cancel()
         {
             Worker.CancelAsync();
         }
 
+        
     }
 }

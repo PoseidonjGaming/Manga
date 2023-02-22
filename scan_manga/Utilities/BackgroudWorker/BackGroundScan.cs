@@ -11,17 +11,30 @@ namespace scan_manga.Utilities.BackgroudWorker
 {
     public class BackGroundScan: BaseBackGroundWorker
     {
-        private int numChapitre = 1;
+        private int numChapitre;
         private string chapitre;
         private readonly Manga manga;
         private readonly string root; 
         private readonly string tempdir;
         private readonly List<Chapter> chapters;
 
-        public BackGroundScan():base()
+        public BackGroundScan(string tempDir, string root, Manga manga):base()
         {
             NameWindow = "Scan";
-            tempdir = MangaUtility.GetPath(Directory.GetCurrentDirectory(), "Temp");
+            tempdir = tempDir;
+            this.root = root;
+            this.manga = manga;
+            chapters = new();
+            numChapitre = 1;
+        }
+
+        public override void Load()
+        {
+            Clear();
+            ProgressBarChapter.Value = ProgressBarChapter.Maximum;
+            ProgressBarManga.Value = ProgressBarManga.Maximum;
+            ProgressBarPage.Value = ProgressBarPage.Maximum;
+            base.Load();
         }
 
         protected override void backgroundWorker_DoWork(object? sender, DoWorkEventArgs e)
@@ -133,6 +146,19 @@ namespace scan_manga.Utilities.BackgroudWorker
                     labelChapter.Text = "Le Chapitre " + numChapitre.ToString() + " de " + manga.Nom + " a été trouvé";
                 }
             }
+        }
+
+        private void Clear()
+        {
+            foreach (string chapter in Directory.GetDirectories(tempdir))
+            {
+                Directory.Delete(chapter, true);
+            }
+        }
+
+        public List<Chapter> getChapters()
+        {
+            return chapters;
         }
     }
 }

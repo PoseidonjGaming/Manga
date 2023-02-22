@@ -38,7 +38,7 @@ namespace scan_manga
         {
             try
             {
-                HttpClient client = new HttpClient();
+                HttpClient client = new();
                 var result = client.GetAsync(textBoxUrl.Text).Result;
                 if (result.IsSuccessStatusCode)
                 {
@@ -48,7 +48,7 @@ namespace scan_manga
                         List<string> listScanTemp = new List<string>();
                         try
                         {
-                            HtmlWeb web = new HtmlWeb();
+                            HtmlWeb web = new();
 
                             var doc = web.Load(textBoxUrl.Text);
                             var nodes = doc.DocumentNode.Descendants("img");
@@ -62,7 +62,6 @@ namespace scan_manga
                                 }
                                 else
                                 {
-                                    MessageBox.Show(node.Attributes["src"].Value);
                                     listScanTemp.Add(node.Attributes["src"].Value);
                                 }
                             }
@@ -98,11 +97,7 @@ namespace scan_manga
         {
             if (chapter.Count != 0)
             {
-                FormDownload formDownload = new()
-                {
-                    chapters = chapter,
-                    nameManga = comboBoxManga.Text
-                };
+                FormDownload formDownload = new(chapter, comboBoxManga.Text);
                 formDownload.ShowDialog(this.Parent);
             }
 

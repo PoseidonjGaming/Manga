@@ -17,9 +17,11 @@ namespace scan_manga.Window
 {
     public partial class FormManage : Form
     {
+        private List<Manga> tempManga;
         public FormManage()
         {
             InitializeComponent();
+            tempManga = new();
         }
 
         private void FormManage_Load(object sender, EventArgs e)
@@ -27,11 +29,13 @@ namespace scan_manga.Window
             foreach (Manga manga in Settings.Default.Manga)
             {
                 cmbManga.Items.Add(manga.Nom);
+                cmbAdd.Items.Add(manga.Nom);
             }
 
             if (cmbManga.Items.Count > 0)
             {
                 cmbManga.SelectedIndex = 0;
+
             }
         }
 
@@ -48,7 +52,6 @@ namespace scan_manga.Window
                 {
                     cmbChapter.SelectedIndex = 0;
                 }
-                txtBoxTempManga.Text = cmbManga.Text;
             }
         }
 
@@ -56,7 +59,7 @@ namespace scan_manga.Window
         {
             if (lstBoxPage.SelectedIndex != -1)
             {
-                picturePage.ImageLocation = MangaUtility.GetPage(Directory.GetFiles(MangaUtility.GetPath(Settings.Default.Root, "Manga", cmbManga.Text, cmbChapter.Text)), lstBoxPage.Text);
+                picturePage.ImageLocation = MangaUtility.GetPage(lstBoxPage.Text, Settings.Default.Root, "Manga", cmbManga.Text, cmbChapter.Text);
             }
         }
 
@@ -69,13 +72,74 @@ namespace scan_manga.Window
                 {
                     lstBoxPage.Items.Add(page);
                 }
-                txtBoxTempChapter.Text = cmbChapter.Text;
             }
+        }
+
+        private void cmbTempManga_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbTempManga.SelectedIndex != -1)
+            {
+                Manga manga = MangaUtility.GetManga(cmbTempManga.Text, tempManga);
+                foreach(Chapter chapter in manga.Chapters)
+                {
+                    cmbTempChapter.Items.Add(chapter.NameChapter);
+                }
+            }
+
         }
 
         private void uploadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MangaUtility.Progress(new BackGroundZipper(cmbManga.Text));
         }
+
+        private void rdButtonChapter_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdButtonChapter.Checked)
+            {
+                cmbAdd.Enabled = true;
+                numericUpDown1.Enabled = true;
+                txtBoxValue.Enabled = false;
+            }
+            else
+            {
+                cmbAdd.Enabled = false;
+                numericUpDown1.Enabled = false;
+                txtBoxValue.Enabled = true;
+            }
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            if (rdButtonManga.Checked)
+            {
+                tempManga.Add(new()
+                {
+                    Nom = txtBoxValue.Text,
+                });
+                txtBoxValue.Clear();
+                RefreshManga(cmbAdd);
+                RefreshManga(cmbTempManga);
+            }
+            if (rdButtonChapter.Checked)
+            {
+                Manga manga = MangaUtility.GetManga(cmbAdd.Text, tempManga);
+                manga.Chapters.Add(new()
+                {
+                    NameChapter = cmbAdd.Text + " Chapitre " + numericUpDown1.Value
+                });
+            }
+        }
+
+        private void RefreshManga(ComboBox cmb)
+        {
+            cmb.Items.Clear();
+            foreach (Manga manga in tempManga)
+            {
+                cmb.Items.Add(manga.Nom);
+            }
+        }
+
+
     }
 }

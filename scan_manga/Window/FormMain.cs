@@ -16,6 +16,8 @@ namespace scan_manga
         private readonly string root;
         private Manga manga;
         private readonly List<Chapter> chapters;
+        private int numChapitre;
+        private readonly string tempdir;
 
 
 
@@ -37,6 +39,7 @@ namespace scan_manga
                 root = Settings.Default.Root;
                 listBoxManga.Items.AddRange(Populate().ToArray());
             }
+            tempdir= MangaUtility.GetPath(Directory.GetCurrentDirectory(), "Temp");
         }
 
         private void Settings_FormClosed(object sender, FormClosedEventArgs e)
@@ -71,16 +74,7 @@ namespace scan_manga
             }
         }
 
-        private void backgroundWorkerScan_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
-
-            
-        }
-
-        private void backgroundWorkerScan_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
-        {
-
-        }
+       
 
         private void backgroundWorkerScan_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
@@ -146,36 +140,25 @@ namespace scan_manga
         {
             if (comboBoxManga.SelectedIndex != -1)
             {
-                Clear();
+                
                 manga = mangaList.Where(e => e.Nom == comboBoxManga.Text).First();
                 chapters.Clear();
-                if (!backgroundWorkerScan.IsBusy)
+                BackGroundScan backGroundWorker = new(tempdir, root, manga);
+                if (!backGroundWorker.Worker.IsBusy)
                 {
-                    numChapitre = 1;
-                    chapters.Clear();
-                    backgroundWorkerScan.RunWorkerAsync();
-                    FormDownload formDownload = new()
-                    {
-                        chapters = chapters,
-                        nameManga = manga.Nom
-                    };
+                    MangaUtility.Progress(backGroundWorker);
+
+                    FormDownload formDownload = new(backGroundWorker.getChapters(), manga.Nom);
                     formDownload.ShowDialog(this);
                 }
             }
         }
 
-        private void Clear()
-        {
-            foreach (string chapter in Directory.GetDirectories(tempdir))
-            {
-                Directory.Delete(chapter, true);
-            }
-        }
+        
 
         private void charcherUnChapitreToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormSelectChapter formDownload = new();
-
             formDownload.ShowDialog(this);
         }
 
@@ -210,12 +193,16 @@ namespace scan_manga
 
         private void uploadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Manga manga = mangaList.Where(e => e.Nom == comboBoxManga.Text).First();
-            foreach (string chapter in Directory.GetDirectories(MangaUtility.GetPath(root, "Manga", manga.Nom)))
+            if(comboBoxManga.SelectedIndex!= -1)
             {
-                MangaUtility.CreateDirectory(root, "Temp", manga.Nom);
-                ZipFile.CreateFromDirectory(MangaUtility.GetPath(root, "Manga", manga.Nom, Path.GetFileName(chapter)), MangaUtility.GetPath(root, "Temp", manga.Nom, Path.GetFileName(chapter) + ".zip"));
+                Manga manga = mangaList.Where(e => e.Nom == comboBoxManga.Text).First();
+                foreach (string chapter in Directory.GetDirectories(MangaUtility.GetPath(root, "Manga", manga.Nom)))
+                {
+                    MangaUtility.CreateDirectory(root, "Temp", manga.Nom);
+                    ZipFile.CreateFromDirectory(MangaUtility.GetPath(root, "Manga", manga.Nom, Path.GetFileName(chapter)), MangaUtility.GetPath(root, "Temp", manga.Nom, Path.GetFileName(chapter) + ".zip"));
+                }
             }
+           
         }
 
         private void extractToolStripMenuItem_Click(object sender, EventArgs e)
