@@ -80,7 +80,7 @@ namespace scan_manga.Window
             if (cmbTempManga.SelectedIndex != -1)
             {
                 Manga manga = MangaUtility.GetManga(cmbTempManga.Text, tempManga);
-                foreach(Chapter chapter in manga.Chapters)
+                foreach (Chapter chapter in manga.Chapters)
                 {
                     cmbTempChapter.Items.Add(chapter.NameChapter);
                 }
@@ -95,7 +95,7 @@ namespace scan_manga.Window
 
         private void rdButtonChapter_CheckedChanged(object sender, EventArgs e)
         {
-            if (rdButtonChapter.Checked)
+            if (rdBtnAddChapter.Checked)
             {
                 cmbAdd.Enabled = true;
                 numericUpDown1.Enabled = true;
@@ -111,7 +111,7 @@ namespace scan_manga.Window
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (rdButtonManga.Checked)
+            if (rdBtnAddManga.Checked)
             {
                 tempManga.Add(new()
                 {
@@ -121,7 +121,7 @@ namespace scan_manga.Window
                 RefreshManga(cmbAdd);
                 RefreshManga(cmbTempManga);
             }
-            if (rdButtonChapter.Checked)
+            if (rdBtnAddChapter.Checked)
             {
                 Manga manga = MangaUtility.GetManga(cmbAdd.Text, tempManga);
                 manga.Chapters.Add(new()
@@ -140,6 +140,6 @@ namespace scan_manga.Window
             }
         }
 
-
+       
     }
 }
