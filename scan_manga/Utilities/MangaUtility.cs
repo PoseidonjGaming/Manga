@@ -155,7 +155,7 @@ namespace scan_manga.Utilities
 
         public static string GetNum<T, M>(T item, List<M> list, Func<M, bool> predicate)
         {
-            int index = list.IndexOf(list.Where(predicate).First());
+            int index = list.IndexOf(list.Where(predicate).First())+1;
             if (index < 10)
             {
                 return "0"+index;
@@ -164,7 +164,6 @@ namespace scan_manga.Utilities
             {
                 return index.ToString();
             }
-            
         }
     }
 }

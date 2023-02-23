@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace scan_manga.Utilities.BackgroudWorker
 {
@@ -49,14 +50,8 @@ namespace scan_manga.Utilities.BackgroudWorker
                 tempChapter = MangaUtility.GetChapter(nameChapter, chaptersToDownload);
                 foreach (string page in MangaUtility.Get(chapter))
                 {
-                    File.Copy(page,
-                        MangaUtility.GetPath(root, "Manga", nameManga, nameChapter,
-                        "page_" + MangaUtility.GetNum(page, MangaUtility.GetChapter(nameChapter, chaptersToDownload).ListScan,
-                        p => Path.GetFileNameWithoutExtension(p.Source) == Path.GetFileNameWithoutExtension(page))+1) + Path.GetExtension(page));
-                    File.Copy(page,
-                       MangaUtility.GetPath(pathTemp, nameManga, nameChapter,
-                       "page_" + (MangaUtility.GetNum(page, MangaUtility.GetChapter(nameChapter, chaptersToDownload).ListScan,
-                       p => Path.GetFileNameWithoutExtension(p.Source) == Path.GetFileNameWithoutExtension(page))+1)) + Path.GetExtension(page));
+                    Copy(nameManga, nameChapter, page, "Manga");
+                    Copy(nameManga, nameChapter, page, "Temp");
                     Worker.ReportProgress(0);
                     Thread.Sleep(100);
                 }
@@ -77,6 +72,16 @@ namespace scan_manga.Utilities.BackgroudWorker
 
             labelChapter.Text = "Chapitre: " + ProgressBarChapter.Value + "/" + ProgressBarChapter.Maximum + " copiées";
             labelPage.Text = "Page: " + ProgressBarPage.Value + "/" + ProgressBarPage.Maximum + " copiés";
+        }
+
+        private void Copy(string nameManga,string nameChapter, string page, string dir)
+        {
+            File.Copy(page,
+            MangaUtility.GetPath(root, dir, nameManga, nameChapter,
+            "page_" + MangaUtility.GetNum(page, 
+            MangaUtility.GetChapter(nameChapter, chaptersToDownload).ListScan,
+            p => Path.GetFileNameWithoutExtension(p.Source) == Path.GetFileNameWithoutExtension(page)))
+            + Path.GetExtension(page));
         }
     }
 }
