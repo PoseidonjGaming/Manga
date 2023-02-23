@@ -49,7 +49,10 @@ namespace scan_manga.Utilities.BackgroudWorker
                 tempChapter =  MangaUtility.GetChapter(nameChapter, chaptersToDownload);
                 foreach (string page in MangaUtility.Get(chapter))
                 {
-                    File.Copy();
+                    File.Copy(page,
+                        MangaUtility.GetPath(root, "Manga", nameManga, nameChapter, 
+                        "page_"+MangaUtility.GetNum(page, MangaUtility.GetChapter(nameChapter, chaptersToDownload).ListScan, 
+                        p=>Path.GetFileNameWithoutExtension(p.Source)==Path.GetFileNameWithoutExtension(page)))); ;
                     Worker.ReportProgress(0);
                 }
             }

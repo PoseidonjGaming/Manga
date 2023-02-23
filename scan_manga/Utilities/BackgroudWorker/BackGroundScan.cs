@@ -138,7 +138,7 @@ namespace scan_manga.Utilities.BackgroudWorker
 
                     Thread.Sleep(100);
                     numChapitre++;
-                } while (isChapterExist && numChapitre<=3);
+                } while (isChapterExist);
                 numChapitre = 0;
             }
         }

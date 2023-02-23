@@ -13,7 +13,7 @@ namespace scan_manga
     public partial class FormMain : Form
     {
         private List<Manga> mangaList = new();
-        private readonly string root;
+        private string root;
         private Manga manga;
         private readonly List<Chapter> chapters;
         private int numChapitre;
@@ -50,6 +50,7 @@ namespace scan_manga
             listBoxManga.Items.Clear();
             listBoxManga.Items.AddRange(Populate().ToArray());
             MangaUtility.StartPack(Settings.Default.Root);
+            root=Settings.Default.Root;
         }
 
         private List<string> Populate()
@@ -147,7 +148,7 @@ namespace scan_manga
                 if (!backGroundWorker.Worker.IsBusy)
                 {
                     MangaUtility.Progress(backGroundWorker);
-                    if(!backGroundWorker.isCancelled)
+                    if(!backGroundWorker.isCancelled && backGroundWorker.GetChapters().Count!=0)
                     {
                         FormDownload formDownload = new(backGroundWorker.GetChapters(), manga.Nom);
                         formDownload.ShowDialog(this);
