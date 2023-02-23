@@ -41,19 +41,24 @@ namespace scan_manga.Utilities.BackgroudWorker
         {
             foreach (string chapter in MangaUtility.Get(temp))
             {
-                nameChapter=MangaUtility.GetName(chapter);
+                nameChapter = MangaUtility.GetName(chapter);
                 MangaUtility.CreateDirectory(root, "Manga", nameManga,
                     MangaUtility.GetName(chapter));
                 MangaUtility.CreateDirectory(pathTemp, nameManga,
                     MangaUtility.GetName(chapter));
-                tempChapter =  MangaUtility.GetChapter(nameChapter, chaptersToDownload);
+                tempChapter = MangaUtility.GetChapter(nameChapter, chaptersToDownload);
                 foreach (string page in MangaUtility.Get(chapter))
                 {
                     File.Copy(page,
-                        MangaUtility.GetPath(root, "Manga", nameManga, nameChapter, 
-                        "page_"+MangaUtility.GetNum(page, MangaUtility.GetChapter(nameChapter, chaptersToDownload).ListScan, 
-                        p=>Path.GetFileNameWithoutExtension(p.Source)==Path.GetFileNameWithoutExtension(page)))); ;
+                        MangaUtility.GetPath(root, "Manga", nameManga, nameChapter,
+                        "page_" + MangaUtility.GetNum(page, MangaUtility.GetChapter(nameChapter, chaptersToDownload).ListScan,
+                        p => Path.GetFileNameWithoutExtension(p.Source) == Path.GetFileNameWithoutExtension(page))+1) + Path.GetExtension(page));
+                    File.Copy(page,
+                       MangaUtility.GetPath(pathTemp, nameManga, nameChapter,
+                       "page_" + (MangaUtility.GetNum(page, MangaUtility.GetChapter(nameChapter, chaptersToDownload).ListScan,
+                       p => Path.GetFileNameWithoutExtension(p.Source) == Path.GetFileNameWithoutExtension(page))+1)) + Path.GetExtension(page));
                     Worker.ReportProgress(0);
+                    Thread.Sleep(100);
                 }
             }
         }
