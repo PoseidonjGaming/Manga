@@ -10,20 +10,20 @@ namespace scan_manga.Models
         [DataMember]
         public string NameChapter { get; set; } = string.Empty;
         [DataMember]
-        public List<string> ListScan { get; set; } = new();
+        public List<Page> ListScan { get; set; } = new();
         [DataMember]
         public string FirstScan { get; set; } = string.Empty;
 
-        public Chapter(string nameChapter, List<string> listScan)
+        public Chapter(string nameChapter, List<Page> listScan)
         {
             NameChapter = nameChapter;
             ListScan = listScan;
-            FirstScan = listScan[0];
+            FirstScan = listScan[0].Target;
         }
 
         public Chapter()
         {
-            ListScan = new List<string>();
+            ListScan = new();
         }
     }
 }

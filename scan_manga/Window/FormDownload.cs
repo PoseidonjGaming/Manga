@@ -10,21 +10,15 @@ namespace scan_manga
 {
     public partial class FormDownload : Form
     {
-        public List<Chapter> chapters;
+        private List<Chapter> chapters;
         private List<Chapter> chaptersToDownload;
-        private BackGroundDownload BackGroundDownload;
-        private BackGroundCopy BackGroundCopy;
-        public string nameManga;
+        private string nameManga;
 
 
-        private readonly MangaUtility utility;
 
         public FormDownload(List<Chapter> list, string name)
         {
             InitializeComponent();
-            utility = new();
-            BackGroundDownload = new();
-            BackGroundCopy = new();
             chaptersToDownload = new();
             chapters = list;
             nameManga = name;
@@ -74,16 +68,12 @@ namespace scan_manga
 
         private void buttonDownload_Click(object sender, EventArgs e)
         {
-            BackGroundDownload.chaptersToDownload = chaptersToDownload;
-            FormProgress formProgressDownload = new(BackGroundDownload);
-            formProgressDownload.ShowDialog();
-            BackGroundDownload.nameManga = nameManga;
-            if (!BackGroundDownload.isCancelled)
+            BackGroundDownload backGroundDownload = new(nameManga, chaptersToDownload);
+            MangaUtility.Progress(backGroundDownload);
+            
+            if (!backGroundDownload.isCancelled)
             {
-                BackGroundCopy.nameManga = nameManga;
-                BackGroundCopy.chaptersToDownload = chaptersToDownload;
-                FormProgress formProgressCopy = new(BackGroundCopy);
-                formProgressCopy.ShowDialog();
+                MangaUtility.Progress(new BackGroundCopy(nameManga, chaptersToDownload));
                 Close();
             }
 
@@ -126,7 +116,7 @@ namespace scan_manga
 
         private void buttonOpenTemp_Click(object sender, EventArgs e)
         {
-            Process.Start("explorer.exe", BackGroundCopy.temp);
+            Process.Start("explorer.exe");
         }
 
 

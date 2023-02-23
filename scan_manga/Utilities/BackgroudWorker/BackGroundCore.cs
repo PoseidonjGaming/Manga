@@ -1,22 +1,27 @@
 ﻿using scan_manga.Models;
+using scan_manga.Properties;
 
 namespace scan_manga.Utilities.BackgroudWorker
 {
     public class BackGroundCore: BaseBackGroundWorker
     {
-        public List<Chapter> chaptersToDownload;
+        protected List<Chapter> chaptersToDownload;
         protected Chapter tempChapter;
         protected readonly string pathTemp;
         public readonly string temp;
+        public readonly string root;
         public string nameManga;
         protected int maxPage;
         protected string nameChapter;
         protected int oldNbPage;
-        public bool isCancelled;
+        
 
-        public BackGroundCore():base()
+        public BackGroundCore(string name, List<Chapter> chapters):base()
         {
-            pathTemp = MangaUtility.GetPath(Properties.Settings.Default.Root, "Temp");
+            nameManga = name;
+            chaptersToDownload = chapters;
+            root = Settings.Default.Root;
+            pathTemp = MangaUtility.GetPath(root, "Temp");
             temp = MangaUtility.GetPath(Directory.GetCurrentDirectory(), "Temp");
         }
 

@@ -8,15 +8,15 @@ namespace scan_manga.Models
 {
     public class Page
     {
-        public string OldPage { get; set; }
-        public string NewPage { get; set; }
+        public string Source { get; set; }
+        public string Target { get; set; }
 
 
 
-        public Page(string oldPage, string newPage)
+        public Page(string source, string target)
         {
-            OldPage = oldPage;
-            NewPage = newPage;
+            Source = source;
+            Target = target;
         }
 
         public Page()

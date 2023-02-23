@@ -44,7 +44,7 @@ namespace scan_manga.Window
             if (cmbManga.SelectedIndex != -1)
             {
                 cmbChapter.Items.Clear();
-                foreach (string chapter in MangaUtility.GetChapters(" Chapitre ", cmbManga.Text + " Chapitre ", Settings.Default.Root, "Manga", cmbManga.Text))
+                foreach (string chapter in MangaUtility.GetSortedChapters(" Chapitre ", cmbManga.Text + " Chapitre ", Settings.Default.Root, "Manga", cmbManga.Text))
                 {
                     cmbChapter.Items.Add(Path.GetFileName(chapter));
                 }

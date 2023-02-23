@@ -1,4 +1,5 @@
 ﻿using scan_manga.Models;
+using scan_manga.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +11,7 @@ namespace scan_manga.Utilities.BackgroudWorker
 {
     public class BackGroundCopy : BackGroundCore
     {
-        public BackGroundCopy() : base()
+        public BackGroundCopy(string name, List<Chapter> chapters) : base(name, chapters)
         {
             NameWindow = "Copy";
         }
@@ -36,46 +37,25 @@ namespace scan_manga.Utilities.BackgroudWorker
             }
         }
 
-        protected override void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        protected override void backgroundWorker_DoWork(object? sender, DoWorkEventArgs e)
         {
-            
-            MangaUtility.CreateDirectory(pathTemp, nameManga);
-            oldNbPage = Directory.GetDirectories(pathTemp + "\\" + nameManga).Length;
-            foreach (string strChapter in Directory.GetDirectories(temp))
+            foreach (string chapter in MangaUtility.Get(temp))
             {
-                nameChapter = Path.GetFileName(strChapter);
-                MangaUtility.CreateDirectory(Properties.Settings.Default.Root, "Temp", nameManga, nameChapter);
-                MangaUtility.CreateDirectory(Properties.Settings.Default.Root, "Manga", nameManga, nameChapter);
-                Chapter chapter = chaptersToDownload.Where(e => e.NameChapter == nameChapter).First();
-                foreach (string page in Directory.GetFiles(strChapter))
+                nameChapter=MangaUtility.GetName(chapter);
+                MangaUtility.CreateDirectory(root, "Manga", nameManga,
+                    MangaUtility.GetName(chapter));
+                MangaUtility.CreateDirectory(pathTemp, nameManga,
+                    MangaUtility.GetName(chapter));
+                tempChapter =  MangaUtility.GetChapter(nameChapter, chaptersToDownload);
+                foreach (string page in MangaUtility.Get(chapter))
                 {
-                    int numPage = chapter.ListScan.IndexOf(chapter.ListScan.Where(e => Path.GetFileNameWithoutExtension(e) == Path.GetFileNameWithoutExtension(page)).First()) + 1;
-                    string dirManga = MangaUtility.GetPath(Properties.Settings.Default.Root, "Manga", nameManga, Path.GetFileName(strChapter));
-                    if (numPage < 10)
-                    {
-                        File.Copy(page, Properties.Settings.Default.Root + "\\Manga\\" + nameManga + "\\" + Path.GetFileName(strChapter) + "\\page_0" + numPage + Path.GetExtension(page), true);
-                        File.Copy(page, Properties.Settings.Default.Root + "\\Temp\\" + nameManga + "\\" + Path.GetFileName(strChapter) + "\\page_0" + numPage + Path.GetExtension(page), true);
-                    }
-                    else
-                    {
-                        File.Copy(page, Properties.Settings.Default.Root + "\\Manga\\" + nameManga + "\\" + Path.GetFileName(strChapter) + "\\page_" + numPage + Path.GetExtension(page), true);
-                        File.Copy(page, Properties.Settings.Default.Root + "\\Temp\\" + nameManga + "\\" + Path.GetFileName(strChapter) + "\\page_" + numPage + Path.GetExtension(page), true);
-                    }
-                    if (Worker.CancellationPending)
-                    {
-                        Worker.Dispose();
-                        e.Cancel = true;
-                        isCancelled = true;
-                        break;
-                    }
-
+                    //File.Copy();
                     Worker.ReportProgress(0);
-                    Thread.Sleep(500);
                 }
             }
         }
 
-        protected override void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        protected override void backgroundWorker_ProgressChanged(object? sender, ProgressChangedEventArgs e)
         {
             string dirTempManga = MangaUtility.GetPath(pathTemp, nameManga);
             string dirTemp = MangaUtility.GetPath(temp, nameChapter);

@@ -20,6 +20,7 @@ namespace scan_manga.Utilities.BackgroudWorker
 
         public string NameWindow { get; set; }
 
+        public bool isCancelled;
 
         public BaseBackGroundWorker()
         {

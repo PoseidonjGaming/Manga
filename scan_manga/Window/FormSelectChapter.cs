@@ -1,6 +1,8 @@
 ﻿using HtmlAgilityPack;
 using Newtonsoft.Json;
 using scan_manga.Models;
+using scan_manga.Utilities;
+using scan_manga.Utilities.BackgroudWorker;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,7 +19,7 @@ namespace scan_manga
 {
     public partial class FormSelectChapter : Form
     {
-        public List<Chapter> chapter = new List<Chapter>();
+        public List<Chapter> chapter = new();
         public FormSelectChapter()
         {
             InitializeComponent();
@@ -36,58 +38,8 @@ namespace scan_manga
 
         private void buttonDownload_Click(object sender, EventArgs e)
         {
-            try
-            {
-                HttpClient client = new();
-                var result = client.GetAsync(textBoxUrl.Text).Result;
-                if (result.IsSuccessStatusCode)
-                {
-
-                    try
-                    {
-                        List<string> listScanTemp = new List<string>();
-                        try
-                        {
-                            HtmlWeb web = new();
-
-                            var doc = web.Load(textBoxUrl.Text);
-                            var nodes = doc.DocumentNode.Descendants("img");
-
-                            foreach (HtmlNode node in nodes)
-                            {
-
-                                if (node.Attributes["data-src"] != null)
-                                {
-                                    listScanTemp.Add(node.Attributes["data-src"].Value);
-                                }
-                                else
-                                {
-                                    listScanTemp.Add(node.Attributes["src"].Value);
-                                }
-                            }
-
-                            chapter.Add(new Chapter(textBoxNameChapter.Text, listScanTemp));
-                        }
-                        catch
-                        {
-
-                        }
-                    }
-                    catch
-                    {
-
-                    }
-                }
-                else
-                {
-
-                }
-            }
-            catch
-            {
-                MessageBox.Show("L'url spécifié est erroné");
-            }
-            this.Close();
+            //MangaUtility.Progress(new BackGroundScan());
+            Close();
 
         }
 

@@ -12,14 +12,13 @@ namespace scan_manga.Utilities.BackgroudWorker
 {
     public class BackGroundDownload: BackGroundCore
     {
-        public BackGroundDownload():base()
+        public BackGroundDownload(string name, List<Chapter> chapters):base(name, chapters)
         {
             NameWindow = "Download";
         }
 
         public override void Load()
         {
-            MessageBox.Show(chaptersToDownload.Count.ToString());
             if (chaptersToDownload.Count > 0)
             {
                 ProgressBarManga.Maximum = 1;
@@ -47,11 +46,12 @@ namespace scan_manga.Utilities.BackgroudWorker
                 maxPage = chapter.ListScan.Count;
                 
                 MangaUtility.CreateDirectory(temp, chapter.NameChapter);
-                foreach (string page in chapter.ListScan)
+                foreach (Page page in chapter.ListScan)
                 {
                     try
                     {
-                        client.DownloadFile(page, MangaUtility.GetPath(temp, chapter.NameChapter, Path.GetFileName(page)));
+                        client.DownloadFile(page.Source,
+                            MangaUtility.GetTempPath(temp,chapter.NameChapter, page.Source));
                         if (Worker.CancellationPending)
                         {
                             Worker.Dispose();
@@ -69,20 +69,18 @@ namespace scan_manga.Utilities.BackgroudWorker
                     Worker.ReportProgress(0);
                     Thread.Sleep(100);
                 }
-                Worker.ReportProgress(0);
             }
         }
 
-        private List<string> Verif(List<string> listIn)
+        private static List<Page> Verif(List<Page> listIn)
         {
-            List<string> list = new();
-            foreach (string item in listIn)
+            List<Page> list = new();
+            foreach (Page item in listIn)
             {
-
-                if (!Path.GetFileNameWithoutExtension(item).Contains("captcha")
-                    && !Path.GetFileNameWithoutExtension(item).Contains("google")
-                    && !Path.GetFileNameWithoutExtension(item).Contains("go")
-                    && list.Where(e => Path.GetFileNameWithoutExtension(e) == Path.GetFileNameWithoutExtension(item)).FirstOrDefault() == null)
+                if (!Path.GetFileNameWithoutExtension(item.Source).Contains("captcha")
+                    && !Path.GetFileNameWithoutExtension(item.Source).Contains("google")
+                    && !Path.GetFileNameWithoutExtension(item.Source).Contains("go")
+                    && list.Where(e => Path.GetFileNameWithoutExtension(e.Source) == Path.GetFileNameWithoutExtension(item.Source)).FirstOrDefault() == null)
                 {
                     list.Add(item);
                 }
@@ -107,7 +105,7 @@ namespace scan_manga.Utilities.BackgroudWorker
 
             labelChapter.Text = "Chapitre: " + ProgressBarChapter.Value + "/" + ProgressBarChapter.Maximum + " téléchargées";
             labelPage.Text = "Page: " + ProgressBarPage.Value + "/" + ProgressBarPage.Maximum + " téléchargés";
-            labelManga.Text = "Manga: 1/1";
+            labelManga.Text = "Manga: 1/1 téléchargés";
         }
     }
 }

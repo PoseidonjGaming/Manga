@@ -147,9 +147,12 @@ namespace scan_manga
                 if (!backGroundWorker.Worker.IsBusy)
                 {
                     MangaUtility.Progress(backGroundWorker);
-
-                    FormDownload formDownload = new(backGroundWorker.getChapters(), manga.Nom);
-                    formDownload.ShowDialog(this);
+                    if(!backGroundWorker.isCancelled)
+                    {
+                        FormDownload formDownload = new(backGroundWorker.GetChapters(), manga.Nom);
+                        formDownload.ShowDialog(this);
+                    }
+                   
                 }
             }
         }

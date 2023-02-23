@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace scan_manga.Utilities
 {
@@ -120,20 +121,50 @@ namespace scan_manga.Utilities
             return chapterList.Where(e => e.NameChapter == name).First();
         }
 
-        public static string[] GetChapters(string separator, string toAdd, params string[] parts)
+        public static string[] GetSortedChapters(string separator, string toAdd, params string[] parts)
         {
             return Sort(Directory.GetDirectories(GetPath(parts)).ToList(), separator, toAdd, false);
         }
 
-        public static string[] GetChapters(params string[] parts)
+        public static string[] Get(params string[] parts)
         {
+            if (Directory.GetDirectories(GetPath(parts)).Length == 0)
+            {
+                return Directory.GetFiles(GetPath(parts));
+            }
             return Directory.GetDirectories(GetPath(parts));
         }
+
+       
 
         public static void Progress(BaseBackGroundWorker bg)
         {
             FormProgress form = new(bg);
             form.ShowDialog();
+        }
+
+        public static string GetName(string path)
+        {
+            return Path.GetFileName(path);
+        }
+
+        public static string GetTempPath(string path, string nameChapter, string sourcePage)
+        {
+            return GetPath(path, nameChapter, GetName(sourcePage));
+        }
+
+        public static string GetNum<T, M>(T item, List<M> list, Func<M, bool> predicate)
+        {
+            int index = list.IndexOf(list.Where(predicate).First());
+            if (index < 10)
+            {
+                return "0"+index;
+            }
+            else
+            {
+                return index.ToString();
+            }
+            
         }
     }
 }

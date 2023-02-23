@@ -39,8 +39,8 @@ namespace scan_manga.Utilities.BackgroudWorker
             ProgressBarPage.Maximum = e.ProgressPercentage;
             ProgressBarPage.Value = e.ProgressPercentage;
 
-            ProgressBarChapter.Maximum = MangaUtility.GetChapters(Settings.Default.Root, "Manga", Manga).Length;
-            ProgressBarChapter.Value = MangaUtility.GetChapters(SelectedPath, "Manga Scan", Manga).Length;
+            ProgressBarChapter.Maximum = MangaUtility.GetSortedChapters(Settings.Default.Root, "Manga", Manga).Length;
+            ProgressBarChapter.Value = MangaUtility.GetSortedChapters(SelectedPath, "Manga Scan", Manga).Length;
 
         }
 
