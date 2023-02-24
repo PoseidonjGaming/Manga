@@ -22,7 +22,7 @@ namespace scan_manga
         public FormMain()
         {
             InitializeComponent();
-            
+
             labelChpater.Text = string.Empty;
             chapters = new();
             if (Settings.Default.Manga is not null)
@@ -36,7 +36,7 @@ namespace scan_manga
                 root = Settings.Default.Root;
                 listBoxManga.Items.AddRange(Populate().ToArray());
             }
-            tempdir= MangaUtility.GetPath(Directory.GetCurrentDirectory(), "Temp");
+            tempdir = MangaUtility.GetPath(Directory.GetCurrentDirectory(), "Temp");
         }
 
         private void Settings_FormClosed(object sender, FormClosedEventArgs e)
@@ -47,7 +47,7 @@ namespace scan_manga
             listBoxManga.Items.Clear();
             listBoxManga.Items.AddRange(Populate().ToArray());
             MangaUtility.StartPack(Settings.Default.Root);
-            root=Settings.Default.Root;
+            root = Settings.Default.Root;
         }
 
         private List<string> Populate()
@@ -72,16 +72,16 @@ namespace scan_manga
             }
         }
 
-       
+
 
         private void backgroundWorkerScan_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
             if (chapters.Count != 0)
             {
                 numChapitre = 0;
-                
 
-                
+
+
                 chapters.Clear();
             }
             else
@@ -122,7 +122,7 @@ namespace scan_manga
             }
         }
 
-        
+
 
         private void comboBoxPage_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -138,14 +138,14 @@ namespace scan_manga
         {
             if (comboBoxManga.SelectedIndex != -1)
             {
-                
+
                 manga = MangaUtility.GetManga(comboBoxManga.Text, mangaList);
                 chapters.Clear();
-                MangaUtility.Scan(manga, true);
+                MangaUtility.Scan(manga, true, 1);
             }
         }
 
-        
+
 
         private void charcherUnChapitreToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -184,7 +184,7 @@ namespace scan_manga
 
         private void uploadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(comboBoxManga.SelectedIndex!= -1)
+            if (comboBoxManga.SelectedIndex != -1)
             {
                 Manga manga = mangaList.Where(e => e.Nom == comboBoxManga.Text).First();
                 foreach (string chapter in Directory.GetDirectories(MangaUtility.GetPath(root, "Manga", manga.Nom)))
@@ -193,7 +193,7 @@ namespace scan_manga
                     ZipFile.CreateFromDirectory(MangaUtility.GetPath(root, "Manga", manga.Nom, Path.GetFileName(chapter)), MangaUtility.GetPath(root, "Temp", manga.Nom, Path.GetFileName(chapter) + ".zip"));
                 }
             }
-           
+
         }
 
         private void extractToolStripMenuItem_Click(object sender, EventArgs e)

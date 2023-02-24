@@ -140,6 +140,6 @@ namespace scan_manga.Window
             }
         }
 
-       
+
     }
 }

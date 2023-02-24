@@ -60,7 +60,7 @@
             picturePage.Location = new Point(12, 120);
             picturePage.Margin = new Padding(3, 2, 3, 2);
             picturePage.Name = "picturePage";
-            picturePage.Size = new Size(394, 533);
+            picturePage.Size = new Size(394, 541);
             picturePage.SizeMode = PictureBoxSizeMode.StretchImage;
             picturePage.TabIndex = 0;
             picturePage.TabStop = false;
@@ -97,7 +97,7 @@
             // 
             lstBoxThrash.FormattingEnabled = true;
             lstBoxThrash.ItemHeight = 15;
-            lstBoxThrash.Location = new Point(412, 484);
+            lstBoxThrash.Location = new Point(412, 492);
             lstBoxThrash.Name = "lstBoxThrash";
             lstBoxThrash.Size = new Size(660, 169);
             lstBoxThrash.TabIndex = 4;
@@ -125,7 +125,7 @@
             // cmbTempManga
             // 
             cmbTempManga.FormattingEnabled = true;
-            cmbTempManga.Location = new Point(828, 120);
+            cmbTempManga.Location = new Point(828, 124);
             cmbTempManga.Name = "cmbTempManga";
             cmbTempManga.Size = new Size(244, 23);
             cmbTempManga.TabIndex = 8;
@@ -134,7 +134,7 @@
             // cmbTempChapter
             // 
             cmbTempChapter.FormattingEnabled = true;
-            cmbTempChapter.Location = new Point(828, 153);
+            cmbTempChapter.Location = new Point(828, 149);
             cmbTempChapter.Name = "cmbTempChapter";
             cmbTempChapter.Size = new Size(244, 23);
             cmbTempChapter.TabIndex = 9;
@@ -143,7 +143,7 @@
             // 
             lstBoxTempPage.FormattingEnabled = true;
             lstBoxTempPage.ItemHeight = 15;
-            lstBoxTempPage.Location = new Point(828, 182);
+            lstBoxTempPage.Location = new Point(828, 178);
             lstBoxTempPage.Name = "lstBoxTempPage";
             lstBoxTempPage.Size = new Size(244, 304);
             lstBoxTempPage.TabIndex = 10;

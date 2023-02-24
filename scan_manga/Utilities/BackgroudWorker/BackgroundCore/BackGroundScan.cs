@@ -20,7 +20,7 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundCore
         private bool scanAll;
 
         public BackGroundScan(string tempDir, string root, Manga manga,
-            bool scanAll,int num) : base()
+            bool scanAll, int num = 1) : base()
         {
             NameWindow = "Scan";
             tempdir = tempDir;
@@ -86,7 +86,7 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundCore
                         HttpResponseMessage result = client.GetAsync(url).Result;
                         if (result.IsSuccessStatusCode)
                         {
-                            isChapterExist = true;
+
 
                             try
                             {
@@ -117,14 +117,18 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundCore
                                 isChapterExist = false;
                             }
                         }
+                        else
+                        {
+                            isChapterExist = false;
+                        }
                     }
+                    
                     Worker.ReportProgress(chapters.Count);
                     Thread.Sleep(100);
                     numChapitre++;
                 } while (scanAll && isChapterExist);
-                numChapitre = 0;
             }
-           
+
         }
 
         protected override void backgroundWorker_ProgressChanged(object? sender, ProgressChangedEventArgs e)
