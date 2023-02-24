@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
-namespace scan_manga.Utilities.BackgroudWorker
+namespace scan_manga.Utilities.BackgroudWorker.BackgroundCore
 {
     public class BackGroundCopy : BackGroundCore
     {
@@ -74,11 +74,11 @@ namespace scan_manga.Utilities.BackgroudWorker
             labelPage.Text = "Page: " + ProgressBarPage.Value + "/" + ProgressBarPage.Maximum + " copiés";
         }
 
-        private void Copy(string nameManga,string nameChapter, string page, string dir)
+        private void Copy(string nameManga, string nameChapter, string page, string dir)
         {
             File.Copy(page,
             MangaUtility.GetPath(root, dir, nameManga, nameChapter,
-            "page_" + MangaUtility.GetNum(page, 
+            "page_" + MangaUtility.GetNum(page,
             MangaUtility.GetChapter(nameChapter, chaptersToDownload).ListScan,
             p => Path.GetFileNameWithoutExtension(p.Source) == Path.GetFileNameWithoutExtension(page)))
             + Path.GetExtension(page));

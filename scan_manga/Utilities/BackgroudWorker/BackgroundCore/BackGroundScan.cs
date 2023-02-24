@@ -6,26 +6,29 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 
-namespace scan_manga.Utilities.BackgroudWorker
+namespace scan_manga.Utilities.BackgroudWorker.BackgroundCore
 {
     public class BackGroundScan : BaseBackGroundWorker
     {
         private int numChapitre;
-        private string chapitre;
         private readonly Manga manga;
         private readonly string root;
         private readonly string tempdir;
-        private readonly List<Chapter> chapters;
+        private List<Chapter> chapters;
+        private bool scanAll;
 
-        public BackGroundScan(string tempDir, string root, Manga manga) : base()
+        public BackGroundScan(string tempDir, string root, Manga manga,
+            bool scanAll,int num) : base()
         {
             NameWindow = "Scan";
-            this.tempdir = tempDir;
+            tempdir = tempDir;
             this.root = root;
             this.manga = manga;
             chapters = new();
-            numChapitre = 1;
+            numChapitre = num;
+            this.scanAll = scanAll;
         }
 
         public override void Load()
@@ -40,12 +43,12 @@ namespace scan_manga.Utilities.BackgroudWorker
         protected override void backgroundWorker_DoWork(object? sender, DoWorkEventArgs e)
         {
             string source = manga.Source;
-            bool isChapterExist;
-
+            bool isChapterExist = true;
+            HttpClient client = new();
             try
             {
-                HttpClient client = new();
-                var result = client.GetAsync(source.Replace("[num_chapitre]", "1")).Result;
+
+                HttpResponseMessage result = client.GetAsync(ReplaceNum(1)).Result;
                 if (result.IsSuccessStatusCode)
                 {
                     isChapterExist = true;
@@ -55,11 +58,11 @@ namespace scan_manga.Utilities.BackgroudWorker
                     isChapterExist = false;
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                isChapterExist = false;
+                MessageBox.Show(ex.Message);
+                return;
             }
-
             if (isChapterExist)
             {
                 do
@@ -71,76 +74,57 @@ namespace scan_manga.Utilities.BackgroudWorker
                         isCancelled = true;
                         break;
                     }
-                    string pathChapter = MangaUtility.GetPath(root, "Manga", manga.Nom, manga.Nom + " Chapitre " + numChapitre.ToString());
-                    string url = source.Replace("[num_chapitre]", numChapitre.ToString());
+
+                    string pathChapter = MangaUtility.GetPath(root, "Manga", manga.Nom,
+                        manga.Nom + " Chapitre " + numChapitre.ToString());
+                    string url = ReplaceNum(numChapitre);
 
                     if (!Directory.Exists(pathChapter))
                     {
-
-                        List<Page> listScanTemp = new();
-                        try
+                        List<Page> pages = new();
+                        string nameChapter = GetNameChapter(manga.Nom, " Chapitre ", numChapitre.ToString());
+                        HttpResponseMessage result = client.GetAsync(url).Result;
+                        if (result.IsSuccessStatusCode)
                         {
-                            HttpClient client = new();
-                            var result = client.GetAsync(source.Replace("[num_chapitre]", numChapitre.ToString())).Result;
-                            if (result.IsSuccessStatusCode)
+                            isChapterExist = true;
+
+                            try
                             {
-                                isChapterExist = true;
-                                try
+                                HtmlWeb web = new();
+                                HtmlDocument doc = web.Load(url);
+                                IEnumerable<HtmlNode> nodes = doc.DocumentNode.Descendants("img");
+
+                                foreach (HtmlNode node in nodes)
                                 {
-                                    HtmlWeb web = new();
-
-                                    var doc = web.Load(url);
-                                    var nodes = doc.DocumentNode.Descendants("img");
-
-                                    foreach (HtmlNode node in nodes)
+                                    if (node.Attributes["data-src"] != null)
                                     {
-
-                                        if (node.Attributes["data-src"] != null)
-                                        {
-                                            listScanTemp.Add(new(node.Attributes["data-src"].Value,
-                                                MangaUtility.GetPath(tempdir, "Manga", manga.Nom,
-                                                manga.Nom + " Chapitre " + numChapitre)));
-                                        }
-                                        else
-                                        {
-                                            listScanTemp.Add(new(node.Attributes["src"].Value,
-                                                MangaUtility.GetPath(tempdir, "Manga", manga.Nom,
-                                                manga.Nom + " Chapitre " + numChapitre)));
-                                        }
+                                        pages.Add(new(node.Attributes["data-src"].Value,
+                                            MangaUtility.GetPath(tempdir, "Manga", manga.Nom,
+                                            nameChapter)));
                                     }
-                                    chapters.Add(new Chapter(manga.Nom + " Chapitre " + numChapitre,
-                                        listScanTemp));
-                                    isChapterExist = true;
-
-
+                                    else if (node.Attributes["src"] != null)
+                                    {
+                                        pages.Add(new(node.Attributes["src"].Value,
+                                            MangaUtility.GetPath(tempdir, "Manga", manga.Nom,
+                                            nameChapter)));
+                                    }
                                 }
-                                catch
-                                {
-
-                                    isChapterExist = false;
-
-
-                                }
+                                chapters.Add(new(nameChapter, pages));
                             }
-                            else
+                            catch (Exception ex)
                             {
+                                MessageBox.Show(ex.Message);
                                 isChapterExist = false;
                             }
                         }
-                        catch (Exception ex)
-                        {
-
-                        }
-
                     }
-
                     Worker.ReportProgress(chapters.Count);
-
                     Thread.Sleep(100);
                     numChapitre++;
-                } while (isChapterExist  && numChapitre<=3);
+                } while (scanAll && isChapterExist);
                 numChapitre = 0;
             }
+           
         }
 
         protected override void backgroundWorker_ProgressChanged(object? sender, ProgressChangedEventArgs e)
@@ -169,6 +153,16 @@ namespace scan_manga.Utilities.BackgroudWorker
         public List<Chapter> GetChapters()
         {
             return chapters;
+        }
+
+        private string ReplaceNum(int num)
+        {
+            return manga.Source.Replace("[num_chapitre]", num.ToString());
+        }
+
+        private string GetNameChapter(params string[] parts)
+        {
+            return String.Concat(parts);
         }
     }
 }

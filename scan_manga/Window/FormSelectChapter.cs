@@ -1,6 +1,7 @@
 ﻿using HtmlAgilityPack;
 using Newtonsoft.Json;
 using scan_manga.Models;
+using scan_manga.Properties;
 using scan_manga.Utilities;
 using scan_manga.Utilities.BackgroudWorker;
 using System;
@@ -27,9 +28,9 @@ namespace scan_manga
 
         private void FormDownloadOneChapter_Load(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.Manga != null)
+            if (Settings.Default.Manga != null)
             {
-                foreach (Manga manga in Properties.Settings.Default.Manga)
+                foreach (Manga manga in Settings.Default.Manga)
                 {
                     comboBoxManga.Items.Add(manga.Nom);
                 }
@@ -38,7 +39,10 @@ namespace scan_manga
 
         private void buttonDownload_Click(object sender, EventArgs e)
         {
-            //MangaUtility.Progress(new BackGroundScan());
+            Manga manga=MangaUtility.GetManga(comboBoxManga.Text, Settings.Default.Manga);
+            manga.Source=textBoxUrl.Text;
+            MangaUtility.Scan(manga, false,
+                int.Parse(textBoxNameChapter.Text.Split(" ").Last()));
             Close();
 
         }

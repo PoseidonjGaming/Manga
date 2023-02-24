@@ -1,9 +1,9 @@
-using HtmlAgilityPack;
 using Newtonsoft.Json;
 using scan_manga.Models;
 using scan_manga.Properties;
 using scan_manga.Utilities;
 using scan_manga.Utilities.BackgroudWorker;
+using scan_manga.Utilities.BackgroudWorker.BackgroundArchive;
 using scan_manga.Window;
 using System.Diagnostics;
 using System.IO.Compression;
@@ -18,9 +18,6 @@ namespace scan_manga
         private readonly List<Chapter> chapters;
         private int numChapitre;
         private readonly string tempdir;
-
-
-
 
         public FormMain()
         {
@@ -142,19 +139,9 @@ namespace scan_manga
             if (comboBoxManga.SelectedIndex != -1)
             {
                 
-                manga = mangaList.Where(e => e.Nom == comboBoxManga.Text).First();
+                manga = MangaUtility.GetManga(comboBoxManga.Text, mangaList);
                 chapters.Clear();
-                BackGroundScan backGroundWorker = new(tempdir, root, manga);
-                if (!backGroundWorker.Worker.IsBusy)
-                {
-                    MangaUtility.Progress(backGroundWorker);
-                    if(!backGroundWorker.isCancelled && backGroundWorker.GetChapters().Count!=0)
-                    {
-                        FormDownload formDownload = new(backGroundWorker.GetChapters(), manga.Nom);
-                        formDownload.ShowDialog(this);
-                    }
-                   
-                }
+                MangaUtility.Scan(manga, true);
             }
         }
 
@@ -191,7 +178,7 @@ namespace scan_manga
 
         private void restaurationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormProgress formArchive = new(new BackgroundWorkerRestore());
+            FormProgress formArchive = new(new BackgroundRestore());
             formArchive.ShowDialog(this);
         }
 

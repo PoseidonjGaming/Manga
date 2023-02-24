@@ -2,6 +2,7 @@
 using scan_manga.Models;
 using scan_manga.Properties;
 using scan_manga.Utilities.BackgroudWorker;
+using scan_manga.Utilities.BackgroudWorker.BackgroundCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -163,6 +164,22 @@ namespace scan_manga.Utilities
             else
             {
                 return index.ToString();
+            }
+        }
+
+        public static void Scan(Manga manga, bool scanAll, int num=1)
+        {
+            BackGroundScan backGroundWorker = new(GetPath(Directory.GetCurrentDirectory(), "Temp"), 
+                Settings.Default.Root, manga, scanAll, num);
+            if (!backGroundWorker.Worker.IsBusy)
+            {
+                Progress(backGroundWorker);
+                if (!backGroundWorker.isCancelled && backGroundWorker.GetChapters().Count > 0)
+                {
+                    FormDownload formDownload = new(backGroundWorker.GetChapters(), manga.Nom);
+                    formDownload.ShowDialog();
+                }
+
             }
         }
     }

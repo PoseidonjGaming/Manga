@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace scan_manga.Utilities.BackgroudWorker
+namespace scan_manga.Utilities.BackgroudWorker.BackgroundCore
 {
-    public class BackGroundDownload: BackGroundCore
+    public class BackGroundDownload : BackGroundCore
     {
-        public BackGroundDownload(string name, List<Chapter> chapters):base(name, chapters)
+        public BackGroundDownload(string name, List<Chapter> chapters) : base(name, chapters)
         {
             NameWindow = "Download";
         }
@@ -44,14 +44,14 @@ namespace scan_manga.Utilities.BackgroudWorker
                 tempChapter = chapter;
                 chapter.ListScan = Verif(chapter.ListScan);
                 maxPage = chapter.ListScan.Count;
-                
+
                 MangaUtility.CreateDirectory(temp, chapter.NameChapter);
                 foreach (Page page in chapter.ListScan)
                 {
                     try
                     {
                         client.DownloadFile(page.Source,
-                            MangaUtility.GetTempPath(temp,chapter.NameChapter, page.Source));
+                            MangaUtility.GetTempPath(temp, chapter.NameChapter, page.Source));
                         if (Worker.CancellationPending)
                         {
                             Worker.Dispose();
