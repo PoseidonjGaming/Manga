@@ -28,97 +28,98 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.progressBarPage = new System.Windows.Forms.ProgressBar();
-            this.labelPage = new System.Windows.Forms.Label();
-            this.labelChapter = new System.Windows.Forms.Label();
-            this.progressBarChapter = new System.Windows.Forms.ProgressBar();
-            this.labelManga = new System.Windows.Forms.Label();
-            this.progressBarManga = new System.Windows.Forms.ProgressBar();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.SuspendLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormProgress));
+            progressBarPage = new ProgressBar();
+            labelPage = new Label();
+            labelChapter = new Label();
+            progressBarChapter = new ProgressBar();
+            labelManga = new Label();
+            progressBarManga = new ProgressBar();
+            btnCancel = new Button();
+            SuspendLayout();
             // 
             // progressBarPage
             // 
-            this.progressBarPage.Location = new System.Drawing.Point(12, 27);
-            this.progressBarPage.Name = "progressBarPage";
-            this.progressBarPage.Size = new System.Drawing.Size(360, 23);
-            this.progressBarPage.TabIndex = 0;
+            progressBarPage.Location = new Point(12, 27);
+            progressBarPage.Name = "progressBarPage";
+            progressBarPage.Size = new Size(360, 23);
+            progressBarPage.TabIndex = 0;
             // 
             // labelPage
             // 
-            this.labelPage.AutoSize = true;
-            this.labelPage.Location = new System.Drawing.Point(12, 9);
-            this.labelPage.Name = "labelPage";
-            this.labelPage.Size = new System.Drawing.Size(36, 15);
-            this.labelPage.TabIndex = 1;
-            this.labelPage.Text = "Page:";
+            labelPage.AutoSize = true;
+            labelPage.Location = new Point(12, 9);
+            labelPage.Name = "labelPage";
+            labelPage.Size = new Size(36, 15);
+            labelPage.TabIndex = 1;
+            labelPage.Text = "Page:";
             // 
             // labelChapter
             // 
-            this.labelChapter.AutoSize = true;
-            this.labelChapter.Location = new System.Drawing.Point(12, 53);
-            this.labelChapter.Name = "labelChapter";
-            this.labelChapter.Size = new System.Drawing.Size(55, 15);
-            this.labelChapter.TabIndex = 2;
-            this.labelChapter.Text = "Chapitre:";
+            labelChapter.AutoSize = true;
+            labelChapter.Location = new Point(12, 53);
+            labelChapter.Name = "labelChapter";
+            labelChapter.Size = new Size(55, 15);
+            labelChapter.TabIndex = 2;
+            labelChapter.Text = "Chapitre:";
             // 
             // progressBarChapter
             // 
-            this.progressBarChapter.Location = new System.Drawing.Point(12, 71);
-            this.progressBarChapter.Name = "progressBarChapter";
-            this.progressBarChapter.Size = new System.Drawing.Size(360, 23);
-            this.progressBarChapter.TabIndex = 3;
+            progressBarChapter.Location = new Point(12, 71);
+            progressBarChapter.Name = "progressBarChapter";
+            progressBarChapter.Size = new Size(360, 23);
+            progressBarChapter.TabIndex = 3;
             // 
             // labelManga
             // 
-            this.labelManga.AutoSize = true;
-            this.labelManga.Location = new System.Drawing.Point(12, 97);
-            this.labelManga.Name = "labelManga";
-            this.labelManga.Size = new System.Drawing.Size(47, 15);
-            this.labelManga.TabIndex = 4;
-            this.labelManga.Text = "Manga:";
+            labelManga.AutoSize = true;
+            labelManga.Location = new Point(12, 97);
+            labelManga.Name = "labelManga";
+            labelManga.Size = new Size(47, 15);
+            labelManga.TabIndex = 4;
+            labelManga.Text = "Manga:";
             // 
             // progressBarManga
             // 
-            this.progressBarManga.Location = new System.Drawing.Point(12, 115);
-            this.progressBarManga.Name = "progressBarManga";
-            this.progressBarManga.Size = new System.Drawing.Size(360, 23);
-            this.progressBarManga.TabIndex = 5;
+            progressBarManga.Location = new Point(12, 115);
+            progressBarManga.Name = "progressBarManga";
+            progressBarManga.Size = new Size(360, 23);
+            progressBarManga.TabIndex = 5;
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(12, 144);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 6;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            btnCancel.Location = new Point(12, 144);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(75, 23);
+            btnCancel.TabIndex = 6;
+            btnCancel.Text = "Cancel";
+            btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
             // FormProgress
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(384, 178);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.progressBarManga);
-            this.Controls.Add(this.labelManga);
-            this.Controls.Add(this.progressBarChapter);
-            this.Controls.Add(this.labelChapter);
-            this.Controls.Add(this.labelPage);
-            this.Controls.Add(this.progressBarPage);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "FormProgress";
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Archive";
-            this.Load += new System.EventHandler(this.FormArchive_Load);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            ClientSize = new Size(384, 178);
+            Controls.Add(btnCancel);
+            Controls.Add(progressBarManga);
+            Controls.Add(labelManga);
+            Controls.Add(progressBarChapter);
+            Controls.Add(labelChapter);
+            Controls.Add(labelPage);
+            Controls.Add(progressBarPage);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "FormProgress";
+            SizeGripStyle = SizeGripStyle.Hide;
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Archive";
+            Load += FormArchive_Load;
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

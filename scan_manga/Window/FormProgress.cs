@@ -50,5 +50,5 @@ namespace scan_manga
         }
     }
 
-    
+
 }

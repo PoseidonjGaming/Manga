@@ -70,7 +70,7 @@ namespace scan_manga
         {
             BackGroundDownload backGroundDownload = new(nameManga, chaptersToDownload);
             MangaUtility.Progress(backGroundDownload);
-            
+
             if (!backGroundDownload.isCancelled)
             {
                 MangaUtility.Progress(new BackGroundCopy(nameManga, chaptersToDownload));
@@ -116,12 +116,12 @@ namespace scan_manga
 
         private void buttonOpenTemp_Click(object sender, EventArgs e)
         {
-            Process.Start("explorer.exe", MangaUtility.GetPath(Directory.GetCurrentDirectory(),"Temp"));
+            Process.Start("explorer.exe", MangaUtility.GetPath(Directory.GetCurrentDirectory(), "Temp"));
         }
 
 
 
-        
+
 
         private void Select(ListBox listBox, bool selectType)
         {
@@ -140,6 +140,11 @@ namespace scan_manga
             }
         }
 
-
+        private void btnDLAll_Click(object sender, EventArgs e)
+        {
+            Select(listBoxChapter, true);
+            buttonAdd_Click(sender, e);
+            buttonDownload_Click(sender, e);
+        }
     }
 }

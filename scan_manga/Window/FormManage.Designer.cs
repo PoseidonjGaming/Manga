@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormManage));
             picturePage = new PictureBox();
             cmbManga = new ComboBox();
             cmbChapter = new ComboBox();
@@ -268,6 +269,7 @@
             Controls.Add(cmbManga);
             Controls.Add(picturePage);
             Controls.Add(menuStrip);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip;
             Margin = new Padding(3, 2, 3, 2);
             Name = "FormManage";

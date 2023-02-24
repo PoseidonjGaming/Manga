@@ -18,7 +18,7 @@ namespace scan_manga.Models
         {
             NameChapter = nameChapter;
             ListScan = listScan;
-            FirstScan = listScan[0].Target;
+            FirstScan = listScan[0].Source;
         }
 
         public Chapter()
