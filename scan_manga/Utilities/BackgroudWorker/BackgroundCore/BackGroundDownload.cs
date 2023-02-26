@@ -30,8 +30,8 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundCore
                 chaptersToDownload[0].ListScan = Verif(chaptersToDownload[0].ListScan);
                 ProgressBarPage.Maximum = chaptersToDownload[0].ListScan.Count;
 
-                labelChapter.Text = "Chapitre: " + ProgressBarChapter.Value + "/" + ProgressBarChapter.Maximum;
-                labelPage.Text = "Page: " + ProgressBarPage.Value + "/" + ProgressBarPage.Maximum;
+                LabelChapter.Text = "Chapitre: " + ProgressBarChapter.Value + "/" + ProgressBarChapter.Maximum;
+                LabelPage.Text = "Page: " + ProgressBarPage.Value + "/" + ProgressBarPage.Maximum;
                 base.Load();
             }
         }
@@ -103,9 +103,9 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundCore
                 ProgressBarPage.Value = 0;
             }
 
-            labelChapter.Text = "Chapitre: " + ProgressBarChapter.Value + "/" + ProgressBarChapter.Maximum + " téléchargées";
-            labelPage.Text = "Page: " + ProgressBarPage.Value + "/" + ProgressBarPage.Maximum + " téléchargés";
-            labelManga.Text = "Manga: 1/1 téléchargés";
+            LabelChapter.Text = "Chapitre: " + ProgressBarChapter.Value + "/" + ProgressBarChapter.Maximum + " téléchargées";
+            LabelPage.Text = "Page: " + ProgressBarPage.Value + "/" + ProgressBarPage.Maximum + " téléchargés";
+            LabelManga.Text = "Manga: 1/1 téléchargés";
         }
     }
 }

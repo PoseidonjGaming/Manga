@@ -135,13 +135,13 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundCore
         {
             if (Directory.Exists(MangaUtility.GetPath(root, "Manga", manga.Nom, manga.Nom + " Chapitre " + numChapitre)))
             {
-                labelChapter.Text = "Le Chapitre " + numChapitre.ToString() + " de " + manga.Nom + " est déjà possédé";
+                LabelChapter.Text = "Le Chapitre " + numChapitre.ToString() + " de " + manga.Nom + " est déjà possédé";
             }
             else if (e.ProgressPercentage > 0)
             {
                 if (chapters.Last().NameChapter == manga.Nom + " Chapitre " + numChapitre.ToString())
                 {
-                    labelChapter.Text = "Le Chapitre " + numChapitre.ToString() + " de " + manga.Nom + " a été trouvé";
+                    LabelChapter.Text = "Le Chapitre " + numChapitre.ToString() + " de " + manga.Nom + " a été trouvé";
                 }
             }
         }

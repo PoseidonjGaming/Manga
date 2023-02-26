@@ -12,18 +12,10 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundArchive
     public class BackgroundRestore : BaseBackGroundWorker
     {
         private List<Manga> mangaList;
-        private string root;
-        private string nameChapter;
-        private string pageName;
         private string nameManga;
-        private readonly MangaUtility utility;
 
         public BackgroundRestore() : base()
         {
-            Worker.DoWork += backgroundWorker_DoWork;
-            Worker.ProgressChanged += backgroundWorker_ProgressChanged;
-            utility = new();
-            root = Settings.Default.Root;
             NameWindow = "Restore";
         }
 
@@ -33,113 +25,47 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundArchive
             {
                 mangaList = Settings.Default.Manga;
             }
-
-            if (Settings.Default.Root != string.Empty)
-            {
-                root = Settings.Default.Root;
-            }
             ProgressBarManga.Maximum = mangaList.Count;
-            Worker.RunWorkerAsync();
+            ProgressBarPage.Value=ProgressBarPage.Maximum;
+            base.Load();
         }
 
         protected override void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             foreach (Manga manga in mangaList)
             {
-                if (Directory.Exists(MangaUtility.GetPath(root, "Manga", manga.Nom)))
-                {
-                    Directory.Delete(MangaUtility.GetPath(root, "Manga", manga.Nom), true);
-                }
+                MangaUtility.DeleteDirectory(MangaUtility.Root, "Manga", manga.Nom);
             }
             foreach (Manga manga in mangaList)
             {
-
                 nameManga = manga.Nom;
-                string[] chapters = Sort(Directory.GetDirectories(MangaUtility.GetPath(root, "Backup", manga.Nom)), manga.Nom + " Chapitre ", " ", false);
-                foreach (string chapter in chapters)
+                foreach (string chapter in MangaUtility.Get(MangaUtility.Root, "Backup", manga.Nom))
                 {
-                    nameChapter = chapter;
-                    CreateDirectory(MangaUtility.GetPath(root, "Manga", manga.Nom, chapter));
-                    foreach (string page in Directory.GetFiles(MangaUtility.GetPath(root, "Backup", manga.Nom, chapter)))
+                    MangaUtility.CreateDirectory(MangaUtility.Root, "Manga", manga.Nom, MangaUtility.GetName(chapter));
+                    foreach (string page in MangaUtility.Get(MangaUtility.Root, "Backup", manga.Nom, MangaUtility.GetName(chapter)))
                     {
-                        string sourcePath = MangaUtility.GetPath(root, "Backup", manga.Nom, chapter, Path.GetFileName(page));
-                        string targetPath = MangaUtility.GetPath(root, "Manga", manga.Nom, chapter, Path.GetFileName(page));
+                        string sourcePath = MangaUtility.GetPath(MangaUtility.Root, "Backup", manga.Nom, MangaUtility.GetName(chapter), Path.GetFileName(page));
+                        string targetPath = MangaUtility.GetPath(MangaUtility.Root, "Manga", manga.Nom, MangaUtility.GetName(chapter), Path.GetFileName(page));
                         File.Copy(sourcePath, targetPath);
-                        Worker.ReportProgress(0);
-                        Thread.Sleep(100);
+                        
                     }
+                    Worker.ReportProgress(0);
+                    Thread.Sleep(100);
                 }
             }
         }
 
         protected override void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            ProgressBarManga.Value = Directory.GetDirectories(MangaUtility.GetPath(root, "Manga")).Length;
-            ProgressBarChapter.Maximum = Directory.GetDirectories(MangaUtility.GetPath(root, "Backup", nameManga)).Length;
-            ProgressBarChapter.Value = Directory.GetDirectories(MangaUtility.GetPath(root, "Manga", nameManga)).Length;
-            ProgressBarPage.Maximum = Directory.GetFiles(MangaUtility.GetPath(root, "Backup", nameManga, nameChapter)).Length;
-            ProgressBarPage.Value = Directory.GetFiles(MangaUtility.GetPath(root, "Manga", nameManga, nameChapter)).Length;
+            ProgressBarManga.Value = MangaUtility.Get(MangaUtility.Root, "Manga").Length;
+            ProgressBarChapter.Maximum = MangaUtility.Get(MangaUtility.Root, "Backup", nameManga).Length;
+            ProgressBarChapter.Value = MangaUtility.Get(MangaUtility.Root, "Manga", nameManga).Length;
 
-            labelChapter.Text = "Backup de " + ProgressBarChapter.Value + "/" + ProgressBarChapter.Maximum;
-            labelPage.Text = "Backup de " + ProgressBarPage.Value + "/" + ProgressBarPage.Maximum;
-            labelManga.Text = "Backup de " + ProgressBarManga.Value + "/" + ProgressBarManga.Maximum;
+            LabelChapter.Text = "Backup de " + ProgressBarChapter.Value + "/" + ProgressBarChapter.Maximum;
+            LabelManga.Text = "Backup de " + ProgressBarManga.Value + "/" + ProgressBarManga.Maximum;
         }
 
-        private void CreateDirectory(string path)
-        {
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-        }
-
-        private string[] Sort(string[] listIn, string toAdd, string split, bool page)
-        {
-            List<float> numChapter = new List<float>();
-            List<string> listOut = new List<string>();
-            foreach (string chapter in listIn)
-            {
-                string strNum = Path.GetFileName(chapter).Split(split)[^1];
-
-                if (chapter.Contains('.'))
-                {
-
-                    strNum = strNum.Replace('.', ',');
-                }
-
-                if (float.TryParse(strNum, out float fl))
-                {
-                    numChapter.Add(fl);
-                }
-                else
-                {
-                    numChapter.Add(float.Parse(strNum.Split(',')[0]));
-                }
-
-            }
-
-
-            numChapter.Sort();
-            foreach (float num in numChapter)
-            {
-                string strNum = num.ToString();
-                if (strNum.Contains(','))
-                {
-                    strNum = strNum.Replace(',', '.');
-                }
-
-                if (num < 10 && page)
-                {
-                    listOut.Add(toAdd + "0" + strNum);
-                }
-                else
-                {
-                    listOut.Add(toAdd + strNum);
-                }
-
-            }
-            return listOut.ToArray();
-        }
+        
 
     }
 }

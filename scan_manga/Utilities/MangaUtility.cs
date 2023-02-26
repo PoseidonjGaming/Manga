@@ -14,7 +14,9 @@ namespace scan_manga.Utilities
 {
     public class MangaUtility
     {
-        public static string[] Sort(List<string> listIn, string separator, string toAdd, bool IsPage)
+        public static string Root=Settings.Default.Root;
+        public static string Temp=GetPath(Directory.GetCurrentDirectory(), "Temp");
+        public static string[] Sort(string[] listIn, string separator, string toAdd, bool IsPage)
         {
             List<string> listOut = new();
             List<float> nums = new();
@@ -109,7 +111,7 @@ namespace scan_manga.Utilities
 
         public static string[] GetPages(params string[] part)
         {
-            return Sort(Directory.GetFiles(GetPath(part)).ToList(), "_", "page ", true);
+            return Sort(Get(GetPath(part)), "_", "page ", true);
         }
 
         public static Manga GetManga(string name, List<Manga> mangaList)
@@ -124,7 +126,7 @@ namespace scan_manga.Utilities
 
         public static string[] GetSortedChapters(string separator, string toAdd, params string[] parts)
         {
-            return Sort(Directory.GetDirectories(GetPath(parts)).ToList(), separator, toAdd, false);
+            return Sort(Get(GetPath(parts)), separator, toAdd, false);
         }
 
         public static string[] Get(params string[] parts)

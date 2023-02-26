@@ -13,11 +13,9 @@ namespace scan_manga
     public partial class FormMain : Form
     {
         private List<Manga> mangaList = new();
-        private string root;
         private Manga manga;
         private readonly List<Chapter> chapters;
         private int numChapitre;
-        private readonly string tempdir;
 
         public FormMain()
         {
@@ -33,10 +31,8 @@ namespace scan_manga
             }
             if (Settings.Default.Root != string.Empty)
             {
-                root = Settings.Default.Root;
                 listBoxManga.Items.AddRange(Populate().ToArray());
             }
-            tempdir = MangaUtility.GetPath(Directory.GetCurrentDirectory(), "Temp");
         }
 
         private void Settings_FormClosed(object sender, FormClosedEventArgs e)
@@ -47,7 +43,7 @@ namespace scan_manga
             listBoxManga.Items.Clear();
             listBoxManga.Items.AddRange(Populate().ToArray());
             MangaUtility.StartPack(Settings.Default.Root);
-            root = Settings.Default.Root;
+            MangaUtility.Root = Settings.Default.Root;
         }
 
         private List<string> Populate()
@@ -67,7 +63,8 @@ namespace scan_manga
             if (listBoxManga.SelectedIndex != -1)
             {
                 listBoxChapter.Items.Clear();
-                listBoxChapter.Items.AddRange(MangaUtility.Sort(Directory.GetDirectories(MangaUtility.GetPath(root, "Manga", listBoxManga.Text)).ToList(),
+                listBoxChapter.Items.AddRange(MangaUtility.Sort(MangaUtility.Get(
+                    MangaUtility.GetPath(MangaUtility.Root, "Manga", listBoxManga.Text)),
                     listBoxManga.Text + " Chapitre ", listBoxManga.Text + " Chapitre ", false));
             }
         }
@@ -113,7 +110,7 @@ namespace scan_manga
             if (listBoxChapter.SelectedIndex != -1 && listBoxManga.SelectedItems.Count > 0)
             {
 
-                string dir = MangaUtility.GetPath(root, "Manga", listBoxManga.SelectedItem.ToString(), listBoxChapter.SelectedItem.ToString());
+                string dir = MangaUtility.GetPath(MangaUtility.Root, "Manga", listBoxManga.SelectedItem.ToString(), listBoxChapter.SelectedItem.ToString());
                 comboBoxPage.Items.Clear();
                 foreach (string chapter in Directory.GetFiles(dir))
                 {
@@ -128,7 +125,7 @@ namespace scan_manga
         {
             if (comboBoxPage.SelectedIndex != -1 && listBoxManga.SelectedItems.Count == 1 && listBoxChapter.SelectedItems.Count == 1)
             {
-                string dir = MangaUtility.GetPath(root, "Manga", listBoxManga.Text, listBoxChapter.Text);
+                string dir = MangaUtility.GetPath(MangaUtility.Root, "Manga", listBoxManga.Text, listBoxChapter.Text);
                 string page = Directory.GetFiles(dir).ToList().Find(e => Path.GetFileNameWithoutExtension(e) == comboBoxPage.SelectedItem.ToString().Replace(" ", "_"));
                 pictureBoxPage.ImageLocation = page;
             }
@@ -157,7 +154,7 @@ namespace scan_manga
 
         private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
         {
-            foreach (string chapter in Directory.GetDirectories(tempdir))
+            foreach (string chapter in Directory.GetDirectories(MangaUtility.Temp))
             {
                 Directory.Delete(chapter, true);
             }
@@ -187,10 +184,11 @@ namespace scan_manga
             if (comboBoxManga.SelectedIndex != -1)
             {
                 Manga manga = mangaList.Where(e => e.Nom == comboBoxManga.Text).First();
-                foreach (string chapter in Directory.GetDirectories(MangaUtility.GetPath(root, "Manga", manga.Nom)))
+                foreach (string chapter in Directory.GetDirectories(MangaUtility.GetPath(MangaUtility.Root, "Manga", manga.Nom)))
                 {
-                    MangaUtility.CreateDirectory(root, "Temp", manga.Nom);
-                    ZipFile.CreateFromDirectory(MangaUtility.GetPath(root, "Manga", manga.Nom, Path.GetFileName(chapter)), MangaUtility.GetPath(root, "Temp", manga.Nom, Path.GetFileName(chapter) + ".zip"));
+                    MangaUtility.CreateDirectory(MangaUtility.Root, "Temp", manga.Nom);
+                    ZipFile.CreateFromDirectory(MangaUtility.GetPath(MangaUtility.Root, "Manga", manga.Nom, Path.GetFileName(chapter)),
+                        MangaUtility.GetPath(MangaUtility.Root, "Temp", manga.Nom, Path.GetFileName(chapter) + ".zip"));
                 }
             }
 
@@ -200,10 +198,10 @@ namespace scan_manga
         {
             foreach (string manga in Directory.GetDirectories("E:\\Drive\\Mon Drive\\Manga Scan"))
             {
-                CreateDirectory(root + "\\Temp\\" + Path.GetFileName(manga));
+                CreateDirectory(MangaUtility.GetPath(MangaUtility.Root, "Temp", Path.GetFileName(manga)));
                 foreach (string chapter in Directory.GetFiles(manga))
                 {
-                    File.Copy(chapter, root + "\\Temp\\" + Path.GetFileName(manga) + "\\" + Path.GetFileName(chapter));
+                    File.Copy(chapter, MangaUtility.Root + "\\Temp\\" + Path.GetFileName(manga) + "\\" + Path.GetFileName(chapter));
 
                 }
             }
@@ -225,6 +223,16 @@ namespace scan_manga
                 File.WriteAllText(fileDialog.FileName,
                     JsonConvert.SerializeObject(Settings.Default.Manga, Formatting.Indented));
             }
+        }
+
+        private void importToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+            {
+                Settings.Default.Manga = JsonConvert.DeserializeObject(File.ReadAllText(fileDialog.FileName)) as List<Manga>;
+            }
+
         }
     }
 }

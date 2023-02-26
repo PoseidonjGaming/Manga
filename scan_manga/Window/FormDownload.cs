@@ -116,7 +116,7 @@ namespace scan_manga
 
         private void buttonOpenTemp_Click(object sender, EventArgs e)
         {
-            Process.Start("explorer.exe", MangaUtility.GetPath(Directory.GetCurrentDirectory(), "Temp"));
+            Process.Start("explorer.exe", MangaUtility.Temp);
         }
 
 

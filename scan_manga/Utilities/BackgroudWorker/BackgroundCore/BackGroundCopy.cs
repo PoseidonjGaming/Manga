@@ -30,8 +30,8 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundCore
                 ProgressBarPage.Value = 0;
 
 
-                labelChapter.Text = "Chapitre: " + ProgressBarChapter.Value + "/" + ProgressBarChapter.Maximum;
-                labelPage.Text = "Page: " + ProgressBarPage.Value + "/" + ProgressBarPage.Maximum;
+                LabelChapter.Text = "Chapitre: " + ProgressBarChapter.Value + "/" + ProgressBarChapter.Maximum;
+                LabelPage.Text = "Page: " + ProgressBarPage.Value + "/" + ProgressBarPage.Maximum;
 
                 base.Load();
 
@@ -70,8 +70,8 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundCore
             ProgressBarPage.Value = Directory.GetFiles(dirManga).Length;
             ProgressBarPage.Maximum = Directory.GetFiles(dirTemp).Length;
 
-            labelChapter.Text = "Chapitre: " + ProgressBarChapter.Value + "/" + ProgressBarChapter.Maximum + " copiées";
-            labelPage.Text = "Page: " + ProgressBarPage.Value + "/" + ProgressBarPage.Maximum + " copiés";
+            LabelChapter.Text = "Chapitre: " + ProgressBarChapter.Value + "/" + ProgressBarChapter.Maximum + " copiées";
+            LabelPage.Text = "Page: " + ProgressBarPage.Value + "/" + ProgressBarPage.Maximum + " copiés";
         }
 
         private void Copy(string nameManga, string nameChapter, string page, string dir)

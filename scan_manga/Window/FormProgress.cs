@@ -26,9 +26,9 @@ namespace scan_manga
             background.ProgressBarChapter = progressBarChapter;
             background.ProgressBarManga = progressBarManga;
 
-            background.labelPage = labelPage;
-            background.labelManga = labelManga;
-            background.labelChapter = labelChapter;
+            background.LabelPage = labelPage;
+            background.LabelManga = labelManga;
+            background.LabelChapter = labelChapter;
 
             Text = background.NameWindow;
 
