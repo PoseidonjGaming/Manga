@@ -39,30 +39,18 @@ namespace scan_manga
 
         private void buttonDownload_Click(object sender, EventArgs e)
         {
-            Manga manga=MangaUtility.GetManga(comboBoxManga.Text, Settings.Default.Manga);
-            manga.Source=textBoxUrl.Text;
-            MangaUtility.Scan(manga, false,
+            Manga manga = MangaUtility.GetManga(comboBoxManga.Text, Settings.Default.Manga);
+            MangaUtility.Scan(manga, false, cmbSource.Text,
                 int.Parse(textBoxNameChapter.Text.Split(" ").Last()));
             Close();
-
-        }
-
-
-
-        private void FormDownloadOneChapter_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if (chapter.Count != 0)
-            {
-                FormDownload formDownload = new(chapter, comboBoxManga.Text);
-                formDownload.ShowDialog(this.Parent);
-            }
-
 
         }
 
         private void comboBoxManga_SelectedIndexChanged(object sender, EventArgs e)
         {
             textBoxNameChapter.Text = comboBoxManga.Text + " Chapitre ";
+            cmbSource.Items.Clear();
+            cmbSource.Items.AddRange(MangaUtility.GetManga(comboBoxManga.Text, Settings.Default.Manga).Source.ToArray());
         }
     }
 }

@@ -68,28 +68,6 @@ namespace scan_manga
             }
         }
 
-
-
-        private void backgroundWorkerScan_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
-        {
-            if (chapters.Count != 0)
-            {
-                numChapitre = 0;
-
-
-
-                chapters.Clear();
-            }
-            else
-            {
-            }
-
-        }
-
-
-
-
-
         private void optionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormSetting settingsForm = new();
@@ -131,13 +109,11 @@ namespace scan_manga
 
         private void scannerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (comboBoxManga.SelectedIndex != -1)
-            {
-
-                manga = MangaUtility.GetManga(comboBoxManga.Text, mangaList);
-                chapters.Clear();
-                MangaUtility.Scan(manga, true, 1);
-            }
+            manga = MangaUtility.GetManga(comboBoxManga.Text, Settings.Default.Manga);
+            chapters.Clear();
+            FormScan form = new(manga);
+            form.ShowDialog(this);
+            MangaUtility.Scan(manga, true, form.GetSource());
         }
 
 
@@ -160,8 +136,7 @@ namespace scan_manga
 
         private void backupToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormProgress formArchive = new(new BackGroundBackup());
-            formArchive.ShowDialog(this);
+            MangaUtility.Progress(new BackGroundBackup());
         }
         private void CreateDirectory(string path)
         {
@@ -196,7 +171,7 @@ namespace scan_manga
         {
             foreach (string manga in Directory.GetDirectories("E:\\Drive\\Mon Drive\\Manga Scan"))
             {
-                CreateDirectory(MangaUtility.GetPath(MangaUtility.Root, "Temp", Path.GetFileName(manga)));
+                MangaUtility.CreateDirectory(MangaUtility.Root, "Temp", Path.GetFileName(manga));
                 foreach (string chapter in Directory.GetFiles(manga))
                 {
                     File.Copy(chapter, MangaUtility.Root + "\\Temp\\" + Path.GetFileName(manga) + "\\" + Path.GetFileName(chapter));

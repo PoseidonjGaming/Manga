@@ -1,5 +1,6 @@
 ﻿using scan_manga.Models;
 using scan_manga.Utilities;
+using System.Drawing.Imaging;
 
 namespace scan_manga
 {
@@ -7,18 +8,19 @@ namespace scan_manga
     {
         private string root;
         private readonly List<Manga> mangas = new();
+        private List<string> sources = new();
         public FormSetting()
         {
             InitializeComponent();
 
-            if(Properties.Settings.Default.Manga != null)
+            if (Properties.Settings.Default.Manga != null)
             {
                 mangas = Properties.Settings.Default.Manga;
             }
-            if(Properties.Settings.Default.Root != null)
+            if (Properties.Settings.Default.Root != null)
             {
                 root = Properties.Settings.Default.Root;
-                textBoxRoot.Text=root;
+                textBoxRoot.Text = root;
             }
 
             PopulateManga();
@@ -28,7 +30,7 @@ namespace scan_manga
         {
             if (folderBrowserDialogRoot.ShowDialog() == DialogResult.OK)
             {
-                root=folderBrowserDialogRoot.SelectedPath;
+                root = folderBrowserDialogRoot.SelectedPath;
                 textBoxRoot.Text = root;
                 Save();
             }
@@ -36,19 +38,18 @@ namespace scan_manga
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            if(textBoxCh1.Text != string.Empty && textBoxCh2.Text != string.Empty
+            if (textBoxCh1.Text != string.Empty && textBoxCh2.Text != string.Empty
                 && textBoxNameManga.Text != string.Empty)
             {
                 Manga manga = new()
                 {
-                    Source = textBoxCh2.Text.Replace(FindDiff(), "[num_chapitre]"),
+                    Source = sources,
                     Nom = textBoxNameManga.Text,
-                    ToRemove = textBoxToRemove.Text
                 };
 
                 mangas.Add(manga);
-                
-                
+
+
                 Save();
                 PopulateManga();
                 MangaUtility.StartPack(root);
@@ -64,7 +65,7 @@ namespace scan_manga
                 Save();
                 PopulateManga();
                 Clear();
-               
+
             }
         }
 
@@ -73,31 +74,19 @@ namespace scan_manga
             if (listBoxManga.SelectedIndex != -1)
             {
                 Manga manga = mangas[listBoxManga.SelectedIndex];
-                if (manga.Source is not null)
-                {
-                    textBoxCh1.Text = manga.Source.Replace("[num_chapitre]", "1");
-                    textBoxCh2.Text = manga.Source.Replace("[num_chapitre]", "2");
-                }
                 textBoxNameManga.Text = manga.Nom;
-                if(manga.ToRemove is not null)
-                {
-                    textBoxToRemove.Text = manga.ToRemove;
-                }
-                
-
+                lstBoxSources.Items.Clear();
+                lstBoxSources.Items.AddRange(manga.Source.ToArray());
             }
-            
+
         }
 
         private void buttonModif_Click(object sender, EventArgs e)
         {
             if (listBoxManga.SelectedIndex != -1)
             {
-                Manga manga = new Manga();
-                manga.Source = textBoxCh2.Text.Replace(FindDiff(), "[num_chapitre]");
-                manga.Nom = textBoxNameManga.Text;
-                manga.ToRemove = textBoxToRemove.Text;
-                mangas[listBoxManga.SelectedIndex] = manga;
+
+                mangas[listBoxManga.SelectedIndex].Nom = textBoxNameManga.Text;
 
                 Save();
                 PopulateManga();
@@ -116,11 +105,11 @@ namespace scan_manga
             string ch1 = textBoxCh1.Text;
             string ch2 = textBoxCh2.Text;
 
-            for(int i = 0; i < ch1.Length; i++)
+            for (int i = 0; i < ch1.Length; i++)
             {
                 char char1 = ch1[i];
                 char char2 = ch2[i];
-                if(char1 != char2)
+                if (char1 != char2)
                 {
                     diff += char2;
                 }
@@ -129,12 +118,12 @@ namespace scan_manga
             return diff;
         }
 
-       
+
 
         private void PopulateManga()
         {
             listBoxManga.Items.Clear();
-            foreach(Manga manga in mangas)
+            foreach (Manga manga in mangas)
             {
                 listBoxManga.Items.Add(manga.Nom);
             }
@@ -154,6 +143,32 @@ namespace scan_manga
             textBoxNameManga.Clear();
         }
 
-        
+        private void btnAddSource_Click(object sender, EventArgs e)
+        {
+            if (textBoxCh1.Text != string.Empty && textBoxCh2.Text != string.Empty)
+            {
+                string source = textBoxCh2.Text.Replace(FindDiff(), "[num_chapitre]");
+                if (listBoxManga.SelectedIndex != -1)
+                {
+                    mangas[listBoxManga.SelectedIndex].Source.Add(source);
+                    Save();
+                }
+                else
+                {
+                    sources.Add(source);
+                }
+                lstBoxSources.Items.Add(source);
+                Clear();
+            }
+        }
+
+        private void lstBoxSources_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lstBoxSources.SelectedIndex != -1)
+            {
+                textBoxCh1.Text = lstBoxSources.Text.Replace("[num_chapitre]", "1");
+                textBoxCh2.Text = lstBoxSources.Text.Replace("[num_chapitre]", "2");
+            }
+        }
     }
 }

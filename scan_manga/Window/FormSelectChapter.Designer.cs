@@ -29,100 +29,119 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSelectChapter));
-            this.buttonDownload = new System.Windows.Forms.Button();
-            this.comboBoxManga = new System.Windows.Forms.ComboBox();
-            this.textBoxUrl = new System.Windows.Forms.TextBox();
-            this.labelManga = new System.Windows.Forms.Label();
-            this.labelChapter = new System.Windows.Forms.Label();
-            this.textBoxNameChapter = new System.Windows.Forms.TextBox();
-            this.labelNameChapter = new System.Windows.Forms.Label();
-            this.SuspendLayout();
+            buttonDownload = new Button();
+            comboBoxManga = new ComboBox();
+            textBoxUrl = new TextBox();
+            labelManga = new Label();
+            labelChapter = new Label();
+            textBoxNameChapter = new TextBox();
+            labelNameChapter = new Label();
+            cmbSource = new ComboBox();
+            lblSource = new Label();
+            SuspendLayout();
             // 
             // buttonDownload
             // 
-            this.buttonDownload.Location = new System.Drawing.Point(852, 27);
-            this.buttonDownload.Name = "buttonDownload";
-            this.buttonDownload.Size = new System.Drawing.Size(75, 23);
-            this.buttonDownload.TabIndex = 0;
-            this.buttonDownload.Text = "Télécharger";
-            this.buttonDownload.UseVisualStyleBackColor = true;
-            this.buttonDownload.Click += new System.EventHandler(this.buttonDownload_Click);
+            buttonDownload.Location = new Point(581, 72);
+            buttonDownload.Name = "buttonDownload";
+            buttonDownload.Size = new Size(75, 23);
+            buttonDownload.TabIndex = 0;
+            buttonDownload.Text = "Télécharger";
+            buttonDownload.UseVisualStyleBackColor = true;
+            buttonDownload.Click += buttonDownload_Click;
             // 
             // comboBoxManga
             // 
-            this.comboBoxManga.FormattingEnabled = true;
-            this.comboBoxManga.Location = new System.Drawing.Point(12, 27);
-            this.comboBoxManga.Name = "comboBoxManga";
-            this.comboBoxManga.Size = new System.Drawing.Size(204, 23);
-            this.comboBoxManga.TabIndex = 1;
-            this.comboBoxManga.SelectedIndexChanged += new System.EventHandler(this.comboBoxManga_SelectedIndexChanged);
+            comboBoxManga.FormattingEnabled = true;
+            comboBoxManga.Location = new Point(12, 27);
+            comboBoxManga.Name = "comboBoxManga";
+            comboBoxManga.Size = new Size(204, 23);
+            comboBoxManga.TabIndex = 1;
+            comboBoxManga.SelectedIndexChanged += comboBoxManga_SelectedIndexChanged;
             // 
             // textBoxUrl
             // 
-            this.textBoxUrl.Location = new System.Drawing.Point(222, 27);
-            this.textBoxUrl.Name = "textBoxUrl";
-            this.textBoxUrl.Size = new System.Drawing.Size(353, 23);
-            this.textBoxUrl.TabIndex = 2;
+            textBoxUrl.Location = new Point(222, 28);
+            textBoxUrl.Name = "textBoxUrl";
+            textBoxUrl.Size = new Size(353, 23);
+            textBoxUrl.TabIndex = 2;
             // 
             // labelManga
             // 
-            this.labelManga.AutoSize = true;
-            this.labelManga.Location = new System.Drawing.Point(12, 9);
-            this.labelManga.Name = "labelManga";
-            this.labelManga.Size = new System.Drawing.Size(112, 15);
-            this.labelManga.TabIndex = 3;
-            this.labelManga.Text = "Sélection du manga";
+            labelManga.AutoSize = true;
+            labelManga.Location = new Point(12, 9);
+            labelManga.Name = "labelManga";
+            labelManga.Size = new Size(112, 15);
+            labelManga.TabIndex = 3;
+            labelManga.Text = "Sélection du manga";
             // 
             // labelChapter
             // 
-            this.labelChapter.AutoSize = true;
-            this.labelChapter.Location = new System.Drawing.Point(222, 9);
-            this.labelChapter.Name = "labelChapter";
-            this.labelChapter.Size = new System.Drawing.Size(85, 15);
-            this.labelChapter.TabIndex = 4;
-            this.labelChapter.Text = "Url du chapitre";
+            labelChapter.AutoSize = true;
+            labelChapter.Location = new Point(222, 9);
+            labelChapter.Name = "labelChapter";
+            labelChapter.Size = new Size(85, 15);
+            labelChapter.TabIndex = 4;
+            labelChapter.Text = "Url du chapitre";
             // 
             // textBoxNameChapter
             // 
-            this.textBoxNameChapter.Location = new System.Drawing.Point(581, 27);
-            this.textBoxNameChapter.Name = "textBoxNameChapter";
-            this.textBoxNameChapter.Size = new System.Drawing.Size(265, 23);
-            this.textBoxNameChapter.TabIndex = 5;
+            textBoxNameChapter.Location = new Point(222, 72);
+            textBoxNameChapter.Name = "textBoxNameChapter";
+            textBoxNameChapter.Size = new Size(353, 23);
+            textBoxNameChapter.TabIndex = 5;
             // 
             // labelNameChapter
             // 
-            this.labelNameChapter.AutoSize = true;
-            this.labelNameChapter.Location = new System.Drawing.Point(581, 9);
-            this.labelNameChapter.Name = "labelNameChapter";
-            this.labelNameChapter.Size = new System.Drawing.Size(97, 15);
-            this.labelNameChapter.TabIndex = 6;
-            this.labelNameChapter.Text = "Nom du chapitre";
+            labelNameChapter.AutoSize = true;
+            labelNameChapter.Location = new Point(222, 54);
+            labelNameChapter.Name = "labelNameChapter";
+            labelNameChapter.Size = new Size(97, 15);
+            labelNameChapter.TabIndex = 6;
+            labelNameChapter.Text = "Nom du chapitre";
+            // 
+            // cmbSource
+            // 
+            cmbSource.FormattingEnabled = true;
+            cmbSource.Location = new Point(12, 73);
+            cmbSource.Name = "cmbSource";
+            cmbSource.Size = new Size(204, 23);
+            cmbSource.TabIndex = 7;
+            // 
+            // lblSource
+            // 
+            lblSource.AutoSize = true;
+            lblSource.Location = new Point(12, 54);
+            lblSource.Name = "lblSource";
+            lblSource.Size = new Size(121, 15);
+            lblSource.TabIndex = 8;
+            lblSource.Text = "Sélection de la source";
             // 
             // FormSelectChapter
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(938, 68);
-            this.Controls.Add(this.labelNameChapter);
-            this.Controls.Add(this.textBoxNameChapter);
-            this.Controls.Add(this.labelChapter);
-            this.Controls.Add(this.labelManga);
-            this.Controls.Add(this.textBoxUrl);
-            this.Controls.Add(this.comboBoxManga);
-            this.Controls.Add(this.buttonDownload);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "FormSelectChapter";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Télécharger un chapitre spécifique";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormDownloadOneChapter_FormClosed);
-            this.Load += new System.EventHandler(this.FormDownloadOneChapter_Load);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            ClientSize = new Size(666, 108);
+            Controls.Add(lblSource);
+            Controls.Add(cmbSource);
+            Controls.Add(labelNameChapter);
+            Controls.Add(textBoxNameChapter);
+            Controls.Add(labelChapter);
+            Controls.Add(labelManga);
+            Controls.Add(textBoxUrl);
+            Controls.Add(comboBoxManga);
+            Controls.Add(buttonDownload);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "FormSelectChapter";
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Télécharger un chapitre spécifique";
+            Load += FormDownloadOneChapter_Load;
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -134,5 +153,7 @@
         private Label labelChapter;
         private TextBox textBoxNameChapter;
         private Label labelNameChapter;
+        private ComboBox cmbSource;
+        private Label lblSource;
     }
 }
