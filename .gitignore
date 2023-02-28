@@ -12,6 +12,8 @@
 /scan_manga_v.2/obj/
 /scan_manga_v.2/.vs/
 /scan_manga_v.2/bin/
+/scan_manga_v.3/.vs/
+/scan_manga_v.3/bin/
 /SetupScanManga/Debug/
 /SetupScanManga/Release/
 /.vs/ProjectEvaluation
@@ -21,3 +23,4 @@
 /scan_manga/obj/project.nuget.cache
 /scan_manga/obj/scan_manga.csproj.nuget.dgspec.json
 /.vs/slnx.sqlite
+/scan_manga_v.3/obj
