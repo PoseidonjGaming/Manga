@@ -43,7 +43,8 @@
             buttonSup = new Button();
             buttonNew = new Button();
             buttonClear = new Button();
-            comboBox1 = new ComboBox();
+            lstBoxSources = new ListBox();
+            btnAddSource = new Button();
             SuspendLayout();
             // 
             // listBoxManga
@@ -76,7 +77,7 @@
             // 
             // textBoxCh1
             // 
-            textBoxCh1.Location = new Point(131, 218);
+            textBoxCh1.Location = new Point(515, 148);
             textBoxCh1.Margin = new Padding(3, 4, 3, 4);
             textBoxCh1.Name = "textBoxCh1";
             textBoxCh1.Size = new Size(250, 27);
@@ -85,7 +86,7 @@
             // labelChapter1
             // 
             labelChapter1.AutoSize = true;
-            labelChapter1.Location = new Point(14, 221);
+            labelChapter1.Location = new Point(387, 152);
             labelChapter1.Name = "labelChapter1";
             labelChapter1.Size = new Size(122, 20);
             labelChapter1.TabIndex = 4;
@@ -94,7 +95,7 @@
             // labelChapter2
             // 
             labelChapter2.AutoSize = true;
-            labelChapter2.Location = new Point(14, 256);
+            labelChapter2.Location = new Point(387, 186);
             labelChapter2.Name = "labelChapter2";
             labelChapter2.Size = new Size(122, 20);
             labelChapter2.TabIndex = 5;
@@ -102,7 +103,7 @@
             // 
             // textBoxCh2
             // 
-            textBoxCh2.Location = new Point(131, 253);
+            textBoxCh2.Location = new Point(515, 183);
             textBoxCh2.Margin = new Padding(3, 4, 3, 4);
             textBoxCh2.Name = "textBoxCh2";
             textBoxCh2.Size = new Size(250, 27);
@@ -110,7 +111,7 @@
             // 
             // buttonRoot
             // 
-            buttonRoot.Location = new Point(16, 327);
+            buttonRoot.Location = new Point(16, 225);
             buttonRoot.Margin = new Padding(3, 4, 3, 4);
             buttonRoot.Name = "buttonRoot";
             buttonRoot.Size = new Size(111, 27);
@@ -121,7 +122,7 @@
             // 
             // textBoxRoot
             // 
-            textBoxRoot.Location = new Point(131, 327);
+            textBoxRoot.Location = new Point(131, 225);
             textBoxRoot.Margin = new Padding(3, 4, 3, 4);
             textBoxRoot.Name = "textBoxRoot";
             textBoxRoot.ReadOnly = true;
@@ -130,7 +131,7 @@
             // 
             // buttonAdd
             // 
-            buttonAdd.Location = new Point(16, 288);
+            buttonAdd.Location = new Point(16, 186);
             buttonAdd.Margin = new Padding(3, 4, 3, 4);
             buttonAdd.Name = "buttonAdd";
             buttonAdd.Size = new Size(86, 31);
@@ -141,7 +142,7 @@
             // 
             // buttonSup
             // 
-            buttonSup.Location = new Point(293, 288);
+            buttonSup.Location = new Point(293, 186);
             buttonSup.Margin = new Padding(3, 4, 3, 4);
             buttonSup.Name = "buttonSup";
             buttonSup.Size = new Size(86, 31);
@@ -152,7 +153,7 @@
             // 
             // buttonNew
             // 
-            buttonNew.Location = new Point(108, 288);
+            buttonNew.Location = new Point(108, 186);
             buttonNew.Margin = new Padding(3, 4, 3, 4);
             buttonNew.Name = "buttonNew";
             buttonNew.Size = new Size(86, 31);
@@ -163,7 +164,7 @@
             // 
             // buttonClear
             // 
-            buttonClear.Location = new Point(201, 288);
+            buttonClear.Location = new Point(201, 186);
             buttonClear.Margin = new Padding(3, 4, 3, 4);
             buttonClear.Name = "buttonClear";
             buttonClear.Size = new Size(86, 31);
@@ -172,21 +173,33 @@
             buttonClear.UseVisualStyleBackColor = true;
             buttonClear.Click += buttonClear_Click;
             // 
-            // comboBox1
+            // lstBoxSources
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(14, 183);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(367, 28);
-            comboBox1.TabIndex = 16;
+            lstBoxSources.FormattingEnabled = true;
+            lstBoxSources.ItemHeight = 20;
+            lstBoxSources.Location = new Point(387, 17);
+            lstBoxSources.Name = "lstBoxSources";
+            lstBoxSources.Size = new Size(378, 124);
+            lstBoxSources.TabIndex = 16;
+            // 
+            // btnAddSource
+            // 
+            btnAddSource.Location = new Point(387, 223);
+            btnAddSource.Name = "btnAddSource";
+            btnAddSource.Size = new Size(94, 29);
+            btnAddSource.TabIndex = 17;
+            btnAddSource.Text = "Ajouter Source";
+            btnAddSource.UseVisualStyleBackColor = true;
+            btnAddSource.Click += btnAddSource_Click;
             // 
             // FormSetting
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            ClientSize = new Size(393, 365);
-            Controls.Add(comboBox1);
+            ClientSize = new Size(855, 330);
+            Controls.Add(btnAddSource);
+            Controls.Add(lstBoxSources);
             Controls.Add(buttonClear);
             Controls.Add(buttonNew);
             Controls.Add(buttonSup);
@@ -227,6 +240,7 @@
         private Button buttonSup;
         private Button buttonNew;
         private Button buttonClear;
-        private ComboBox comboBox1;
+        private ListBox lstBoxSources;
+        private Button btnAddSource;
     }
 }

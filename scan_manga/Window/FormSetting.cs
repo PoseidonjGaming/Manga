@@ -1,5 +1,6 @@
 ﻿using scan_manga.Models;
 using scan_manga.Utilities;
+using System.Drawing.Imaging;
 
 namespace scan_manga
 {
@@ -7,6 +8,7 @@ namespace scan_manga
     {
         private string root;
         private readonly List<Manga> mangas = new();
+        private List<string> sources = new();
         public FormSetting()
         {
             InitializeComponent();
@@ -74,7 +76,6 @@ namespace scan_manga
                 Manga manga = mangas[listBoxManga.SelectedIndex];
                 if (manga.Source is not null)
                 {
-                    comboBox1.Items.AddRange(manga.Source.ToArray());
                 }
                 textBoxNameManga.Text = manga.Nom;
 
@@ -150,6 +151,12 @@ namespace scan_manga
             textBoxNameManga.Clear();
         }
 
+        private void btnAddSource_Click(object sender, EventArgs e)
+        {
+            if(textBoxCh1.Text != string.Empty && textBoxCh2.Text != string.Empty)
+            {
 
+            }
+        }
     }
 }
