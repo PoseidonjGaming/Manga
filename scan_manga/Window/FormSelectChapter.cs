@@ -40,7 +40,7 @@ namespace scan_manga
         private void buttonDownload_Click(object sender, EventArgs e)
         {
             Manga manga=MangaUtility.GetManga(comboBoxManga.Text, Settings.Default.Manga);
-            manga.Source=textBoxUrl.Text;
+            //manga.Source=textBoxUrl.Text;
             MangaUtility.Scan(manga, false,
                 int.Parse(textBoxNameChapter.Text.Split(" ").Last()));
             Close();

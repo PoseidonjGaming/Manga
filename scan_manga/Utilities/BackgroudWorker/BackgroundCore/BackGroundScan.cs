@@ -42,9 +42,9 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundCore
 
         protected override void backgroundWorker_DoWork(object? sender, DoWorkEventArgs e)
         {
-            string source = manga.Source;
-            bool isChapterExist = true;
+            string source = /*manga.Source*/string.Empty;
             HttpClient client = new();
+            bool isChapterExist;
             try
             {
 
@@ -161,7 +161,8 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundCore
 
         private string ReplaceNum(int num)
         {
-            return manga.Source.Replace("[num_chapitre]", num.ToString());
+            //return manga.Source.Replace("[num_chapitre]", num.ToString());
+            return "test";
         }
 
         private string GetNameChapter(params string[] parts)

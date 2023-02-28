@@ -29,186 +29,176 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSetting));
-            this.listBoxManga = new System.Windows.Forms.ListBox();
-            this.labelNameManga = new System.Windows.Forms.Label();
-            this.textBoxNameManga = new System.Windows.Forms.TextBox();
-            this.textBoxCh1 = new System.Windows.Forms.TextBox();
-            this.labelChapter1 = new System.Windows.Forms.Label();
-            this.labelChapter2 = new System.Windows.Forms.Label();
-            this.textBoxCh2 = new System.Windows.Forms.TextBox();
-            this.buttonRoot = new System.Windows.Forms.Button();
-            this.folderBrowserDialogRoot = new System.Windows.Forms.FolderBrowserDialog();
-            this.textBoxRoot = new System.Windows.Forms.TextBox();
-            this.buttonAdd = new System.Windows.Forms.Button();
-            this.buttonSup = new System.Windows.Forms.Button();
-            this.buttonNew = new System.Windows.Forms.Button();
-            this.buttonClear = new System.Windows.Forms.Button();
-            this.labelToRemove = new System.Windows.Forms.Label();
-            this.textBoxToRemove = new System.Windows.Forms.TextBox();
-            this.SuspendLayout();
+            listBoxManga = new ListBox();
+            labelNameManga = new Label();
+            textBoxNameManga = new TextBox();
+            textBoxCh1 = new TextBox();
+            labelChapter1 = new Label();
+            labelChapter2 = new Label();
+            textBoxCh2 = new TextBox();
+            buttonRoot = new Button();
+            folderBrowserDialogRoot = new FolderBrowserDialog();
+            textBoxRoot = new TextBox();
+            buttonAdd = new Button();
+            buttonSup = new Button();
+            buttonNew = new Button();
+            buttonClear = new Button();
+            SuspendLayout();
             // 
             // listBoxManga
             // 
-            this.listBoxManga.FormattingEnabled = true;
-            this.listBoxManga.ItemHeight = 15;
-            this.listBoxManga.Location = new System.Drawing.Point(12, 12);
-            this.listBoxManga.Name = "listBoxManga";
-            this.listBoxManga.Size = new System.Drawing.Size(320, 94);
-            this.listBoxManga.TabIndex = 0;
-            this.listBoxManga.SelectedIndexChanged += new System.EventHandler(this.listBoxManga_SelectedIndexChanged);
+            listBoxManga.FormattingEnabled = true;
+            listBoxManga.ItemHeight = 20;
+            listBoxManga.Location = new Point(14, 16);
+            listBoxManga.Margin = new Padding(3, 4, 3, 4);
+            listBoxManga.Name = "listBoxManga";
+            listBoxManga.Size = new Size(365, 124);
+            listBoxManga.TabIndex = 0;
+            listBoxManga.SelectedIndexChanged += listBoxManga_SelectedIndexChanged;
             // 
             // labelNameManga
             // 
-            this.labelNameManga.AutoSize = true;
-            this.labelNameManga.Location = new System.Drawing.Point(12, 115);
-            this.labelNameManga.Name = "labelNameManga";
-            this.labelNameManga.Size = new System.Drawing.Size(77, 15);
-            this.labelNameManga.TabIndex = 1;
-            this.labelNameManga.Text = "Nom manga:";
+            labelNameManga.AutoSize = true;
+            labelNameManga.Location = new Point(14, 153);
+            labelNameManga.Name = "labelNameManga";
+            labelNameManga.Size = new Size(95, 20);
+            labelNameManga.TabIndex = 1;
+            labelNameManga.Text = "Nom manga:";
             // 
             // textBoxNameManga
             // 
-            this.textBoxNameManga.Location = new System.Drawing.Point(115, 112);
-            this.textBoxNameManga.Name = "textBoxNameManga";
-            this.textBoxNameManga.Size = new System.Drawing.Size(217, 23);
-            this.textBoxNameManga.TabIndex = 2;
+            textBoxNameManga.Location = new Point(131, 149);
+            textBoxNameManga.Margin = new Padding(3, 4, 3, 4);
+            textBoxNameManga.Name = "textBoxNameManga";
+            textBoxNameManga.Size = new Size(247, 27);
+            textBoxNameManga.TabIndex = 2;
             // 
             // textBoxCh1
             // 
-            this.textBoxCh1.Location = new System.Drawing.Point(115, 141);
-            this.textBoxCh1.Name = "textBoxCh1";
-            this.textBoxCh1.Size = new System.Drawing.Size(217, 23);
-            this.textBoxCh1.TabIndex = 3;
+            textBoxCh1.Location = new Point(131, 188);
+            textBoxCh1.Margin = new Padding(3, 4, 3, 4);
+            textBoxCh1.Name = "textBoxCh1";
+            textBoxCh1.Size = new Size(247, 27);
+            textBoxCh1.TabIndex = 3;
             // 
             // labelChapter1
             // 
-            this.labelChapter1.AutoSize = true;
-            this.labelChapter1.Location = new System.Drawing.Point(12, 144);
-            this.labelChapter1.Name = "labelChapter1";
-            this.labelChapter1.Size = new System.Drawing.Size(97, 15);
-            this.labelChapter1.TabIndex = 4;
-            this.labelChapter1.Text = "Url du chapitre 1:";
+            labelChapter1.AutoSize = true;
+            labelChapter1.Location = new Point(14, 192);
+            labelChapter1.Name = "labelChapter1";
+            labelChapter1.Size = new Size(122, 20);
+            labelChapter1.TabIndex = 4;
+            labelChapter1.Text = "Url du chapitre 1:";
             // 
             // labelChapter2
             // 
-            this.labelChapter2.AutoSize = true;
-            this.labelChapter2.Location = new System.Drawing.Point(12, 173);
-            this.labelChapter2.Name = "labelChapter2";
-            this.labelChapter2.Size = new System.Drawing.Size(97, 15);
-            this.labelChapter2.TabIndex = 5;
-            this.labelChapter2.Text = "Url du chapitre 2:";
+            labelChapter2.AutoSize = true;
+            labelChapter2.Location = new Point(14, 231);
+            labelChapter2.Name = "labelChapter2";
+            labelChapter2.Size = new Size(122, 20);
+            labelChapter2.TabIndex = 5;
+            labelChapter2.Text = "Url du chapitre 2:";
             // 
             // textBoxCh2
             // 
-            this.textBoxCh2.Location = new System.Drawing.Point(115, 170);
-            this.textBoxCh2.Name = "textBoxCh2";
-            this.textBoxCh2.Size = new System.Drawing.Size(217, 23);
-            this.textBoxCh2.TabIndex = 6;
+            textBoxCh2.Location = new Point(131, 227);
+            textBoxCh2.Margin = new Padding(3, 4, 3, 4);
+            textBoxCh2.Name = "textBoxCh2";
+            textBoxCh2.Size = new Size(247, 27);
+            textBoxCh2.TabIndex = 6;
             // 
             // buttonRoot
             // 
-            this.buttonRoot.Location = new System.Drawing.Point(12, 257);
-            this.buttonRoot.Name = "buttonRoot";
-            this.buttonRoot.Size = new System.Drawing.Size(97, 23);
-            this.buttonRoot.TabIndex = 7;
-            this.buttonRoot.Text = "Sélection";
-            this.buttonRoot.UseVisualStyleBackColor = true;
-            this.buttonRoot.Click += new System.EventHandler(this.buttonRoot_Click);
+            buttonRoot.Location = new Point(15, 301);
+            buttonRoot.Margin = new Padding(3, 4, 3, 4);
+            buttonRoot.Name = "buttonRoot";
+            buttonRoot.Size = new Size(111, 31);
+            buttonRoot.TabIndex = 7;
+            buttonRoot.Text = "Sélection";
+            buttonRoot.UseVisualStyleBackColor = true;
+            buttonRoot.Click += buttonRoot_Click;
             // 
             // textBoxRoot
             // 
-            this.textBoxRoot.Location = new System.Drawing.Point(113, 257);
-            this.textBoxRoot.Name = "textBoxRoot";
-            this.textBoxRoot.ReadOnly = true;
-            this.textBoxRoot.Size = new System.Drawing.Size(217, 23);
-            this.textBoxRoot.TabIndex = 8;
+            textBoxRoot.Location = new Point(130, 301);
+            textBoxRoot.Margin = new Padding(3, 4, 3, 4);
+            textBoxRoot.Name = "textBoxRoot";
+            textBoxRoot.ReadOnly = true;
+            textBoxRoot.Size = new Size(247, 27);
+            textBoxRoot.TabIndex = 8;
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(12, 228);
-            this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(75, 23);
-            this.buttonAdd.TabIndex = 9;
-            this.buttonAdd.Text = "Ajouter";
-            this.buttonAdd.UseVisualStyleBackColor = true;
-            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+            buttonAdd.Location = new Point(15, 262);
+            buttonAdd.Margin = new Padding(3, 4, 3, 4);
+            buttonAdd.Name = "buttonAdd";
+            buttonAdd.Size = new Size(86, 31);
+            buttonAdd.TabIndex = 9;
+            buttonAdd.Text = "Ajouter";
+            buttonAdd.UseVisualStyleBackColor = true;
+            buttonAdd.Click += buttonAdd_Click;
             // 
             // buttonSup
             // 
-            this.buttonSup.Location = new System.Drawing.Point(255, 228);
-            this.buttonSup.Name = "buttonSup";
-            this.buttonSup.Size = new System.Drawing.Size(75, 23);
-            this.buttonSup.TabIndex = 13;
-            this.buttonSup.Text = "Supprimer";
-            this.buttonSup.UseVisualStyleBackColor = true;
-            this.buttonSup.Click += new System.EventHandler(this.buttonSup_Click);
+            buttonSup.Location = new Point(292, 262);
+            buttonSup.Margin = new Padding(3, 4, 3, 4);
+            buttonSup.Name = "buttonSup";
+            buttonSup.Size = new Size(86, 31);
+            buttonSup.TabIndex = 13;
+            buttonSup.Text = "Supprimer";
+            buttonSup.UseVisualStyleBackColor = true;
+            buttonSup.Click += buttonSup_Click;
             // 
             // buttonNew
             // 
-            this.buttonNew.Location = new System.Drawing.Point(93, 228);
-            this.buttonNew.Name = "buttonNew";
-            this.buttonNew.Size = new System.Drawing.Size(75, 23);
-            this.buttonNew.TabIndex = 14;
-            this.buttonNew.Text = "Modifier";
-            this.buttonNew.UseVisualStyleBackColor = true;
-            this.buttonNew.Click += new System.EventHandler(this.buttonModif_Click);
+            buttonNew.Location = new Point(107, 262);
+            buttonNew.Margin = new Padding(3, 4, 3, 4);
+            buttonNew.Name = "buttonNew";
+            buttonNew.Size = new Size(86, 31);
+            buttonNew.TabIndex = 14;
+            buttonNew.Text = "Modifier";
+            buttonNew.UseVisualStyleBackColor = true;
+            buttonNew.Click += buttonModif_Click;
             // 
             // buttonClear
             // 
-            this.buttonClear.Location = new System.Drawing.Point(174, 228);
-            this.buttonClear.Name = "buttonClear";
-            this.buttonClear.Size = new System.Drawing.Size(75, 23);
-            this.buttonClear.TabIndex = 15;
-            this.buttonClear.Text = "Vider";
-            this.buttonClear.UseVisualStyleBackColor = true;
-            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
-            // 
-            // labelToRemove
-            // 
-            this.labelToRemove.AutoSize = true;
-            this.labelToRemove.Location = new System.Drawing.Point(12, 202);
-            this.labelToRemove.Name = "labelToRemove";
-            this.labelToRemove.Size = new System.Drawing.Size(93, 15);
-            this.labelToRemove.TabIndex = 16;
-            this.labelToRemove.Text = "Chaine à retirer: ";
-            // 
-            // textBoxToRemove
-            // 
-            this.textBoxToRemove.Location = new System.Drawing.Point(116, 199);
-            this.textBoxToRemove.Name = "textBoxToRemove";
-            this.textBoxToRemove.Size = new System.Drawing.Size(216, 23);
-            this.textBoxToRemove.TabIndex = 17;
+            buttonClear.Location = new Point(200, 262);
+            buttonClear.Margin = new Padding(3, 4, 3, 4);
+            buttonClear.Name = "buttonClear";
+            buttonClear.Size = new Size(86, 31);
+            buttonClear.TabIndex = 15;
+            buttonClear.Text = "Vider";
+            buttonClear.UseVisualStyleBackColor = true;
+            buttonClear.Click += buttonClear_Click;
             // 
             // FormSetting
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(344, 291);
-            this.Controls.Add(this.textBoxToRemove);
-            this.Controls.Add(this.labelToRemove);
-            this.Controls.Add(this.buttonClear);
-            this.Controls.Add(this.buttonNew);
-            this.Controls.Add(this.buttonSup);
-            this.Controls.Add(this.buttonAdd);
-            this.Controls.Add(this.textBoxRoot);
-            this.Controls.Add(this.buttonRoot);
-            this.Controls.Add(this.textBoxCh2);
-            this.Controls.Add(this.labelChapter2);
-            this.Controls.Add(this.labelChapter1);
-            this.Controls.Add(this.textBoxCh1);
-            this.Controls.Add(this.textBoxNameManga);
-            this.Controls.Add(this.labelNameManga);
-            this.Controls.Add(this.listBoxManga);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "FormSetting";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Settings";
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            ClientSize = new Size(393, 345);
+            Controls.Add(buttonClear);
+            Controls.Add(buttonNew);
+            Controls.Add(buttonSup);
+            Controls.Add(buttonAdd);
+            Controls.Add(textBoxRoot);
+            Controls.Add(buttonRoot);
+            Controls.Add(textBoxCh2);
+            Controls.Add(labelChapter2);
+            Controls.Add(labelChapter1);
+            Controls.Add(textBoxCh1);
+            Controls.Add(textBoxNameManga);
+            Controls.Add(labelNameManga);
+            Controls.Add(listBoxManga);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(3, 4, 3, 4);
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "FormSetting";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Settings";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -227,7 +217,5 @@
         private Button buttonSup;
         private Button buttonNew;
         private Button buttonClear;
-        private Label labelToRemove;
-        private TextBox textBoxToRemove;
     }
 }
