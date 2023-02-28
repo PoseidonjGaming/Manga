@@ -25,3 +25,4 @@
 /scan_manga/obj/scan_manga.csproj.nuget.dgspec.json
 /.vs/slnx.sqlite
 
+/exportManga.json
