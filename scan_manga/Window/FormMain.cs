@@ -21,7 +21,6 @@ namespace scan_manga
         {
             InitializeComponent();
 
-            labelChpater.Text = string.Empty;
             chapters = new();
             if (Settings.Default.Manga is not null)
             {
@@ -68,29 +67,6 @@ namespace scan_manga
                     listBoxManga.Text + " Chapitre ", listBoxManga.Text + " Chapitre ", false));
             }
         }
-
-
-
-        private void backgroundWorkerScan_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
-        {
-            if (chapters.Count != 0)
-            {
-                numChapitre = 0;
-
-
-
-                chapters.Clear();
-            }
-            else
-            {
-                labelChpater.Text = "Aucun chapitre n'a été trouvé";
-            }
-
-        }
-
-
-
-
 
         private void optionToolStripMenuItem_Click(object sender, EventArgs e)
         {
