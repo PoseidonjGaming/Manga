@@ -28,54 +28,60 @@
         /// </summary>
         private void InitializeComponent()
         {
-            cmbManga = new ComboBox();
             cmbSource = new ComboBox();
             btnScan = new Button();
+            lblSource = new Label();
             SuspendLayout();
-            // 
-            // cmbManga
-            // 
-            cmbManga.FormattingEnabled = true;
-            cmbManga.Location = new Point(12, 12);
-            cmbManga.Name = "cmbManga";
-            cmbManga.Size = new Size(200, 28);
-            cmbManga.TabIndex = 0;
             // 
             // cmbSource
             // 
             cmbSource.FormattingEnabled = true;
-            cmbSource.Location = new Point(218, 12);
+            cmbSource.Location = new Point(12, 26);
+            cmbSource.Margin = new Padding(3, 2, 3, 2);
             cmbSource.Name = "cmbSource";
-            cmbSource.Size = new Size(400, 28);
+            cmbSource.Size = new Size(350, 23);
             cmbSource.TabIndex = 1;
             // 
             // btnScan
             // 
-            btnScan.Location = new Point(624, 11);
+            btnScan.Location = new Point(368, 27);
+            btnScan.Margin = new Padding(3, 2, 3, 2);
             btnScan.Name = "btnScan";
-            btnScan.Size = new Size(94, 29);
+            btnScan.Size = new Size(82, 22);
             btnScan.TabIndex = 2;
             btnScan.Text = "Scanner";
             btnScan.UseVisualStyleBackColor = true;
+            btnScan.Click += btnScan_Click;
+            // 
+            // lblSource
+            // 
+            lblSource.AutoSize = true;
+            lblSource.Location = new Point(12, 9);
+            lblSource.Name = "lblSource";
+            lblSource.Size = new Size(121, 15);
+            lblSource.TabIndex = 3;
+            lblSource.Text = "Sélection de la source";
             // 
             // FormScan
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(729, 53);
+            ClientSize = new Size(464, 61);
+            Controls.Add(lblSource);
             Controls.Add(btnScan);
             Controls.Add(cmbSource);
-            Controls.Add(cmbManga);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "FormScan";
+            StartPosition = FormStartPosition.CenterParent;
             Text = "FormScan";
             Load += FormScan_Load;
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
-
-        private ComboBox cmbManga;
         private ComboBox cmbSource;
         private Button btnScan;
+        private Label lblSource;
     }
 }

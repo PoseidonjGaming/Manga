@@ -1,5 +1,6 @@
 ﻿using scan_manga.Models;
 using scan_manga.Properties;
+using scan_manga.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,23 +15,27 @@ namespace scan_manga.Window
 {
     public partial class FormScan : Form
     {
-        private List<Manga> mangas;
-        public FormScan()
+        private string source;
+        private Manga Manga;
+        public FormScan(Manga manga)
         {
             InitializeComponent();
-            if(Settings.Default.Manga != null)
-            {
-                mangas = Settings.Default.Manga;
-            }
-            
+            Manga = manga;
+
         }
 
         private void FormScan_Load(object sender, EventArgs e)
         {
-            foreach(Manga manga in mangas)
-            {
-                cmbManga.Items.Add(manga.Nom);
-            }
+            cmbSource.Items.AddRange(Manga.Source.ToArray());
         }
+
+        private void btnScan_Click(object sender, EventArgs e)
+        {
+            source = cmbSource.Text;
+            Close();
+        }
+
+        public string GetSource() { return source; }
+
     }
 }

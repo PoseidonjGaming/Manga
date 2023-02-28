@@ -45,76 +45,72 @@
             buttonClear = new Button();
             lstBoxSources = new ListBox();
             btnAddSource = new Button();
+            btnRemoveSource = new Button();
             SuspendLayout();
             // 
             // listBoxManga
             // 
             listBoxManga.FormattingEnabled = true;
-            listBoxManga.ItemHeight = 20;
-            listBoxManga.Location = new Point(16, 17);
-            listBoxManga.Margin = new Padding(3, 4, 3, 4);
+            listBoxManga.ItemHeight = 15;
+            listBoxManga.Location = new Point(14, 13);
             listBoxManga.Name = "listBoxManga";
-            listBoxManga.Size = new Size(365, 124);
+            listBoxManga.Size = new Size(320, 184);
             listBoxManga.TabIndex = 0;
             listBoxManga.SelectedIndexChanged += listBoxManga_SelectedIndexChanged;
             // 
             // labelNameManga
             // 
             labelNameManga.AutoSize = true;
-            labelNameManga.Location = new Point(14, 153);
+            labelNameManga.Location = new Point(13, 209);
             labelNameManga.Name = "labelNameManga";
-            labelNameManga.Size = new Size(95, 20);
+            labelNameManga.Size = new Size(77, 15);
             labelNameManga.TabIndex = 1;
             labelNameManga.Text = "Nom manga:";
             // 
             // textBoxNameManga
             // 
-            textBoxNameManga.Location = new Point(131, 149);
-            textBoxNameManga.Margin = new Padding(3, 4, 3, 4);
+            textBoxNameManga.Location = new Point(116, 206);
             textBoxNameManga.Name = "textBoxNameManga";
-            textBoxNameManga.Size = new Size(250, 27);
+            textBoxNameManga.Size = new Size(215, 23);
             textBoxNameManga.TabIndex = 2;
             // 
             // textBoxCh1
             // 
-            textBoxCh1.Location = new Point(515, 148);
-            textBoxCh1.Margin = new Padding(3, 4, 3, 4);
+            textBoxCh1.Location = new Point(450, 206);
             textBoxCh1.Name = "textBoxCh1";
-            textBoxCh1.Size = new Size(250, 27);
+            textBoxCh1.Size = new Size(219, 23);
             textBoxCh1.TabIndex = 3;
             // 
             // labelChapter1
             // 
             labelChapter1.AutoSize = true;
-            labelChapter1.Location = new Point(387, 152);
+            labelChapter1.Location = new Point(337, 210);
             labelChapter1.Name = "labelChapter1";
-            labelChapter1.Size = new Size(122, 20);
+            labelChapter1.Size = new Size(97, 15);
             labelChapter1.TabIndex = 4;
             labelChapter1.Text = "Url du chapitre 1:";
             // 
             // labelChapter2
             // 
             labelChapter2.AutoSize = true;
-            labelChapter2.Location = new Point(387, 186);
+            labelChapter2.Location = new Point(336, 235);
             labelChapter2.Name = "labelChapter2";
-            labelChapter2.Size = new Size(122, 20);
+            labelChapter2.Size = new Size(97, 15);
             labelChapter2.TabIndex = 5;
             labelChapter2.Text = "Url du chapitre 2:";
             // 
             // textBoxCh2
             // 
-            textBoxCh2.Location = new Point(515, 183);
-            textBoxCh2.Margin = new Padding(3, 4, 3, 4);
+            textBoxCh2.Location = new Point(450, 232);
             textBoxCh2.Name = "textBoxCh2";
-            textBoxCh2.Size = new Size(250, 27);
+            textBoxCh2.Size = new Size(219, 23);
             textBoxCh2.TabIndex = 6;
             // 
             // buttonRoot
             // 
-            buttonRoot.Location = new Point(16, 225);
-            buttonRoot.Margin = new Padding(3, 4, 3, 4);
+            buttonRoot.Location = new Point(13, 263);
             buttonRoot.Name = "buttonRoot";
-            buttonRoot.Size = new Size(111, 27);
+            buttonRoot.Size = new Size(97, 23);
             buttonRoot.TabIndex = 7;
             buttonRoot.Text = "Sélection";
             buttonRoot.UseVisualStyleBackColor = true;
@@ -122,19 +118,17 @@
             // 
             // textBoxRoot
             // 
-            textBoxRoot.Location = new Point(131, 225);
-            textBoxRoot.Margin = new Padding(3, 4, 3, 4);
+            textBoxRoot.Location = new Point(116, 263);
             textBoxRoot.Name = "textBoxRoot";
             textBoxRoot.ReadOnly = true;
-            textBoxRoot.Size = new Size(247, 27);
+            textBoxRoot.Size = new Size(217, 23);
             textBoxRoot.TabIndex = 8;
             // 
             // buttonAdd
             // 
-            buttonAdd.Location = new Point(16, 186);
-            buttonAdd.Margin = new Padding(3, 4, 3, 4);
+            buttonAdd.Location = new Point(15, 234);
             buttonAdd.Name = "buttonAdd";
-            buttonAdd.Size = new Size(86, 31);
+            buttonAdd.Size = new Size(75, 23);
             buttonAdd.TabIndex = 9;
             buttonAdd.Text = "Ajouter";
             buttonAdd.UseVisualStyleBackColor = true;
@@ -142,10 +136,9 @@
             // 
             // buttonSup
             // 
-            buttonSup.Location = new Point(293, 186);
-            buttonSup.Margin = new Padding(3, 4, 3, 4);
+            buttonSup.Location = new Point(257, 234);
             buttonSup.Name = "buttonSup";
-            buttonSup.Size = new Size(86, 31);
+            buttonSup.Size = new Size(75, 23);
             buttonSup.TabIndex = 13;
             buttonSup.Text = "Supprimer";
             buttonSup.UseVisualStyleBackColor = true;
@@ -153,10 +146,9 @@
             // 
             // buttonNew
             // 
-            buttonNew.Location = new Point(108, 186);
-            buttonNew.Margin = new Padding(3, 4, 3, 4);
+            buttonNew.Location = new Point(95, 234);
             buttonNew.Name = "buttonNew";
-            buttonNew.Size = new Size(86, 31);
+            buttonNew.Size = new Size(75, 23);
             buttonNew.TabIndex = 14;
             buttonNew.Text = "Modifier";
             buttonNew.UseVisualStyleBackColor = true;
@@ -164,10 +156,9 @@
             // 
             // buttonClear
             // 
-            buttonClear.Location = new Point(201, 186);
-            buttonClear.Margin = new Padding(3, 4, 3, 4);
+            buttonClear.Location = new Point(177, 234);
             buttonClear.Name = "buttonClear";
-            buttonClear.Size = new Size(86, 31);
+            buttonClear.Size = new Size(75, 23);
             buttonClear.TabIndex = 15;
             buttonClear.Text = "Vider";
             buttonClear.UseVisualStyleBackColor = true;
@@ -176,28 +167,41 @@
             // lstBoxSources
             // 
             lstBoxSources.FormattingEnabled = true;
-            lstBoxSources.ItemHeight = 20;
-            lstBoxSources.Location = new Point(387, 17);
+            lstBoxSources.ItemHeight = 15;
+            lstBoxSources.Location = new Point(338, 13);
+            lstBoxSources.Margin = new Padding(3, 2, 3, 2);
             lstBoxSources.Name = "lstBoxSources";
-            lstBoxSources.Size = new Size(378, 124);
+            lstBoxSources.Size = new Size(331, 184);
             lstBoxSources.TabIndex = 16;
+            lstBoxSources.SelectedIndexChanged += lstBoxSources_SelectedIndexChanged;
             // 
             // btnAddSource
             // 
-            btnAddSource.Location = new Point(387, 223);
+            btnAddSource.Location = new Point(337, 264);
+            btnAddSource.Margin = new Padding(3, 2, 3, 2);
             btnAddSource.Name = "btnAddSource";
-            btnAddSource.Size = new Size(94, 29);
+            btnAddSource.Size = new Size(82, 23);
             btnAddSource.TabIndex = 17;
             btnAddSource.Text = "Ajouter Source";
             btnAddSource.UseVisualStyleBackColor = true;
             btnAddSource.Click += btnAddSource_Click;
             // 
+            // btnRemoveSource
+            // 
+            btnRemoveSource.Location = new Point(425, 264);
+            btnRemoveSource.Name = "btnRemoveSource";
+            btnRemoveSource.Size = new Size(75, 23);
+            btnRemoveSource.TabIndex = 18;
+            btnRemoveSource.Text = "Supprimer";
+            btnRemoveSource.UseVisualStyleBackColor = true;
+            // 
             // FormSetting
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            ClientSize = new Size(855, 330);
+            ClientSize = new Size(681, 297);
+            Controls.Add(btnRemoveSource);
             Controls.Add(btnAddSource);
             Controls.Add(lstBoxSources);
             Controls.Add(buttonClear);
@@ -214,7 +218,6 @@
             Controls.Add(labelNameManga);
             Controls.Add(listBoxManga);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FormSetting";
@@ -242,5 +245,6 @@
         private Button buttonClear;
         private ListBox lstBoxSources;
         private Button btnAddSource;
+        private Button btnRemoveSource;
     }
 }

@@ -169,10 +169,9 @@ namespace scan_manga.Utilities
             }
         }
 
-        public static void Scan(Manga manga, bool scanAll, int num = 1)
+        public static void Scan(Manga manga, bool scanAll, string source, int num = 1)
         {
-            BackGroundScan backGroundWorker = new(GetPath(Directory.GetCurrentDirectory(), "Temp"),
-                Settings.Default.Root, manga, scanAll, num);
+            BackGroundScan backGroundWorker = new(manga, source, scanAll, num);
             if (!backGroundWorker.Worker.IsBusy)
             {
                 Progress(backGroundWorker);

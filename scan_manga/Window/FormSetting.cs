@@ -43,7 +43,7 @@ namespace scan_manga
             {
                 Manga manga = new()
                 {
-                    //Source = textBoxCh2.Text.Replace(FindDiff(), "[num_chapitre]"),
+                    Source = sources,
                     Nom = textBoxNameManga.Text,
                 };
 
@@ -74,13 +74,9 @@ namespace scan_manga
             if (listBoxManga.SelectedIndex != -1)
             {
                 Manga manga = mangas[listBoxManga.SelectedIndex];
-                if (manga.Source is not null)
-                {
-                }
                 textBoxNameManga.Text = manga.Nom;
-
-
-
+                lstBoxSources.Items.Clear();
+                lstBoxSources.Items.AddRange(manga.Source.ToArray());
             }
 
         }
@@ -89,12 +85,8 @@ namespace scan_manga
         {
             if (listBoxManga.SelectedIndex != -1)
             {
-                Manga manga = new()
-                {
-                    //manga.Source = textBoxCh2.Text.Replace(FindDiff(), "[num_chapitre]");
-                    Nom = textBoxNameManga.Text
-                };
-                mangas[listBoxManga.SelectedIndex] = manga;
+
+                mangas[listBoxManga.SelectedIndex].Nom = textBoxNameManga.Text;
 
                 Save();
                 PopulateManga();
@@ -153,9 +145,29 @@ namespace scan_manga
 
         private void btnAddSource_Click(object sender, EventArgs e)
         {
-            if(textBoxCh1.Text != string.Empty && textBoxCh2.Text != string.Empty)
+            if (textBoxCh1.Text != string.Empty && textBoxCh2.Text != string.Empty)
             {
+                string source = textBoxCh2.Text.Replace(FindDiff(), "[num_chapitre]");
+                if (listBoxManga.SelectedIndex != -1)
+                {
+                    mangas[listBoxManga.SelectedIndex].Source.Add(source);
+                    Save();
+                }
+                else
+                {
+                    sources.Add(source);
+                }
+                lstBoxSources.Items.Add(source);
+                Clear();
+            }
+        }
 
+        private void lstBoxSources_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lstBoxSources.SelectedIndex != -1)
+            {
+                textBoxCh1.Text = lstBoxSources.Text.Replace("[num_chapitre]", "1");
+                textBoxCh2.Text = lstBoxSources.Text.Replace("[num_chapitre]", "2");
             }
         }
     }
