@@ -74,8 +74,7 @@ namespace scan_manga
                 Manga manga = mangas[listBoxManga.SelectedIndex];
                 if (manga.Source is not null)
                 {
-                    //textBoxCh1.Text = manga.Source.Replace("[num_chapitre]", "1");
-                    //textBoxCh2.Text = manga.Source.Replace("[num_chapitre]", "2");
+                    comboBox1.Items.AddRange(manga.Source.ToArray());
                 }
                 textBoxNameManga.Text = manga.Nom;
 
