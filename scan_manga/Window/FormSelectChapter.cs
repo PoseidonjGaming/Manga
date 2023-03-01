@@ -1,9 +1,9 @@
 ﻿using HtmlAgilityPack;
 using Newtonsoft.Json;
 using scan_manga.Models;
-using scan_manga.Properties;
 using scan_manga.Utilities;
 using scan_manga.Utilities.BackgroudWorker;
+using scan_manga.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -39,18 +39,30 @@ namespace scan_manga
 
         private void buttonDownload_Click(object sender, EventArgs e)
         {
-            Manga manga = MangaUtility.GetManga(comboBoxManga.Text, Settings.Default.Manga);
-            MangaUtility.Scan(manga, false, cmbSource.Text,
+            Manga manga=MangaUtility.GetManga(comboBoxManga.Text, Settings.Default.Manga);
+            manga.Source=textBoxUrl.Text;
+            MangaUtility.Scan(manga, false,
                 int.Parse(textBoxNameChapter.Text.Split(" ").Last()));
             Close();
+
+        }
+
+
+
+        private void FormDownloadOneChapter_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (chapter.Count != 0)
+            {
+                FormDownload formDownload = new(chapter, comboBoxManga.Text);
+                formDownload.ShowDialog(this.Parent);
+            }
+
 
         }
 
         private void comboBoxManga_SelectedIndexChanged(object sender, EventArgs e)
         {
             textBoxNameChapter.Text = comboBoxManga.Text + " Chapitre ";
-            cmbSource.Items.Clear();
-            cmbSource.Items.AddRange(MangaUtility.GetManga(comboBoxManga.Text, Settings.Default.Manga).Source.ToArray());
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using scan_manga.Models;
-using scan_manga.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

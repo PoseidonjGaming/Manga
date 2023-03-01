@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json.Bson;
 using scan_manga.Models;
-using scan_manga.Properties;
 using scan_manga.Utilities.BackgroudWorker;
 using scan_manga.Utilities.BackgroudWorker.BackgroundCore;
+using scan_manga.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +14,8 @@ namespace scan_manga.Utilities
 {
     public class MangaUtility
     {
-        public static string Root = Settings.Default.Root;
-        public static string Temp = GetPath(Directory.GetCurrentDirectory(), "Temp");
+        public static string Root=Settings.Default.Root;
+        public static string Temp=GetPath(Directory.GetCurrentDirectory(), "Temp");
         public static string[] Sort(string[] listIn, string separator, string toAdd, bool IsPage)
         {
             List<string> listOut = new();
@@ -70,7 +70,7 @@ namespace scan_manga.Utilities
             return path;
         }
 
-
+     
 
         public static void DeleteDirectory(params string[] parts)
         {
@@ -92,19 +92,23 @@ namespace scan_manga.Utilities
 
         public static void StartPack(string root)
         {
-            if (root != null && Settings.Default.Manga != null)
+            if (root != string.Empty)
             {
                 CreateDirectory(root, "Manga");
                 CreateDirectory(root, "Temp");
                 CreateDirectory(root, "Backup");
-                foreach (Manga manga in Settings.Default.Manga)
+                if(Settings.Default.Manga != null)
                 {
-                    CreateDirectory(root, "Manga", manga.Nom);
+                    foreach (Manga manga in Settings.Default.Manga)
+                    {
+                        CreateDirectory(root, "Manga", manga.Nom);
+                    }
                 }
+                
             }
         }
 
-        public static string? GetPage(string page, params string[] directory)
+        public static string? GetPage(string page,params string[] directory)
         {
             return Directory.GetFiles(GetPath(directory)).Where(e => Path.GetFileNameWithoutExtension(e).Replace('_', ' ') == page).FirstOrDefault();
         }
@@ -116,7 +120,7 @@ namespace scan_manga.Utilities
 
         public static Manga GetManga(string name, List<Manga> mangaList)
         {
-            return mangaList.Where(e => e.Nom == name).First();
+            return mangaList.Where(e=>e.Nom==name).First();
         }
 
         public static Chapter GetChapter(string name, List<Chapter> chapterList)
@@ -138,7 +142,7 @@ namespace scan_manga.Utilities
             return Directory.GetDirectories(GetPath(parts));
         }
 
-
+       
 
         public static void Progress(BaseBackGroundWorker bg)
         {
@@ -158,10 +162,10 @@ namespace scan_manga.Utilities
 
         public static string GetNum<T, M>(T item, List<M> list, Func<M, bool> predicate)
         {
-            int index = list.IndexOf(list.Where(predicate).First()) + 1;
+            int index = list.IndexOf(list.Where(predicate).First())+1;
             if (index < 10)
             {
-                return "0" + index;
+                return "0"+index;
             }
             else
             {
@@ -169,9 +173,10 @@ namespace scan_manga.Utilities
             }
         }
 
-        public static void Scan(Manga manga, bool scanAll, string source, int num = 1)
+        public static void Scan(Manga manga, bool scanAll, int num=1)
         {
-            BackGroundScan backGroundWorker = new(manga, source, scanAll, num);
+            BackGroundScan backGroundWorker = new(GetPath(Directory.GetCurrentDirectory(), "Temp"), 
+                Settings.Default.Root, manga, scanAll, num);
             if (!backGroundWorker.Worker.IsBusy)
             {
                 Progress(backGroundWorker);

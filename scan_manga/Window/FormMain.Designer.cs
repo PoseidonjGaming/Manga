@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             listBoxManga = new ListBox();
             listBoxChapter = new ListBox();
+            comboBoxManga = new ComboBox();
             menuStrip = new MenuStrip();
             menuToolStripMenuItem = new ToolStripMenuItem();
             optionToolStripMenuItem = new ToolStripMenuItem();
@@ -48,7 +49,6 @@
             extractToolStripMenuItem = new ToolStripMenuItem();
             pictureBoxPage = new PictureBox();
             comboBoxPage = new ComboBox();
-            comboBoxManga = new ComboBox();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPage).BeginInit();
             SuspendLayout();
@@ -74,6 +74,16 @@
             listBoxChapter.Size = new Size(340, 649);
             listBoxChapter.TabIndex = 1;
             listBoxChapter.SelectedIndexChanged += listBoxChapter_SelectedIndexChanged;
+            // 
+            // comboBoxManga
+            // 
+            comboBoxManga.AutoCompleteMode = AutoCompleteMode.Suggest;
+            comboBoxManga.FormattingEnabled = true;
+            comboBoxManga.Location = new Point(12, 27);
+            comboBoxManga.Name = "comboBoxManga";
+            comboBoxManga.Size = new Size(340, 23);
+            comboBoxManga.Sorted = true;
+            comboBoxManga.TabIndex = 4;
             // 
             // menuStrip
             // 
@@ -205,16 +215,6 @@
             comboBoxPage.TabIndex = 10;
             comboBoxPage.SelectedIndexChanged += comboBoxPage_SelectedIndexChanged;
             // 
-            // comboBoxManga
-            // 
-            comboBoxManga.AutoCompleteMode = AutoCompleteMode.Suggest;
-            comboBoxManga.FormattingEnabled = true;
-            comboBoxManga.Location = new Point(12, 27);
-            comboBoxManga.Name = "comboBoxManga";
-            comboBoxManga.Size = new Size(340, 23);
-            comboBoxManga.Sorted = true;
-            comboBoxManga.TabIndex = 4;
-            // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -243,6 +243,7 @@
 
         private ListBox listBoxManga;
         private ListBox listBoxChapter;
+        private ComboBox comboBoxManga;
         private MenuStrip menuStrip;
         private ToolStripMenuItem menuToolStripMenuItem;
         private ToolStripMenuItem optionToolStripMenuItem;
@@ -260,6 +261,5 @@
         private ToolStripMenuItem importExportToolStripMenuItem;
         private ToolStripMenuItem exportToolStripMenuItem;
         private ToolStripMenuItem importToolStripMenuItem;
-        private ComboBox comboBoxManga;
     }
 }

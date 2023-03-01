@@ -16,15 +16,33 @@
   <ItemGroup>
     <Compile Update="Properties\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Window\FormDownload.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Window\FormMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Window\FormManage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Window\FormProgress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Window\FormSelectChapter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Window\FormSetting.cs">
+      <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <None Update="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <Generator>SettingsSingleFileGenerator</Generator>
     </None>
   </ItemGroup>
 
