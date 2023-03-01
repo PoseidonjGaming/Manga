@@ -122,9 +122,9 @@ namespace scan_manga.Utilities
             return chapterList.Where(e => e.NameChapter == name).First();
         }
 
-        public static string[] GetSortedChapters(string toAdd, params string[] parts)
+        public static string[] GetSortedChapters(string separator, string toAdd, params string[] parts)
         {
-            return Sort(Get(GetPath(parts)), " ", toAdd, false);
+            return Sort(Get(GetPath(parts)), separator, toAdd, false);
         }
 
         public static string[] Get(params string[] parts)
