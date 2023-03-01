@@ -14,8 +14,9 @@ namespace scan_manga.Utilities
 {
     public class MangaUtility
     {
-        public static string Root=Settings.Default.Root;
-        public static string Temp=GetPath(Directory.GetCurrentDirectory(), "Temp");
+        public static string Root { get => Settings.Default.Root; }
+        public static string Temp { get => GetPath(Directory.GetCurrentDirectory(), "Temp"); }
+
         public static string[] Sort(string[] listIn, string separator, string toAdd, bool IsPage)
         {
             List<string> listOut = new();
