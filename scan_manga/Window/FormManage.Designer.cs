@@ -49,10 +49,18 @@
             uploadToolStripMenuItem = new ToolStripMenuItem();
             menuStrip = new MenuStrip();
             grpBoxUpdate = new GroupBox();
+            cmbChapterSel = new ComboBox();
+            cmbMangaSel = new ComboBox();
+            rdChapter = new RadioButton();
+            rdManga = new RadioButton();
+            txtBoxModif = new TextBox();
+            btnUpdate = new Button();
+            btnDel = new Button();
             ((System.ComponentModel.ISupportInitialize)picturePage).BeginInit();
             grpBoxAdd.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             menuStrip.SuspendLayout();
+            grpBoxUpdate.SuspendLayout();
             SuspendLayout();
             // 
             // picturePage
@@ -156,7 +164,7 @@
             grpBoxAdd.Controls.Add(rdBtnAddChapter);
             grpBoxAdd.Controls.Add(rdBtnAddManga);
             grpBoxAdd.Controls.Add(txtBoxValue);
-            grpBoxAdd.Location = new Point(205, 27);
+            grpBoxAdd.Location = new Point(58, 27);
             grpBoxAdd.Name = "grpBoxAdd";
             grpBoxAdd.Size = new Size(377, 87);
             grpBoxAdd.TabIndex = 11;
@@ -243,12 +251,88 @@
             // 
             // grpBoxUpdate
             // 
-            grpBoxUpdate.Location = new Point(588, 27);
+            grpBoxUpdate.Controls.Add(btnDel);
+            grpBoxUpdate.Controls.Add(btnUpdate);
+            grpBoxUpdate.Controls.Add(txtBoxModif);
+            grpBoxUpdate.Controls.Add(cmbChapterSel);
+            grpBoxUpdate.Controls.Add(cmbMangaSel);
+            grpBoxUpdate.Controls.Add(rdChapter);
+            grpBoxUpdate.Controls.Add(rdManga);
+            grpBoxUpdate.Location = new Point(441, 27);
             grpBoxUpdate.Name = "grpBoxUpdate";
-            grpBoxUpdate.Size = new Size(410, 87);
+            grpBoxUpdate.Size = new Size(579, 87);
             grpBoxUpdate.TabIndex = 12;
             grpBoxUpdate.TabStop = false;
             grpBoxUpdate.Text = "Modifier/Supprimer";
+            // 
+            // cmbChapterSel
+            // 
+            cmbChapterSel.Enabled = false;
+            cmbChapterSel.FormattingEnabled = true;
+            cmbChapterSel.Location = new Point(230, 47);
+            cmbChapterSel.Name = "cmbChapterSel";
+            cmbChapterSel.Size = new Size(230, 23);
+            cmbChapterSel.TabIndex = 3;
+            // 
+            // cmbMangaSel
+            // 
+            cmbMangaSel.FormattingEnabled = true;
+            cmbMangaSel.Location = new Point(6, 47);
+            cmbMangaSel.Name = "cmbMangaSel";
+            cmbMangaSel.Size = new Size(218, 23);
+            cmbMangaSel.TabIndex = 2;
+            cmbMangaSel.SelectedIndexChanged += cmbMangaSel_SelectedIndexChanged;
+            // 
+            // rdChapter
+            // 
+            rdChapter.AutoSize = true;
+            rdChapter.CheckAlign = ContentAlignment.MiddleRight;
+            rdChapter.Location = new Point(74, 18);
+            rdChapter.Name = "rdChapter";
+            rdChapter.Size = new Size(70, 19);
+            rdChapter.TabIndex = 1;
+            rdChapter.Text = "Chapitre";
+            rdChapter.UseVisualStyleBackColor = true;
+            rdChapter.CheckedChanged += rdChapter_CheckedChanged;
+            // 
+            // rdManga
+            // 
+            rdManga.AutoSize = true;
+            rdManga.CheckAlign = ContentAlignment.MiddleRight;
+            rdManga.Checked = true;
+            rdManga.Location = new Point(6, 18);
+            rdManga.Name = "rdManga";
+            rdManga.Size = new Size(62, 19);
+            rdManga.TabIndex = 0;
+            rdManga.TabStop = true;
+            rdManga.Text = "Manga";
+            rdManga.UseVisualStyleBackColor = true;
+            // 
+            // txtBoxModif
+            // 
+            txtBoxModif.Location = new Point(150, 18);
+            txtBoxModif.Name = "txtBoxModif";
+            txtBoxModif.Size = new Size(310, 23);
+            txtBoxModif.TabIndex = 4;
+            // 
+            // btnUpdate
+            // 
+            btnUpdate.Location = new Point(466, 18);
+            btnUpdate.Name = "btnUpdate";
+            btnUpdate.Size = new Size(75, 23);
+            btnUpdate.TabIndex = 5;
+            btnUpdate.Text = "Modifier";
+            btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Click += btnUpdate_Click;
+            // 
+            // btnDel
+            // 
+            btnDel.Location = new Point(466, 45);
+            btnDel.Name = "btnDel";
+            btnDel.Size = new Size(75, 23);
+            btnDel.TabIndex = 6;
+            btnDel.Text = "Supprimer";
+            btnDel.UseVisualStyleBackColor = true;
             // 
             // FormManage
             // 
@@ -282,6 +366,8 @@
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             menuStrip.ResumeLayout(false);
             menuStrip.PerformLayout();
+            grpBoxUpdate.ResumeLayout(false);
+            grpBoxUpdate.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -308,5 +394,12 @@
         private MenuStrip menuStrip;
         private NumericUpDown numericUpDown1;
         private GroupBox grpBoxUpdate;
+        private RadioButton rdChapter;
+        private RadioButton rdManga;
+        private ComboBox cmbChapterSel;
+        private ComboBox cmbMangaSel;
+        private Button btnDel;
+        private Button btnUpdate;
+        private TextBox txtBoxModif;
     }
 }

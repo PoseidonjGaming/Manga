@@ -71,8 +71,7 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundCore
         {
             File.Copy(page,
             MangaUtility.GetPath(root, dir, nameManga, nameChapter,
-            "page_" + MangaUtility.GetNum(page,
-            MangaUtility.GetChapter(nameChapter, chaptersToDownload).ListScan,
+            "page_" + MangaUtility.GetNum(MangaUtility.GetChapter(nameChapter, chaptersToDownload).ListScan,
             p => Path.GetFileNameWithoutExtension(p.Source) == Path.GetFileNameWithoutExtension(page)))
             + Path.GetExtension(page));
         }

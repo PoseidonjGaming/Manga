@@ -37,8 +37,7 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundCore
 
         protected override void backgroundWorker_DoWork(object? sender, DoWorkEventArgs e)
         {
-            string source = manga.Source;
-            bool isChapterExist = true;
+            bool isChapterExist;
             HttpClient client = new();
             try
             {

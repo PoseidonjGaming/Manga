@@ -134,7 +134,7 @@ namespace scan_manga
 
                 manga = MangaUtility.GetManga(comboBoxManga.Text, mangaList);
                 chapters.Clear();
-                MangaUtility.Scan(manga, true, 1);
+                MangaUtility.Scan(manga, true);
             }
         }
 
@@ -226,7 +226,8 @@ namespace scan_manga
             OpenFileDialog fileDialog = new OpenFileDialog();
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
-                Settings.Default.Manga = JsonConvert.DeserializeObject(File.ReadAllText(fileDialog.FileName)) as List<Manga>;
+                Settings.Default.Manga = JsonConvert.DeserializeObject<List<Manga>>(File.ReadAllText(fileDialog.FileName));
+                Settings.Default.Save();
             }
 
         }

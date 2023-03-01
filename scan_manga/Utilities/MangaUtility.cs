@@ -154,7 +154,7 @@ namespace scan_manga.Utilities
             return GetPath(path, nameChapter, GetName(sourcePage));
         }
 
-        public static string GetNum<T, M>(T item, List<M> list, Func<M, bool> predicate)
+        public static string GetNum<M>(List<M> list, Func<M, bool> predicate)
         {
             int index = list.IndexOf(list.Where(predicate).First())+1;
             if (index < 10)
