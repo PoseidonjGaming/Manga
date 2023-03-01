@@ -1,10 +1,7 @@
-﻿using HtmlAgilityPack;
-using scan_manga.Models;
+﻿using scan_manga.Models;
 using scan_manga.Utilities;
 using scan_manga.Utilities.BackgroudWorker.BackgroundCore;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Net;
 
 namespace scan_manga
 {

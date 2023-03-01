@@ -1,7 +1,6 @@
 using Newtonsoft.Json;
 using scan_manga.Models;
 using scan_manga.Utilities;
-using scan_manga.Utilities.BackgroudWorker;
 using scan_manga.Utilities.BackgroudWorker.BackgroundArchive;
 using scan_manga.Window;
 using scan_manga.Properties;

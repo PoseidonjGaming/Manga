@@ -1,13 +1,6 @@
 ﻿using scan_manga.Models;
 using scan_manga.Properties;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 
 namespace scan_manga.Utilities.BackgroudWorker.BackgroundArchive
 {

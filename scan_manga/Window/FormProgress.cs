@@ -1,16 +1,4 @@
-﻿using Newtonsoft.Json;
-using scan_manga.Models;
-using scan_manga.Utilities.BackgroudWorker;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using scan_manga.Utilities.BackgroudWorker;
 
 namespace scan_manga
 {

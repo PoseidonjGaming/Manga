@@ -1,14 +1,7 @@
-﻿using Newtonsoft.Json.Bson;
-using scan_manga.Models;
+﻿using scan_manga.Models;
 using scan_manga.Utilities.BackgroudWorker;
 using scan_manga.Utilities.BackgroudWorker.BackgroundCore;
 using scan_manga.Properties;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace scan_manga.Utilities
 {
@@ -116,7 +109,7 @@ namespace scan_manga.Utilities
 
         public static string[] GetPages(params string[] part)
         {
-            return Sort(Get(GetPath(part)), "_", "page ", true);
+            return Sort(Get(part), "_", "page ", true);
         }
 
         public static Manga GetManga(string name, List<Manga> mangaList)

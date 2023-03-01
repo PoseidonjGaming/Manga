@@ -2,16 +2,6 @@
 using scan_manga.Utilities;
 using scan_manga.Utilities.BackgroudWorker;
 using scan_manga.Properties;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO.Compression;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace scan_manga.Window
 {
