@@ -7,9 +7,9 @@ namespace scan_manga
 {
     public partial class FormDownload : Form
     {
-        private List<Chapter> chapters;
-        private List<Chapter> chaptersToDownload;
-        private string nameManga;
+        private readonly List<Chapter> chapters;
+        private readonly List<Chapter> chaptersToDownload;
+        private readonly string nameManga;
 
 
 

@@ -40,8 +40,7 @@ namespace scan_manga
 
             listBoxManga.Items.Clear();
             listBoxManga.Items.AddRange(Populate().ToArray());
-            MangaUtility.StartPack(Settings.Default.Root);
-            MangaUtility.Root = Settings.Default.Root;
+            MangaUtility.StartPack();
         }
 
         private List<string> Populate()
@@ -198,7 +197,7 @@ namespace scan_manga
                 CreateDirectory(MangaUtility.GetPath(MangaUtility.Root, "Temp", Path.GetFileName(manga)));
                 foreach (string chapter in Directory.GetFiles(manga))
                 {
-                    File.Copy(chapter, MangaUtility.Root + "\\Temp\\" + Path.GetFileName(manga) + "\\" + Path.GetFileName(chapter));
+                    File.Copy(chapter, MangaUtility.GetPath(MangaUtility.Root, Path.GetFileName(manga), Path.GetFileName(chapter)));
 
                 }
             }

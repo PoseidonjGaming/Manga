@@ -52,7 +52,7 @@ namespace scan_manga
                 
                 Save();
                 PopulateManga();
-                MangaUtility.StartPack(root);
+                MangaUtility.StartPack();
                 Clear();
             }
         }

@@ -7,7 +7,7 @@ namespace scan_manga.Utilities.BackgroudWorker
     public class BackGroundZipper : BaseBackGroundWorker
     {
         private string SelectedPath;
-        private string Manga;
+        private readonly string Manga;
         public BackGroundZipper(string manga) : base()
         {
             Manga = manga;

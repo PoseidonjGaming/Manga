@@ -84,27 +84,27 @@ namespace scan_manga.Utilities
             }
         }
 
-        public static void StartPack(string root)
+        public static void StartPack()
         {
-            if (root != string.Empty)
+            if (Root != string.Empty)
             {
-                CreateDirectory(root, "Manga");
-                CreateDirectory(root, "Temp");
-                CreateDirectory(root, "Backup");
+                CreateDirectory(Root, "Manga");
+                CreateDirectory(Root, "Temp");
+                CreateDirectory(Root, "Backup");
                 if(Settings.Default.Manga != null)
                 {
                     foreach (Manga manga in Settings.Default.Manga)
                     {
-                        CreateDirectory(root, "Manga", manga.Nom);
+                        CreateDirectory(Root, "Manga", manga.Nom);
                     }
                 }
                 
             }
         }
 
-        public static string? GetPage(string page,params string[] directory)
+        public static string GetPage(string page,params string[] directory)
         {
-            return Directory.GetFiles(GetPath(directory)).Where(e => Path.GetFileNameWithoutExtension(e).Replace('_', ' ') == page).FirstOrDefault();
+            return Directory.GetFiles(GetPath(directory)).Where(e => Path.GetFileNameWithoutExtension(e).Replace('_', ' ') == page).First();
         }
 
         public static string[] GetPages(params string[] part)
@@ -122,9 +122,9 @@ namespace scan_manga.Utilities
             return chapterList.Where(e => e.NameChapter == name).First();
         }
 
-        public static string[] GetSortedChapters(string separator, string toAdd, params string[] parts)
+        public static string[] GetSortedChapters(string toAdd, params string[] parts)
         {
-            return Sort(Get(GetPath(parts)), separator, toAdd, false);
+            return Sort(Get(GetPath(parts)), " ", toAdd, false);
         }
 
         public static string[] Get(params string[] parts)
