@@ -190,5 +190,6 @@ namespace scan_manga.Utilities
 
             }
         }
+
     }
 }
