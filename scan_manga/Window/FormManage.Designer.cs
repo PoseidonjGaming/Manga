@@ -40,7 +40,7 @@
             cmbTempChapter = new ComboBox();
             lstBoxTempPage = new ListBox();
             grpBoxAdd = new GroupBox();
-            numericUpDown1 = new NumericUpDown();
+            numericUpDownAdd = new NumericUpDown();
             cmbAdd = new ComboBox();
             btnAdd = new Button();
             rdBtnAddChapter = new RadioButton();
@@ -49,18 +49,20 @@
             uploadToolStripMenuItem = new ToolStripMenuItem();
             menuStrip = new MenuStrip();
             grpBoxUpdate = new GroupBox();
+            numericUpDownUpdate = new NumericUpDown();
+            btnDel = new Button();
+            btnUpdate = new Button();
+            txtBoxModif = new TextBox();
             cmbChapterSel = new ComboBox();
             cmbMangaSel = new ComboBox();
             rdChapter = new RadioButton();
             rdManga = new RadioButton();
-            txtBoxModif = new TextBox();
-            btnUpdate = new Button();
-            btnDel = new Button();
             ((System.ComponentModel.ISupportInitialize)picturePage).BeginInit();
             grpBoxAdd.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownAdd).BeginInit();
             menuStrip.SuspendLayout();
             grpBoxUpdate.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownUpdate).BeginInit();
             SuspendLayout();
             // 
             // picturePage
@@ -158,7 +160,7 @@
             // 
             // grpBoxAdd
             // 
-            grpBoxAdd.Controls.Add(numericUpDown1);
+            grpBoxAdd.Controls.Add(numericUpDownAdd);
             grpBoxAdd.Controls.Add(cmbAdd);
             grpBoxAdd.Controls.Add(btnAdd);
             grpBoxAdd.Controls.Add(rdBtnAddChapter);
@@ -171,16 +173,16 @@
             grpBoxAdd.TabStop = false;
             grpBoxAdd.Text = "Ajouter";
             // 
-            // numericUpDown1
+            // numericUpDownAdd
             // 
-            numericUpDown1.Enabled = false;
-            numericUpDown1.Location = new Point(250, 47);
-            numericUpDown1.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(38, 23);
-            numericUpDown1.TabIndex = 5;
-            numericUpDown1.TextAlign = HorizontalAlignment.Center;
-            numericUpDown1.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            numericUpDownAdd.Enabled = false;
+            numericUpDownAdd.Location = new Point(250, 47);
+            numericUpDownAdd.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numericUpDownAdd.Name = "numericUpDownAdd";
+            numericUpDownAdd.Size = new Size(38, 23);
+            numericUpDownAdd.TabIndex = 5;
+            numericUpDownAdd.TextAlign = HorizontalAlignment.Center;
+            numericUpDownAdd.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // cmbAdd
             // 
@@ -251,6 +253,7 @@
             // 
             // grpBoxUpdate
             // 
+            grpBoxUpdate.Controls.Add(numericUpDownUpdate);
             grpBoxUpdate.Controls.Add(btnDel);
             grpBoxUpdate.Controls.Add(btnUpdate);
             grpBoxUpdate.Controls.Add(txtBoxModif);
@@ -260,10 +263,48 @@
             grpBoxUpdate.Controls.Add(rdManga);
             grpBoxUpdate.Location = new Point(441, 27);
             grpBoxUpdate.Name = "grpBoxUpdate";
-            grpBoxUpdate.Size = new Size(579, 87);
+            grpBoxUpdate.Size = new Size(603, 87);
             grpBoxUpdate.TabIndex = 12;
             grpBoxUpdate.TabStop = false;
             grpBoxUpdate.Text = "Modifier/Supprimer";
+            // 
+            // numericUpDownUpdate
+            // 
+            numericUpDownUpdate.AutoSize = true;
+            numericUpDownUpdate.Enabled = false;
+            numericUpDownUpdate.Location = new Point(419, 47);
+            numericUpDownUpdate.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numericUpDownUpdate.Name = "numericUpDownUpdate";
+            numericUpDownUpdate.Size = new Size(41, 23);
+            numericUpDownUpdate.TabIndex = 7;
+            numericUpDownUpdate.TextAlign = HorizontalAlignment.Center;
+            numericUpDownUpdate.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            // 
+            // btnDel
+            // 
+            btnDel.Location = new Point(466, 47);
+            btnDel.Name = "btnDel";
+            btnDel.Size = new Size(75, 23);
+            btnDel.TabIndex = 6;
+            btnDel.Text = "Supprimer";
+            btnDel.UseVisualStyleBackColor = true;
+            // 
+            // btnUpdate
+            // 
+            btnUpdate.Location = new Point(466, 18);
+            btnUpdate.Name = "btnUpdate";
+            btnUpdate.Size = new Size(75, 23);
+            btnUpdate.TabIndex = 5;
+            btnUpdate.Text = "Modifier";
+            btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Click += btnUpdate_Click;
+            // 
+            // txtBoxModif
+            // 
+            txtBoxModif.Location = new Point(150, 18);
+            txtBoxModif.Name = "txtBoxModif";
+            txtBoxModif.Size = new Size(310, 23);
+            txtBoxModif.TabIndex = 4;
             // 
             // cmbChapterSel
             // 
@@ -271,7 +312,7 @@
             cmbChapterSel.FormattingEnabled = true;
             cmbChapterSel.Location = new Point(230, 47);
             cmbChapterSel.Name = "cmbChapterSel";
-            cmbChapterSel.Size = new Size(230, 23);
+            cmbChapterSel.Size = new Size(183, 23);
             cmbChapterSel.TabIndex = 3;
             // 
             // cmbMangaSel
@@ -308,32 +349,6 @@
             rdManga.Text = "Manga";
             rdManga.UseVisualStyleBackColor = true;
             // 
-            // txtBoxModif
-            // 
-            txtBoxModif.Location = new Point(150, 18);
-            txtBoxModif.Name = "txtBoxModif";
-            txtBoxModif.Size = new Size(310, 23);
-            txtBoxModif.TabIndex = 4;
-            // 
-            // btnUpdate
-            // 
-            btnUpdate.Location = new Point(466, 18);
-            btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(75, 23);
-            btnUpdate.TabIndex = 5;
-            btnUpdate.Text = "Modifier";
-            btnUpdate.UseVisualStyleBackColor = true;
-            btnUpdate.Click += btnUpdate_Click;
-            // 
-            // btnDel
-            // 
-            btnDel.Location = new Point(466, 45);
-            btnDel.Name = "btnDel";
-            btnDel.Size = new Size(75, 23);
-            btnDel.TabIndex = 6;
-            btnDel.Text = "Supprimer";
-            btnDel.UseVisualStyleBackColor = true;
-            // 
             // FormManage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -363,11 +378,12 @@
             ((System.ComponentModel.ISupportInitialize)picturePage).EndInit();
             grpBoxAdd.ResumeLayout(false);
             grpBoxAdd.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownAdd).EndInit();
             menuStrip.ResumeLayout(false);
             menuStrip.PerformLayout();
             grpBoxUpdate.ResumeLayout(false);
             grpBoxUpdate.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownUpdate).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -392,7 +408,7 @@
         private TextBox txtBoxValue;
         private ToolStripMenuItem uploadToolStripMenuItem;
         private MenuStrip menuStrip;
-        private NumericUpDown numericUpDown1;
+        private NumericUpDown numericUpDownAdd;
         private GroupBox grpBoxUpdate;
         private RadioButton rdChapter;
         private RadioButton rdManga;
@@ -401,5 +417,6 @@
         private Button btnDel;
         private Button btnUpdate;
         private TextBox txtBoxModif;
+        private NumericUpDown numericUpDownUpdate;
     }
 }

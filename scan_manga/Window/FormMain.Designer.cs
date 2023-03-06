@@ -61,6 +61,7 @@
             listBoxManga.Location = new Point(12, 56);
             listBoxManga.Name = "listBoxManga";
             listBoxManga.Size = new Size(340, 619);
+            listBoxManga.Sorted = true;
             listBoxManga.TabIndex = 0;
             listBoxManga.SelectedIndexChanged += listBoxManga_SelectedValueChanged;
             // 

@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "scan_manga_v.2", "scan_mang
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupScanManga", "SetupScanManga\SetupScanManga.vdproj", "{ADAF79E2-47CA-4984-8641-14F47CDA4F9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "scan_manga_v.3", "scan_manga_v.3\scan_manga_v.3.csproj", "{E5964664-5EC4-430A-9D56-2A11E3019883}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "scan_manga_v.3", "scan_manga_v.3\scan_manga_v.3.csproj", "{E5964664-5EC4-430A-9D56-2A11E3019883}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

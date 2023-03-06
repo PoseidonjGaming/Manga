@@ -32,7 +32,7 @@ namespace scan_manga.Window
             if (cmbManga.SelectedIndex != -1)
             {
                 cmbChapter.Items.Clear();
-                foreach (string chapter in MangaUtility.GetSortedChapters(" Chapitre ", cmbManga.Text + " Chapitre ", MangaUtility.Root, "Manga", cmbManga.Text))
+                foreach (string chapter in MangaUtility.GetSortedChapters(MangaUtility.Root, "Manga", cmbManga.Text))
                 {
                     cmbChapter.Items.Add(chapter);
                 }
@@ -83,13 +83,13 @@ namespace scan_manga.Window
             if (rdBtnAddChapter.Checked)
             {
                 cmbAdd.Enabled = true;
-                numericUpDown1.Enabled = true;
+                numericUpDownAdd.Enabled = true;
                 txtBoxValue.Enabled = false;
             }
             else
             {
                 cmbAdd.Enabled = false;
-                numericUpDown1.Enabled = false;
+                numericUpDownAdd.Enabled = false;
                 txtBoxValue.Enabled = true;
             }
         }
@@ -105,7 +105,7 @@ namespace scan_manga.Window
             }
             else
             {
-                MangaUtility.CreateDirectory(MangaUtility.Temp,cmbAdd.Text , cmbAdd.Text + " Chapitre " + numericUpDown1.Value);
+                MangaUtility.CreateDirectory(MangaUtility.Temp, cmbAdd.Text, cmbAdd.Text + " Chapitre " + numericUpDownAdd.Value);
             }
 
             txtBoxValue.Clear();
@@ -125,22 +125,22 @@ namespace scan_manga.Window
             if (rdChapter.Checked)
             {
                 cmbChapterSel.Enabled = true;
+                numericUpDownUpdate.Enabled = true;
             }
             else
             {
                 cmbChapterSel.Enabled = false;
+                numericUpDownUpdate.Enabled = false;
             }
         }
 
         private void cmbMangaSel_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbMangaSel.SelectedIndex != -1)
+            if (cmbMangaSel.SelectedIndex != -1 && rdChapter.Checked)
             {
                 cmbChapterSel.Items.Clear();
-                foreach (string chapter in MangaUtility.GetSortedChapters(" Chapitre ", cmbMangaSel.Text + " Chapitre ", Settings.Default.Root, "Manga", cmbManga.Text))
-                {
-                    cmbChapterSel.Items.Add(chapter);
-                }
+                cmbChapterSel.Items.AddRange(MangaUtility.GetSortedChapters(MangaUtility.Root, "Manga", cmbMangaSel.Text));
+                cmbChapterSel.SelectedIndex = 0;
             }
         }
 
@@ -148,16 +148,38 @@ namespace scan_manga.Window
         {
             if (rdChapter.Checked)
             {
-                if (cmbChapterSel.SelectedIndex != -1 && cmbMangaSel.SelectedIndex != -1)
+                if (cmbMangaSel.SelectedIndex != -1 && cmbChapterSel.SelectedIndex != -1)
                 {
-                    MangaUtility.CreateDirectory(MangaUtility.Temp, cmbMangaSel.Text, txtBoxModif.Text);
+                    Directory.Move(MangaUtility.GetPath(
+                        MangaUtility.Root, "Manga", cmbMangaSel.Text, cmbChapterSel.Text),
+                       MangaUtility.GetPath(
+                           MangaUtility.Root, "Manga", cmbMangaSel.Text,
+                           cmbChapterSel.Text.Replace(cmbMangaSel.Text, txtBoxModif.Text)));
+                    cmbMangaSel_SelectedIndexChanged(sender, e);
                 }
-
             }
             else
             {
+                Manga manga = MangaUtility.GetManga(cmbMangaSel.Text, MangaUtility.Mangas);
+                manga.Nom = manga.Nom.Replace(cmbMangaSel.Text, txtBoxModif.Text);
+                Settings.Default.Save();
 
+                Directory.Move(
+                    MangaUtility.GetPath(MangaUtility.Root, "Manga", cmbMangaSel.Text),
+                    MangaUtility.GetPath(MangaUtility.Root, "Manga", txtBoxModif.Text)
+                    );
+                foreach (string chapter in MangaUtility.Get(MangaUtility.Root, "Manga", txtBoxModif.Text))
+                {
+                    if(MangaUtility.GetName(chapter).Contains(cmbMangaSel.Text))
+                    {
+                        Directory.Move(chapter,
+                        MangaUtility.GetPath(MangaUtility.Root, "Manga", txtBoxModif.Text,
+                        MangaUtility.GetName(chapter).Replace(cmbMangaSel.Text, txtBoxModif.Text)));
+                    }
+                    
+                }
             }
         }
+
     }
 }
