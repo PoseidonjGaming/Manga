@@ -21,7 +21,7 @@ namespace scan_manga.Utilities
             {
                 string itemName = Path.GetFileNameWithoutExtension(item);
                 string[] split= itemName.Split(separator);
-                toAdd.Add(float.Parse(split.Last()), split[0]);
+                toAdd.Add(float.Parse(split.Last()), split.First());
                 nums.Add(float.Parse(split.Last()));
             }
             nums.Sort();
@@ -43,7 +43,6 @@ namespace scan_manga.Utilities
                 {
                     listOut.Add(GetName(toAdd[num]) + " Chapitre " + num.ToString().Replace(',', '.'));
                 }
-
             }
 
             return listOut.ToArray();
@@ -52,20 +51,11 @@ namespace scan_manga.Utilities
         public static string GetPath(params string[] parts)
         {
             string path = string.Empty;
-            foreach (string part in parts)
+            for (int i = 0; i < parts.Length-1; i++)
             {
-                if (!(parts.Last() == part))
-                {
-                    path += part + "\\";
-                }
-                else
-                {
-                    path += part;
-
-                }
-
+                path += parts[i] + "\\";
             }
-            return path;
+            return path+parts.Last();
         }
 
 
@@ -97,23 +87,17 @@ namespace scan_manga.Utilities
                 CreateDirectory(Root, "Backup");
                 if (Settings.Default.Manga != null)
                 {
-                    foreach (Manga manga in Settings.Default.Manga)
+                    foreach (Manga manga in Mangas)
                     {
                         CreateDirectory(Root, "Manga", manga.Nom);
                     }
                 }
-
             }
         }
 
         public static string GetPage(string page, params string[] directory)
         {
-            return Get(GetPath(directory)).Where(e => Path.GetFileNameWithoutExtension(e).Replace('_', ' ') == page).First();
-        }
-
-        public static string[] GetPages(params string[] part)
-        {
-            return Sort(Get(part), "_", true);
+            return Get(directory).Where(e => Path.GetFileNameWithoutExtension(e).Replace('_', ' ').Equals(page)).First();
         }
 
         public static Manga GetManga(string name, List<Manga> mangaList)
@@ -177,7 +161,7 @@ namespace scan_manga.Utilities
 
         public static void Scan(Manga manga, bool scanAll, int num = 1)
         {
-            BackGroundScan backGroundWorker = new(GetPath(Directory.GetCurrentDirectory(), "Temp"),
+            BackGroundScan backGroundWorker = new(GetPath(Temp),
                 Settings.Default.Root, manga, scanAll, num);
             if (!backGroundWorker.Worker.IsBusy)
             {

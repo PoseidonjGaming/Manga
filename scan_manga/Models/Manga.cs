@@ -11,29 +11,18 @@ namespace scan_manga.Models
         [DataMember]
         private string source;
         [DataMember]
-        private string toRemove;
-        [DataMember]
         private List<Chapter> chapters;
 
 
         public string Source { get => source; set => source = value; }
         public string Nom { get => nom; set => nom = value; }
-        public string ToRemove { get => toRemove; set => toRemove = value; }
         public List<Chapter> Chapters { get => chapters; set => chapters = value; }
 
         public Manga(string nom, string source, string toRemove, List<Chapter> chapters)
         {
-            this.nom = nom;
-            this.source = source;
-            this.toRemove = toRemove;
-            if (chapters != null)
-            {
-                this.chapters = chapters;
-            }
-            else
-            {
-                this.chapters = new List<Chapter>();
-            }
+            Nom = nom;
+            Source = source;
+            Chapters = chapters;
 
 
         }
@@ -41,6 +30,12 @@ namespace scan_manga.Models
         public Manga()
         {
             chapters = new List<Chapter>();
+        }
+
+        public Manga(string nom, string source)
+        {
+            Source = source;
+            Nom = nom;
         }
     }
 }

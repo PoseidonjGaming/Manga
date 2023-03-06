@@ -11,46 +11,43 @@ namespace scan_manga
 {
     public partial class FormMain : Form
     {
-        private List<Manga> mangaList = new();
         private Manga manga;
         private readonly List<Chapter> chapters;
-        private int numChapitre;
 
         public FormMain()
         {
             InitializeComponent();
 
             chapters = new();
-            if (Settings.Default.Manga is not null)
+            if (MangaUtility.Mangas is not null)
             {
-                mangaList = Settings.Default.Manga;
-                comboBoxManga.Items.AddRange(Populate().ToArray());
+                comboBoxManga.Items.AddRange(Populate());
 
             }
-            if (Settings.Default.Root != string.Empty)
+            if (!MangaUtility.Root.Equals(string.Empty))
             {
-                listBoxManga.Items.AddRange(Populate().ToArray());
+                listBoxManga.Items.AddRange(Populate());
             }
         }
 
         private void Settings_FormClosed(object sender, FormClosedEventArgs e)
         {
             comboBoxManga.Items.Clear();
-            comboBoxManga.Items.AddRange(Populate().ToArray());
+            comboBoxManga.Items.AddRange(Populate());
 
             listBoxManga.Items.Clear();
-            listBoxManga.Items.AddRange(Populate().ToArray());
+            listBoxManga.Items.AddRange(Populate());
             MangaUtility.StartPack();
         }
 
-        private List<string> Populate()
+        private static string[] Populate()
         {
             List<string> list = new();
-            foreach (Manga manga in mangaList)
+            foreach (Manga manga in MangaUtility.Mangas)
             {
                 list.Add(manga.Nom);
             }
-            return list;
+            return list.ToArray();
         }
 
 
@@ -63,27 +60,6 @@ namespace scan_manga
                 listBoxChapter.Items.AddRange(MangaUtility.GetSortedChapters(MangaUtility.Root, "Manga", listBoxManga.Text));
             }
         }
-
-
-
-        private void backgroundWorkerScan_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
-        {
-            if (chapters.Count != 0)
-            {
-                numChapitre = 0;
-
-
-
-                chapters.Clear();
-            }
-            else
-            {
-            }
-
-        }
-
-
-
 
 
         private void optionToolStripMenuItem_Click(object sender, EventArgs e)
@@ -114,7 +90,6 @@ namespace scan_manga
         {
             if (comboBoxPage.SelectedIndex != -1 && listBoxManga.SelectedItems.Count == 1 && listBoxChapter.SelectedItems.Count == 1)
             {
-                MessageBox.Show(MangaUtility.GetPage(comboBoxPage.Text, MangaUtility.Root, "Manga", listBoxManga.Text, listBoxChapter.Text));
                 pictureBoxPage.ImageLocation = MangaUtility.GetPage(comboBoxPage.Text, MangaUtility.Root, "Manga", listBoxManga.Text, listBoxChapter.Text);
             }
         }
@@ -124,8 +99,7 @@ namespace scan_manga
             if (comboBoxManga.SelectedIndex != -1)
             {
 
-                manga = MangaUtility.GetManga(comboBoxManga.Text, mangaList);
-                chapters.Clear();
+                manga = MangaUtility.GetManga(comboBoxManga.Text, MangaUtility.Mangas);
                 MangaUtility.Scan(manga, true);
             }
         }
@@ -142,9 +116,9 @@ namespace scan_manga
 
         private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
         {
-            foreach (string chapter in Directory.GetDirectories(MangaUtility.Temp))
+            foreach (string chapter in MangaUtility.Get(MangaUtility.Temp))
             {
-                Directory.Delete(chapter, true);
+                MangaUtility.DeleteDirectory(chapter);
             }
         }
 
@@ -152,13 +126,6 @@ namespace scan_manga
         {
             FormProgress formArchive = new(new BackGroundBackup());
             formArchive.ShowDialog(this);
-        }
-        private void CreateDirectory(string path)
-        {
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
         }
 
         private void restaurationToolStripMenuItem_Click(object sender, EventArgs e)
@@ -170,15 +137,15 @@ namespace scan_manga
         {
             if (comboBoxManga.SelectedIndex != -1)
             {
-                Manga manga = MangaUtility.GetManga(comboBoxManga.Text,MangaUtility.Mangas);
+                Manga manga = MangaUtility.GetManga(comboBoxManga.Text, MangaUtility.Mangas);
                 foreach (string chapter in MangaUtility.Get(MangaUtility.Root, "Manga", manga.Nom))
                 {
                     MangaUtility.CreateDirectory(MangaUtility.Root, "Temp", manga.Nom, MangaUtility.GetName(chapter));
-                    foreach(string page  in MangaUtility.Get(chapter))
+                    foreach (string page in MangaUtility.Get(chapter))
                     {
-                        File.Copy(page, MangaUtility.GetPath(MangaUtility.Root,"Temp",manga.Nom,MangaUtility.GetName(chapter),MangaUtility.GetName(page)));
+                        File.Copy(page, MangaUtility.GetPath(MangaUtility.Root, "Temp", manga.Nom, MangaUtility.GetName(chapter), MangaUtility.GetName(page)));
                     }
-                    
+
                 }
             }
 
@@ -186,9 +153,9 @@ namespace scan_manga
 
         private void extractToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach (string manga in Directory.GetDirectories("E:\\Drive\\Mon Drive\\Manga Scan"))
+            foreach (string manga in MangaUtility.Get("E:", "Drive", "Mon Drive", "Manga Scan"))
             {
-                CreateDirectory(MangaUtility.GetPath(MangaUtility.Root, "Temp", Path.GetFileName(manga)));
+                MangaUtility.CreateDirectory(MangaUtility.Root, "Temp", Path.GetFileName(manga));
                 foreach (string chapter in Directory.GetFiles(manga))
                 {
                     File.Copy(chapter, MangaUtility.GetPath(MangaUtility.Root, Path.GetFileName(manga), Path.GetFileName(chapter)));

@@ -2,15 +2,10 @@
 
 namespace scan_manga.Models
 {
-    [Serializable]
-    [DataContract]
     public class Chapter
     {
-        [DataMember]
         public string NameChapter { get; set; } = string.Empty;
-        [DataMember]
         public List<Page> ListScan { get; set; } = new();
-        [DataMember]
         public string FirstScan { get; set; } = string.Empty;
 
         public Chapter(string nameChapter, List<Page> listScan)

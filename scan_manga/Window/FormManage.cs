@@ -56,7 +56,7 @@ namespace scan_manga.Window
             if (cmbChapter.SelectedIndex != -1)
             {
                 lstBoxPage.Items.Clear();
-                foreach (string page in MangaUtility.GetPages(MangaUtility.Root, "Manga", cmbManga.Text, cmbChapter.Text))
+                foreach (string page in MangaUtility.GetSortedPages(MangaUtility.Root, "Manga", cmbManga.Text, cmbChapter.Text))
                 {
                     lstBoxPage.Items.Add(page);
                 }
