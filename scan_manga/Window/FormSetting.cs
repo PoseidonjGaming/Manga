@@ -6,22 +6,12 @@ namespace scan_manga
 {
     public partial class FormSetting : Form
     {
-        private string root;
-        private readonly List<Manga> mangas = new();
+        private List<Manga> mangas;
+
         public FormSetting()
         {
             InitializeComponent();
-
-            if (Settings.Default.Manga != null)
-            {
-                mangas = Settings.Default.Manga;
-            }
-            if (Settings.Default.Root != null)
-            {
-                root = Settings.Default.Root;
-                textBoxRoot.Text = root;
-            }
-
+            mangas = MangaUtility.Mangas;
             PopulateManga();
         }
 
@@ -30,7 +20,7 @@ namespace scan_manga
             if (folderBrowserDialogRoot.ShowDialog() == DialogResult.OK)
             {
                 textBoxRoot.Text = folderBrowserDialogRoot.SelectedPath;
-                Save();
+                MangaUtility.Save(textBoxRoot.Text, mangas);
             }
         }
 
@@ -41,7 +31,7 @@ namespace scan_manga
             {
                 Manga manga = new(textBoxNameManga.Text, textBoxCh2.Text.Replace(FindDiff(), "[num_chapitre]"));
                 mangas.Add(manga);
-                Save();
+                MangaUtility.Save(textBoxRoot.Text, mangas);
                 PopulateManga();
                 MangaUtility.StartPack();
                 Clear();
@@ -53,7 +43,7 @@ namespace scan_manga
             if (listBoxManga.SelectedIndex != -1)
             {
                 mangas.RemoveAt(listBoxManga.SelectedIndex);
-                Save();
+                MangaUtility.Save(textBoxRoot.Text, mangas);
                 PopulateManga();
                 Clear();
 
@@ -64,17 +54,14 @@ namespace scan_manga
         {
             if (listBoxManga.SelectedIndex != -1)
             {
-                Manga manga = mangas[listBoxManga.SelectedIndex];
+                Manga manga = MangaUtility.GetManga(listBoxManga.Text, mangas);
                 if (manga.Source is not null)
                 {
                     textBoxCh1.Text = manga.Source.Replace("[num_chapitre]", "1");
                     textBoxCh2.Text = manga.Source.Replace("[num_chapitre]", "2");
                 }
                 textBoxNameManga.Text = manga.Nom;
-                if (manga.ToRemove is not null)
-                {
-                    textBoxToRemove.Text = manga.ToRemove;
-                }
+                
 
 
             }
@@ -85,13 +72,14 @@ namespace scan_manga
         {
             if (listBoxManga.SelectedIndex != -1)
             {
-                Manga manga = new Manga();
-                manga.Source = textBoxCh2.Text.Replace(FindDiff(), "[num_chapitre]");
-                manga.Nom = textBoxNameManga.Text;
-                manga.ToRemove = textBoxToRemove.Text;
+                Manga manga = new()
+                {
+                    Source = textBoxCh2.Text.Replace(FindDiff(), "[num_chapitre]"),
+                    Nom = textBoxNameManga.Text
+                };
                 mangas[listBoxManga.SelectedIndex] = manga;
 
-                Save();
+                MangaUtility.Save(textBoxRoot.Text, mangas);
                 PopulateManga();
                 Clear();
             }
@@ -130,13 +118,6 @@ namespace scan_manga
             {
                 listBoxManga.Items.Add(manga.Nom);
             }
-        }
-
-        private void Save()
-        {
-            Settings.Default.Root = root;
-            Settings.Default.Manga = mangas;
-            Settings.Default.Save();
         }
 
         private void Clear()

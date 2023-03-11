@@ -7,20 +7,38 @@ namespace scan_manga.Utilities
 {
     public class MangaUtility
     {
-        public static string Root { get => Settings.Default.Root; }
+        public static string Root
+        {
+            get => Settings.Default.Root;
+            set => Settings.Default.Root = value;
+        }
+
         public static string Temp { get => GetPath(Directory.GetCurrentDirectory(), "Temp"); }
 
-        public static List<Manga> Mangas { get => Settings.Default.Manga; }
+        public static List<Manga> Mangas
+        {
+            get => Settings.Default.Manga;
+            set => Settings.Default.Manga = value;
+        }
+
+        public static void Save(string root, List<Manga> list)
+        {
+            Root = root;
+            Mangas = list;
+            Settings.Default.Save();
+        }
+
+
 
         public static string[] Sort(string[] listIn, string separator, bool IsPage)
         {
             List<string> listOut = new();
             List<float> nums = new();
-            Dictionary<float,string> toAdd = new();
+            Dictionary<float, string> toAdd = new();
             foreach (string item in listIn)
             {
                 string itemName = Path.GetFileNameWithoutExtension(item);
-                string[] split= itemName.Split(separator);
+                string[] split = itemName.Split(separator);
                 toAdd.Add(float.Parse(split.Last()), split.First());
                 nums.Add(float.Parse(split.Last()));
             }
@@ -51,11 +69,11 @@ namespace scan_manga.Utilities
         public static string GetPath(params string[] parts)
         {
             string path = string.Empty;
-            for (int i = 0; i < parts.Length-1; i++)
+            for (int i = 0; i < parts.Length - 1; i++)
             {
                 path += parts[i] + "\\";
             }
-            return path+parts.Last();
+            return path + parts.Last();
         }
 
 
