@@ -80,30 +80,34 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundCore
                         HttpResponseMessage result = client.GetAsync(url).Result;
                         if (result.IsSuccessStatusCode)
                         {
-
-
                             try
                             {
                                 HtmlWeb web = new();
                                 HtmlDocument doc = web.Load(url);
                                 IEnumerable<HtmlNode> nodes = doc.DocumentNode.Descendants("img");
-
-                                foreach (HtmlNode node in nodes)
+                                if(doc.ParsedText.Equals(manga.HomePage))
                                 {
-                                    if (node.Attributes["data-src"] != null)
+                                    foreach (HtmlNode node in nodes)
                                     {
-                                        pages.Add(new(node.Attributes["data-src"].Value,
-                                            MangaUtility.GetPath(tempdir, "Manga", manga.Nom,
-                                            nameChapter)));
+                                        if (node.Attributes["data-src"] != null)
+                                        {
+                                            pages.Add(new(node.Attributes["data-src"].Value,
+                                                MangaUtility.GetPath(tempdir, "Manga", manga.Nom,
+                                                nameChapter)));
+                                        }
+                                        else if (node.Attributes["src"] != null)
+                                        {
+                                            pages.Add(new(node.Attributes["src"].Value,
+                                                MangaUtility.GetPath(tempdir, "Manga", manga.Nom,
+                                                nameChapter)));
+                                        }
                                     }
-                                    else if (node.Attributes["src"] != null)
-                                    {
-                                        pages.Add(new(node.Attributes["src"].Value,
-                                            MangaUtility.GetPath(tempdir, "Manga", manga.Nom,
-                                            nameChapter)));
-                                    }
+                                    chapters.Add(new(nameChapter, pages));
                                 }
-                                chapters.Add(new(nameChapter, pages));
+                                else
+                                {
+                                    throw new ArgumentNullException("la page n'a pas été trouvée et/ou redi");
+                                }
                             }
                             catch (Exception ex)
                             {

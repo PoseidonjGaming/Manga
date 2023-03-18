@@ -6,17 +6,18 @@ namespace scan_manga.Models
     [DataContract]
     public class Manga
     {
-        [DataMember]
-        private string nom;
-        [DataMember]
-        private string source;
-        [DataMember]
-        private List<Chapter> chapters;
 
+        [DataMember]
+        public string Source { get; set; }
 
-        public string Source { get => source; set => source = value; }
-        public string Nom { get => nom; set => nom = value; }
-        public List<Chapter> Chapters { get => chapters; set => chapters = value; }
+        [DataMember]
+        public string Nom { get; set; }
+
+        [DataMember]
+        public List<Chapter> Chapters { get; set; }
+
+        public string HomePage { get; set; }
+
 
         public Manga(string nom, string source, string toRemove, List<Chapter> chapters)
         {
@@ -29,13 +30,14 @@ namespace scan_manga.Models
 
         public Manga()
         {
-            chapters = new List<Chapter>();
+            Chapters = new List<Chapter>();
         }
 
-        public Manga(string nom, string source)
+        public Manga(string nom, string source, string home)
         {
             Source = source;
             Nom = nom;
+            HomePage = home;
         }
     }
 }

@@ -78,13 +78,15 @@
             // 
             // comboBoxManga
             // 
-            comboBoxManga.AutoCompleteMode = AutoCompleteMode.Suggest;
+            comboBoxManga.AutoCompleteMode = AutoCompleteMode.Append;
+            comboBoxManga.AutoCompleteSource = AutoCompleteSource.ListItems;
             comboBoxManga.FormattingEnabled = true;
             comboBoxManga.Location = new Point(12, 27);
             comboBoxManga.Name = "comboBoxManga";
             comboBoxManga.Size = new Size(340, 23);
             comboBoxManga.Sorted = true;
             comboBoxManga.TabIndex = 4;
+            comboBoxManga.KeyUp += comboBoxManga_KeyUp;
             // 
             // menuStrip
             // 
@@ -106,14 +108,14 @@
             // optionToolStripMenuItem
             // 
             optionToolStripMenuItem.Name = "optionToolStripMenuItem";
-            optionToolStripMenuItem.Size = new Size(117, 22);
+            optionToolStripMenuItem.Size = new Size(180, 22);
             optionToolStripMenuItem.Text = "Option";
             optionToolStripMenuItem.Click += optionToolStripMenuItem_Click;
             // 
             // manageToolStripMenuItem
             // 
             manageToolStripMenuItem.Name = "manageToolStripMenuItem";
-            manageToolStripMenuItem.Size = new Size(117, 22);
+            manageToolStripMenuItem.Size = new Size(180, 22);
             manageToolStripMenuItem.Text = "Manage";
             manageToolStripMenuItem.Click += manageToolStripMenuItem_Click;
             // 
@@ -121,7 +123,7 @@
             // 
             archiveToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { backupToolStripMenuItem, restaurationToolStripMenuItem, importExportToolStripMenuItem });
             archiveToolStripMenuItem.Name = "archiveToolStripMenuItem";
-            archiveToolStripMenuItem.Size = new Size(117, 22);
+            archiveToolStripMenuItem.Size = new Size(180, 22);
             archiveToolStripMenuItem.Text = "Archive";
             // 
             // backupToolStripMenuItem

@@ -2,6 +2,8 @@
 using scan_manga.Utilities.BackgroudWorker;
 using scan_manga.Utilities.BackgroudWorker.BackgroundCore;
 using scan_manga.Properties;
+using static System.Windows.Forms.Design.AxImporter;
+using System.Text.RegularExpressions;
 
 namespace scan_manga.Utilities
 {
@@ -189,8 +191,13 @@ namespace scan_manga.Utilities
                     FormDownload formDownload = new(backGroundWorker.GetChapters(), manga.Nom);
                     formDownload.ShowDialog();
                 }
-
             }
+        }
+
+
+        public static string GetSite(string toMatch)
+        {
+            return Regex.Matches(toMatch, @"https:\/{2}w{3}\..*\..{2,3}", RegexOptions.Multiline).First().Value;
         }
 
     }

@@ -6,6 +6,10 @@ using scan_manga.Window;
 using scan_manga.Properties;
 using System.Diagnostics;
 using System.IO.Compression;
+using System.Text.RegularExpressions;
+using HtmlAgilityPack;
+using System.Security.Policy;
+using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 
 namespace scan_manga
 {
@@ -98,7 +102,6 @@ namespace scan_manga
         {
             if (comboBoxManga.SelectedIndex != -1)
             {
-
                 manga = MangaUtility.GetManga(comboBoxManga.Text, MangaUtility.Mangas);
                 MangaUtility.Scan(manga, true);
             }
@@ -192,5 +195,16 @@ namespace scan_manga
             }
 
         }
+
+        private void comboBoxManga_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 13)
+            {
+                manga = MangaUtility.GetManga(comboBoxManga.Text, MangaUtility.Mangas);
+                MangaUtility.Scan(manga, true);
+            }
+        }
+
+       
     }
 }

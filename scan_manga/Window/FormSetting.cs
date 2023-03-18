@@ -1,6 +1,8 @@
 ﻿using scan_manga.Models;
 using scan_manga.Utilities;
 using scan_manga.Properties;
+using HtmlAgilityPack;
+using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 
 namespace scan_manga
 {
@@ -29,7 +31,8 @@ namespace scan_manga
             if (textBoxCh1.Text != string.Empty && textBoxCh2.Text != string.Empty
                 && textBoxNameManga.Text != string.Empty)
             {
-                Manga manga = new(textBoxNameManga.Text, textBoxCh2.Text.Replace(FindDiff(), "[num_chapitre]"));
+                HtmlWeb web = new();
+                Manga manga = new(textBoxNameManga.Text, textBoxCh2.Text.Replace(FindDiff(), "[num_chapitre]"), web.Load(MangaUtility.GetSite(textBoxCh1.Text)).ParsedText);
                 mangas.Add(manga);
                 MangaUtility.Save(textBoxRoot.Text, mangas);
                 PopulateManga();
@@ -61,7 +64,7 @@ namespace scan_manga
                     textBoxCh2.Text = manga.Source.Replace("[num_chapitre]", "2");
                 }
                 textBoxNameManga.Text = manga.Nom;
-                
+
 
 
             }
