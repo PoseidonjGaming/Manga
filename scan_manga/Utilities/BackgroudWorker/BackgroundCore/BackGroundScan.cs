@@ -106,7 +106,7 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundCore
                                 }
                                 else
                                 {
-                                    throw new ArgumentNullException("la page n'a pas été trouvée et/ou redi");
+                                    throw new ArgumentNullException();
                                 }
                             }
                             catch (Exception ex)
