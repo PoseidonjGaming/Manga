@@ -32,7 +32,7 @@ namespace scan_manga
                 && textBoxNameManga.Text != string.Empty)
             {
                 HtmlWeb web = new();
-                Manga manga = new(textBoxNameManga.Text, textBoxCh2.Text.Replace(FindDiff(), "[num_chapitre]"), web.Load(MangaUtility.GetSite(textBoxCh1.Text)).ParsedText);
+                Manga manga = new(textBoxNameManga.Text, textBoxCh2.Text.Replace(FindDiff(), "[num_chapitre]"));
                 mangas.Add(manga);
                 MangaUtility.Save(textBoxRoot.Text, mangas);
                 PopulateManga();

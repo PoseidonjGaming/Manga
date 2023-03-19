@@ -85,7 +85,7 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundCore
                                 HtmlWeb web = new();
                                 HtmlDocument doc = web.Load(url);
                                 IEnumerable<HtmlNode> nodes = doc.DocumentNode.Descendants("img");
-                                if(doc.ParsedText.Equals(manga.HomePage))
+                                if(doc.ParsedText.Equals(web.Load(MangaUtility.GetSite(manga.Source)).ParsedText))
                                 {
                                     foreach (HtmlNode node in nodes)
                                     {

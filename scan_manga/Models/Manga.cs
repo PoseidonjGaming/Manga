@@ -16,7 +16,6 @@ namespace scan_manga.Models
         [DataMember]
         public List<Chapter> Chapters { get; set; }
 
-        public string HomePage { get; set; }
 
 
         public Manga(string nom, string source, string toRemove, List<Chapter> chapters)
@@ -33,11 +32,11 @@ namespace scan_manga.Models
             Chapters = new List<Chapter>();
         }
 
-        public Manga(string nom, string source, string home)
+        public Manga(string nom, string source)
         {
             Source = source;
             Nom = nom;
-            HomePage = home;
+            Chapters = new List<Chapter>();
         }
     }
 }
