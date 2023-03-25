@@ -39,6 +39,7 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundCore
         {
             bool isChapterExist;
             HttpClient client = new();
+            HtmlWeb web = new();
             try
             {
 
@@ -82,32 +83,25 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundCore
                         {
                             try
                             {
-                                HtmlWeb web = new();
+
                                 HtmlDocument doc = web.Load(url);
                                 IEnumerable<HtmlNode> nodes = doc.DocumentNode.Descendants("img");
-                                if(doc.ParsedText.Equals(web.Load(MangaUtility.GetSite(manga.Source)).ParsedText))
+                                foreach (HtmlNode node in nodes)
                                 {
-                                    foreach (HtmlNode node in nodes)
+                                    if (node.Attributes["data-src"] != null)
                                     {
-                                        if (node.Attributes["data-src"] != null)
-                                        {
-                                            pages.Add(new(node.Attributes["data-src"].Value,
-                                                MangaUtility.GetPath(tempdir, "Manga", manga.Nom,
-                                                nameChapter)));
-                                        }
-                                        else if (node.Attributes["src"] != null)
-                                        {
-                                            pages.Add(new(node.Attributes["src"].Value,
-                                                MangaUtility.GetPath(tempdir, "Manga", manga.Nom,
-                                                nameChapter)));
-                                        }
+                                        pages.Add(new(node.Attributes["data-src"].Value,
+                                            MangaUtility.GetPath(tempdir, "Manga", manga.Nom,
+                                            nameChapter)));
                                     }
-                                    chapters.Add(new(nameChapter, pages));
+                                    else if (node.Attributes["src"] != null)
+                                    {
+                                        pages.Add(new(node.Attributes["src"].Value,
+                                            MangaUtility.GetPath(tempdir, "Manga", manga.Nom,
+                                            nameChapter)));
+                                    }
                                 }
-                                else
-                                {
-                                    throw new ArgumentNullException();
-                                }
+                                chapters.Add(new(nameChapter, pages));
                             }
                             catch (Exception ex)
                             {
@@ -120,7 +114,7 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundCore
                             isChapterExist = false;
                         }
                     }
-                    
+
                     Worker.ReportProgress(chapters.Count);
                     Thread.Sleep(100);
                     numChapitre++;

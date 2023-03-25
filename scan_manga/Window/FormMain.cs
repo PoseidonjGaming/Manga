@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using System.Security.Policy;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
+using System;
 
 namespace scan_manga
 {
@@ -205,6 +206,12 @@ namespace scan_manga
             }
         }
 
-       
+        private void testToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string test = "https://www.scan-fr.org/manga/black-clover/356/1";
+            HttpClient client = new();
+            var result = client.GetAsync(test).Result;
+            MessageBox.Show(result.IsSuccessStatusCode.ToString());
+        }
     }
 }

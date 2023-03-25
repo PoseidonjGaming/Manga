@@ -49,6 +49,7 @@
             extractToolStripMenuItem = new ToolStripMenuItem();
             pictureBoxPage = new PictureBox();
             comboBoxPage = new ComboBox();
+            testToolStripMenuItem = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPage).BeginInit();
             SuspendLayout();
@@ -91,7 +92,7 @@
             // menuStrip
             // 
             menuStrip.BackColor = SystemColors.ControlLightLight;
-            menuStrip.Items.AddRange(new ToolStripItem[] { menuToolStripMenuItem, téléchargementToolStripMenuItem, uploadToolStripMenuItem, extractToolStripMenuItem });
+            menuStrip.Items.AddRange(new ToolStripItem[] { menuToolStripMenuItem, téléchargementToolStripMenuItem, uploadToolStripMenuItem, extractToolStripMenuItem, testToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Size = new Size(1226, 24);
@@ -108,14 +109,14 @@
             // optionToolStripMenuItem
             // 
             optionToolStripMenuItem.Name = "optionToolStripMenuItem";
-            optionToolStripMenuItem.Size = new Size(180, 22);
+            optionToolStripMenuItem.Size = new Size(117, 22);
             optionToolStripMenuItem.Text = "Option";
             optionToolStripMenuItem.Click += optionToolStripMenuItem_Click;
             // 
             // manageToolStripMenuItem
             // 
             manageToolStripMenuItem.Name = "manageToolStripMenuItem";
-            manageToolStripMenuItem.Size = new Size(180, 22);
+            manageToolStripMenuItem.Size = new Size(117, 22);
             manageToolStripMenuItem.Text = "Manage";
             manageToolStripMenuItem.Click += manageToolStripMenuItem_Click;
             // 
@@ -123,7 +124,7 @@
             // 
             archiveToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { backupToolStripMenuItem, restaurationToolStripMenuItem, importExportToolStripMenuItem });
             archiveToolStripMenuItem.Name = "archiveToolStripMenuItem";
-            archiveToolStripMenuItem.Size = new Size(180, 22);
+            archiveToolStripMenuItem.Size = new Size(117, 22);
             archiveToolStripMenuItem.Text = "Archive";
             // 
             // backupToolStripMenuItem
@@ -218,6 +219,13 @@
             comboBoxPage.TabIndex = 10;
             comboBoxPage.SelectedIndexChanged += comboBoxPage_SelectedIndexChanged;
             // 
+            // testToolStripMenuItem
+            // 
+            testToolStripMenuItem.Name = "testToolStripMenuItem";
+            testToolStripMenuItem.Size = new Size(39, 20);
+            testToolStripMenuItem.Text = "Test";
+            testToolStripMenuItem.Click += testToolStripMenuItem_Click;
+            // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -264,5 +272,6 @@
         private ToolStripMenuItem importExportToolStripMenuItem;
         private ToolStripMenuItem exportToolStripMenuItem;
         private ToolStripMenuItem importToolStripMenuItem;
+        private ToolStripMenuItem testToolStripMenuItem;
     }
 }
