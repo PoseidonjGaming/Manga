@@ -17,32 +17,27 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundArchive
 
         public override void Load()
         {
-            if (Settings.Default.Manga != null)
-            {
-                mangaList = Settings.Default.Manga;
-            }
-
-            ProgressBarManga.Maximum = mangaList.Count;
+            ProgressBarManga.Maximum = MangaUtility.Mangas.Count;
             ProgressBarPage.Value = ProgressBarPage.Maximum;
             base.Load();
         }
 
-        protected override void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        protected override void backgroundWorker_DoWork(object? sender, DoWorkEventArgs? e)
         {
-            foreach (Manga manga in mangaList)
+            foreach (Manga manga in MangaUtility.Mangas)
             {
                 MangaUtility.DeleteDirectory(MangaUtility.Root, "Backup", manga.Nom);
             }
-            foreach (Manga manga in mangaList)
+            foreach (Manga manga in MangaUtility.Mangas)
             {
                 nameManga = manga.Nom;
                 foreach (string chapter in MangaUtility.Get(MangaUtility.Root, "Manga", manga.Nom))
                 {
-                    nameChapter = chapter;
+                    nameChapter = MangaUtility.GetName(chapter);
                     MangaUtility.CreateDirectory(MangaUtility.Root, "Backup", manga.Nom, MangaUtility.GetName(chapter));
                     foreach (string page in MangaUtility.Get(MangaUtility.Root, "Manga", manga.Nom, MangaUtility.GetName(chapter)))
                     {
-                        if (Worker.CancellationPending)
+                        if (Worker.CancellationPending && e is not null)
                         {
                             Worker.Dispose();
                             e.Cancel = true;
@@ -52,7 +47,7 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundArchive
                         string sourcePath = MangaUtility.GetPath(MangaUtility.Root, "Manga", manga.Nom, MangaUtility.GetName(chapter), Path.GetFileName(page));
                         string targetPath = MangaUtility.GetPath(MangaUtility.Root, "Backup", manga.Nom, MangaUtility.GetName(chapter), Path.GetFileName(page));
                         File.Copy(sourcePath, targetPath);
-                        
+
                     }
                     Worker.ReportProgress(0);
                     Thread.Sleep(100);
@@ -60,14 +55,14 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundArchive
             }
         }
 
-        protected override void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        protected override void backgroundWorker_ProgressChanged(object? sender, ProgressChangedEventArgs? e)
         {
             ProgressBarManga.Value = Directory.GetDirectories(MangaUtility.GetPath(MangaUtility.Root, "Backup")).Length;
             ProgressBarChapter.Maximum = Directory.GetDirectories(MangaUtility.GetPath(MangaUtility.Root, "Manga", nameManga)).Length;
             ProgressBarChapter.Value = Directory.GetDirectories(MangaUtility.GetPath(MangaUtility.Root, "Backup", nameManga)).Length;
 
-            LabelChapter.Text = "Backup de " + ProgressBarChapter.Value + "/" + ProgressBarChapter.Maximum;
-            LabelManga.Text = "Backup de " + ProgressBarManga.Value + "/" + ProgressBarManga.Maximum;
+            LabelChapter.Text = "Backup de " + ProgressBarChapter.Value + "/" + ProgressBarChapter.Maximum + ": " + nameChapter;
+            LabelManga.Text = "Backup de " + ProgressBarManga.Value + "/" + ProgressBarManga.Maximum + ": " + nameManga;
         }
     }
 }

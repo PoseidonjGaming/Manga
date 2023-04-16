@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             listBoxManga = new ListBox();
             listBoxChapter = new ListBox();
-            comboBoxManga = new ComboBox();
             menuStrip = new MenuStrip();
             menuToolStripMenuItem = new ToolStripMenuItem();
             optionToolStripMenuItem = new ToolStripMenuItem();
@@ -49,7 +48,6 @@
             extractToolStripMenuItem = new ToolStripMenuItem();
             pictureBoxPage = new PictureBox();
             comboBoxPage = new ComboBox();
-            testToolStripMenuItem = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPage).BeginInit();
             SuspendLayout();
@@ -59,43 +57,32 @@
             listBoxManga.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             listBoxManga.FormattingEnabled = true;
             listBoxManga.ItemHeight = 15;
-            listBoxManga.Location = new Point(12, 56);
+            listBoxManga.Location = new Point(12, 27);
             listBoxManga.Name = "listBoxManga";
-            listBoxManga.Size = new Size(340, 619);
+            listBoxManga.Size = new Size(340, 649);
             listBoxManga.Sorted = true;
             listBoxManga.TabIndex = 0;
             listBoxManga.SelectedIndexChanged += listBoxManga_SelectedValueChanged;
+            listBoxManga.KeyDown += comboBoxManga_KeyUp;
             // 
             // listBoxChapter
             // 
             listBoxChapter.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             listBoxChapter.FormattingEnabled = true;
             listBoxChapter.ItemHeight = 15;
-            listBoxChapter.Location = new Point(874, 27);
+            listBoxChapter.Location = new Point(912, 27);
             listBoxChapter.Name = "listBoxChapter";
             listBoxChapter.Size = new Size(340, 649);
             listBoxChapter.TabIndex = 1;
             listBoxChapter.SelectedIndexChanged += listBoxChapter_SelectedIndexChanged;
             // 
-            // comboBoxManga
-            // 
-            comboBoxManga.AutoCompleteMode = AutoCompleteMode.Append;
-            comboBoxManga.AutoCompleteSource = AutoCompleteSource.ListItems;
-            comboBoxManga.FormattingEnabled = true;
-            comboBoxManga.Location = new Point(12, 27);
-            comboBoxManga.Name = "comboBoxManga";
-            comboBoxManga.Size = new Size(340, 23);
-            comboBoxManga.Sorted = true;
-            comboBoxManga.TabIndex = 4;
-            comboBoxManga.KeyUp += comboBoxManga_KeyUp;
-            // 
             // menuStrip
             // 
             menuStrip.BackColor = SystemColors.ControlLightLight;
-            menuStrip.Items.AddRange(new ToolStripItem[] { menuToolStripMenuItem, téléchargementToolStripMenuItem, uploadToolStripMenuItem, extractToolStripMenuItem, testToolStripMenuItem });
+            menuStrip.Items.AddRange(new ToolStripItem[] { menuToolStripMenuItem, téléchargementToolStripMenuItem, uploadToolStripMenuItem, extractToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
-            menuStrip.Size = new Size(1226, 24);
+            menuStrip.Size = new Size(1264, 24);
             menuStrip.TabIndex = 8;
             menuStrip.Text = "menuStrip";
             // 
@@ -202,7 +189,7 @@
             pictureBoxPage.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pictureBoxPage.Location = new Point(358, 56);
             pictureBoxPage.Name = "pictureBoxPage";
-            pictureBoxPage.Size = new Size(510, 619);
+            pictureBoxPage.Size = new Size(548, 608);
             pictureBoxPage.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxPage.TabIndex = 9;
             pictureBoxPage.TabStop = false;
@@ -214,26 +201,18 @@
             comboBoxPage.IntegralHeight = false;
             comboBoxPage.Location = new Point(358, 27);
             comboBoxPage.Name = "comboBoxPage";
-            comboBoxPage.Size = new Size(510, 23);
+            comboBoxPage.Size = new Size(548, 23);
             comboBoxPage.Sorted = true;
             comboBoxPage.TabIndex = 10;
             comboBoxPage.SelectedIndexChanged += comboBoxPage_SelectedIndexChanged;
-            // 
-            // testToolStripMenuItem
-            // 
-            testToolStripMenuItem.Name = "testToolStripMenuItem";
-            testToolStripMenuItem.Size = new Size(39, 20);
-            testToolStripMenuItem.Text = "Test";
-            testToolStripMenuItem.Click += testToolStripMenuItem_Click;
             // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1226, 681);
+            ClientSize = new Size(1264, 681);
             Controls.Add(comboBoxPage);
             Controls.Add(pictureBoxPage);
-            Controls.Add(comboBoxManga);
             Controls.Add(listBoxChapter);
             Controls.Add(listBoxManga);
             Controls.Add(menuStrip);
@@ -254,7 +233,6 @@
 
         private ListBox listBoxManga;
         private ListBox listBoxChapter;
-        private ComboBox comboBoxManga;
         private MenuStrip menuStrip;
         private ToolStripMenuItem menuToolStripMenuItem;
         private ToolStripMenuItem optionToolStripMenuItem;
@@ -272,6 +250,5 @@
         private ToolStripMenuItem importExportToolStripMenuItem;
         private ToolStripMenuItem exportToolStripMenuItem;
         private ToolStripMenuItem importToolStripMenuItem;
-        private ToolStripMenuItem testToolStripMenuItem;
     }
 }

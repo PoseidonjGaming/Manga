@@ -75,7 +75,7 @@ namespace scan_manga.Window
 
         private void uploadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MangaUtility.Progress(new BackGroundZipper(cmbManga.Text));
+            MangaUtility.Progress(new BackGroundZipper(cmbManga.Text), this);
         }
 
         private void rdButtonChapter_CheckedChanged(object sender, EventArgs e)
@@ -170,16 +170,25 @@ namespace scan_manga.Window
                     );
                 foreach (string chapter in MangaUtility.Get(MangaUtility.Root, "Manga", txtBoxModif.Text))
                 {
-                    if(MangaUtility.GetName(chapter).Contains(cmbMangaSel.Text))
+                    if (MangaUtility.GetName(chapter).Contains(cmbMangaSel.Text))
                     {
                         Directory.Move(chapter,
                         MangaUtility.GetPath(MangaUtility.Root, "Manga", txtBoxModif.Text,
                         MangaUtility.GetName(chapter).Replace(cmbMangaSel.Text, txtBoxModif.Text)));
                     }
-                    
+
                 }
             }
         }
 
+        private void retéléchargerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (cmbChapter.SelectedIndex != -1)
+            {
+                Manga manga = MangaUtility.GetManga(cmbManga.Text, MangaUtility.Mangas);
+                FormSelectChapter form = new(cmbManga.SelectedIndex, manga.Source.Replace("[num_chapitre]", (cmbChapter.SelectedIndex+1).ToString()), cmbChapter.Text);
+                form.ShowDialog(this);
+            }
+        }
     }
 }

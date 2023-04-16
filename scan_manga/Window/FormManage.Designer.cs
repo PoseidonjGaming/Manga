@@ -57,6 +57,7 @@
             cmbMangaSel = new ComboBox();
             rdChapter = new RadioButton();
             rdManga = new RadioButton();
+            retéléchargerToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)picturePage).BeginInit();
             grpBoxAdd.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDownAdd).BeginInit();
@@ -244,7 +245,7 @@
             // 
             // menuStrip
             // 
-            menuStrip.Items.AddRange(new ToolStripItem[] { uploadToolStripMenuItem });
+            menuStrip.Items.AddRange(new ToolStripItem[] { uploadToolStripMenuItem, retéléchargerToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Size = new Size(1084, 24);
@@ -349,6 +350,13 @@
             rdManga.Text = "Manga";
             rdManga.UseVisualStyleBackColor = true;
             // 
+            // retéléchargerToolStripMenuItem
+            // 
+            retéléchargerToolStripMenuItem.Name = "retéléchargerToolStripMenuItem";
+            retéléchargerToolStripMenuItem.Size = new Size(91, 20);
+            retéléchargerToolStripMenuItem.Text = "Retélécharger";
+            retéléchargerToolStripMenuItem.Click += retéléchargerToolStripMenuItem_Click;
+            // 
             // FormManage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -418,5 +426,6 @@
         private Button btnUpdate;
         private TextBox txtBoxModif;
         private NumericUpDown numericUpDownUpdate;
+        private ToolStripMenuItem retéléchargerToolStripMenuItem;
     }
 }

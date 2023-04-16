@@ -1,33 +1,39 @@
 ﻿using scan_manga.Models;
 using scan_manga.Utilities;
 using scan_manga.Properties;
+using System.Security.Policy;
 
 namespace scan_manga
 {
     public partial class FormSelectChapter : Form
     {
         public List<Chapter> chapter = new();
-        public FormSelectChapter()
+        public FormSelectChapter(int index = 0, string url = "", string chapter = "")
         {
             InitializeComponent();
-        }
-
-        private void FormDownloadOneChapter_Load(object sender, EventArgs e)
-        {
-            if (Settings.Default.Manga != null)
+            if (MangaUtility.Mangas != null)
             {
                 foreach (Manga manga in Settings.Default.Manga)
                 {
                     comboBoxManga.Items.Add(manga.Nom);
                 }
             }
+            comboBoxManga.SelectedIndex = index;
+            textBoxUrl.Text = url;
+            textBoxNameChapter.Text = chapter;
+            
+        }
+
+        private void FormDownloadOneChapter_Load(object sender, EventArgs e)
+        {
+            
         }
 
         private void buttonDownload_Click(object sender, EventArgs e)
         {
-            Manga manga=MangaUtility.GetManga(comboBoxManga.Text, Settings.Default.Manga);
-            manga.Source=textBoxUrl.Text;
-            MangaUtility.Scan(manga, false,
+            Manga manga = MangaUtility.GetManga(comboBoxManga.Text, Settings.Default.Manga);
+            manga.Source = textBoxUrl.Text;
+            MangaUtility.Scan(manga, false, this,
                 int.Parse(textBoxNameChapter.Text.Split(" ").Last()));
             Close();
 

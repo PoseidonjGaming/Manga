@@ -23,6 +23,11 @@ namespace scan_manga.Utilities
             set => Settings.Default.Manga = value;
         }
 
+        public static string RootManga
+        {
+            get => GetPath(Root, "Manga");
+        }
+
         public static void Save(string root, List<Manga> list)
         {
             Root = root;
@@ -150,10 +155,10 @@ namespace scan_manga.Utilities
 
 
 
-        public static void Progress(BaseBackGroundWorker bg)
+        public static void Progress(BaseBackGroundWorker bg, Form formParent)
         {
             FormProgress form = new(bg);
-            form.ShowDialog();
+            form.ShowDialog(formParent);
         }
 
         public static string GetName(string path)
@@ -179,13 +184,12 @@ namespace scan_manga.Utilities
             }
         }
 
-        public static void Scan(Manga manga, bool scanAll, int num = 1)
+        public static void Scan(Manga manga, bool scanAll, Form form, int num = 1)
         {
-            BackGroundScan backGroundWorker = new(GetPath(Temp),
-                Settings.Default.Root, manga, scanAll, num);
+            BackGroundScan backGroundWorker = new(manga, scanAll, num);
             if (!backGroundWorker.Worker.IsBusy)
             {
-                Progress(backGroundWorker);
+                Progress(backGroundWorker, form);
                 if (!backGroundWorker.isCancelled && backGroundWorker.GetChapters().Count > 0)
                 {
                     FormDownload formDownload = new(backGroundWorker.GetChapters(), manga.Nom);

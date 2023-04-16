@@ -22,7 +22,7 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundCore
             chaptersToDownload = chapters;
             root = Settings.Default.Root;
             pathTemp = MangaUtility.GetPath(root, "Temp");
-            temp = MangaUtility.GetPath(Directory.GetCurrentDirectory(), "Temp");
+            temp = MangaUtility.Temp;
         }
 
 

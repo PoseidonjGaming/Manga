@@ -24,11 +24,7 @@ namespace scan_manga
             InitializeComponent();
 
             chapters = new();
-            if (MangaUtility.Mangas is not null)
-            {
-                comboBoxManga.Items.AddRange(Populate());
 
-            }
             if (!MangaUtility.Root.Equals(string.Empty))
             {
                 listBoxManga.Items.AddRange(Populate());
@@ -37,8 +33,6 @@ namespace scan_manga
 
         private void Settings_FormClosed(object sender, FormClosedEventArgs e)
         {
-            comboBoxManga.Items.Clear();
-            comboBoxManga.Items.AddRange(Populate());
 
             listBoxManga.Items.Clear();
             listBoxManga.Items.AddRange(Populate());
@@ -101,10 +95,10 @@ namespace scan_manga
 
         private void scannerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (comboBoxManga.SelectedIndex != -1)
+            if (listBoxManga.SelectedIndex != -1)
             {
-                manga = MangaUtility.GetManga(comboBoxManga.Text, MangaUtility.Mangas);
-                MangaUtility.Scan(manga, true);
+                manga = MangaUtility.GetManga(listBoxManga.Text, MangaUtility.Mangas);
+                MangaUtility.Scan(manga, true, this);
             }
         }
 
@@ -134,14 +128,14 @@ namespace scan_manga
 
         private void restaurationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MangaUtility.Progress(new BackgroundRestore());
+            MangaUtility.Progress(new BackgroundRestore(), this);
         }
 
         private void uploadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (comboBoxManga.SelectedIndex != -1)
+            if (listBoxManga.SelectedIndex != -1)
             {
-                Manga manga = MangaUtility.GetManga(comboBoxManga.Text, MangaUtility.Mangas);
+                Manga manga = MangaUtility.GetManga(listBoxManga.Text, MangaUtility.Mangas);
                 foreach (string chapter in MangaUtility.Get(MangaUtility.Root, "Manga", manga.Nom))
                 {
                     MangaUtility.CreateDirectory(MangaUtility.Root, "Temp", manga.Nom, MangaUtility.GetName(chapter));
@@ -201,17 +195,9 @@ namespace scan_manga
         {
             if (e.KeyValue == 13)
             {
-                manga = MangaUtility.GetManga(comboBoxManga.Text, MangaUtility.Mangas);
-                MangaUtility.Scan(manga, true);
+                manga = MangaUtility.GetManga(listBoxManga.Text, MangaUtility.Mangas);
+                MangaUtility.Scan(manga, true, this);
             }
-        }
-
-        private void testToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string test = "https://www.scan-fr.org/manga/black-clover/356/1";
-            HttpClient client = new();
-            var result = client.GetAsync(test).Result;
-            MessageBox.Show(result.IsSuccessStatusCode.ToString());
         }
     }
 }

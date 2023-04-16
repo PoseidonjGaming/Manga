@@ -14,12 +14,10 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundCore
         private List<Chapter> chapters;
         private bool scanAll;
 
-        public BackGroundScan(string tempDir, string root, Manga manga,
+        public BackGroundScan(Manga manga,
             bool scanAll, int num = 1) : base()
         {
             NameWindow = "Scan";
-            tempdir = tempDir;
-            this.root = root;
             this.manga = manga;
             chapters = new();
             numChapitre = num;
@@ -88,13 +86,13 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundCore
                                 IEnumerable<HtmlNode> nodes = doc.DocumentNode.Descendants("img");
                                 foreach (HtmlNode node in nodes)
                                 {
-                                    if (node.Attributes["data-src"] != null)
+                                    if (node.Attributes["data-src"] != null && Path.GetExtension(node.Attributes["data-src"].Value) != ".gif")
                                     {
                                         pages.Add(new(node.Attributes["data-src"].Value,
                                             MangaUtility.GetPath(tempdir, "Manga", manga.Nom,
                                             nameChapter)));
                                     }
-                                    else if (node.Attributes["src"] != null)
+                                    else if (node.Attributes["src"] != null && Path.GetExtension(node.Attributes["src"].Value) != ".gif")
                                     {
                                         pages.Add(new(node.Attributes["src"].Value,
                                             MangaUtility.GetPath(tempdir, "Manga", manga.Nom,
@@ -144,6 +142,7 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundCore
             {
                 Directory.Delete(chapter, true);
             }
+            MangaUtility.DeleteDirectory(MangaUtility.RootManga, manga.Nom, "");
         }
 
         public List<Chapter> GetChapters()

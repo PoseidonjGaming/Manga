@@ -66,11 +66,11 @@ namespace scan_manga
         private void buttonDownload_Click(object sender, EventArgs e)
         {
             BackGroundDownload backGroundDownload = new(nameManga, chaptersToDownload);
-            MangaUtility.Progress(backGroundDownload);
+            MangaUtility.Progress(backGroundDownload, this);
 
             if (!backGroundDownload.isCancelled)
             {
-                MangaUtility.Progress(new BackGroundCopy(nameManga, chaptersToDownload));
+                MangaUtility.Progress(new BackGroundCopy(nameManga, chaptersToDownload), this);
                 Close();
             }
 
