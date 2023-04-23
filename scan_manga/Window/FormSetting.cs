@@ -14,6 +14,7 @@ namespace scan_manga
         {
             InitializeComponent();
             mangas = MangaUtility.Mangas;
+            textBoxRoot.Text = MangaUtility.Root;
             PopulateManga();
         }
 

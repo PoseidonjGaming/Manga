@@ -10,7 +10,6 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundCore
         private int numChapitre;
         private readonly Manga manga;
         private readonly string root;
-        private readonly string tempdir;
         private List<Chapter> chapters;
         private bool scanAll;
 
@@ -89,13 +88,13 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundCore
                                     if (node.Attributes["data-src"] != null && Path.GetExtension(node.Attributes["data-src"].Value) != ".gif")
                                     {
                                         pages.Add(new(node.Attributes["data-src"].Value,
-                                            MangaUtility.GetPath(tempdir, "Manga", manga.Nom,
+                                            MangaUtility.GetPath(MangaUtility.RootManga,manga.Nom,
                                             nameChapter)));
                                     }
                                     else if (node.Attributes["src"] != null && Path.GetExtension(node.Attributes["src"].Value) != ".gif")
                                     {
                                         pages.Add(new(node.Attributes["src"].Value,
-                                            MangaUtility.GetPath(tempdir, "Manga", manga.Nom,
+                                            MangaUtility.GetPath(MangaUtility.RootManga, manga.Nom,
                                             nameChapter)));
                                     }
                                 }
@@ -138,11 +137,10 @@ namespace scan_manga.Utilities.BackgroudWorker.BackgroundCore
 
         private void Clear()
         {
-            foreach (string chapter in Directory.GetDirectories(tempdir))
+            foreach (string chapter in Directory.GetDirectories(MangaUtility.Temp))
             {
                 Directory.Delete(chapter, true);
             }
-            MangaUtility.DeleteDirectory(MangaUtility.RootManga, manga.Nom, "");
         }
 
         public List<Chapter> GetChapters()

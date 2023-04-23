@@ -28,6 +28,11 @@ namespace scan_manga.Utilities
             get => GetPath(Root, "Manga");
         }
 
+        public static string RootTemp
+        {
+            get => GetPath(Root, "Temp");
+        }
+
         public static void Save(string root, List<Manga> list)
         {
             Root = root;
@@ -197,12 +202,5 @@ namespace scan_manga.Utilities
                 }
             }
         }
-
-
-        public static string GetSite(string toMatch)
-        {
-            return Regex.Matches(toMatch, @"https:\/{2}w{3}\..*\..{2,3}", RegexOptions.Multiline).First().Value;
-        }
-
     }
 }

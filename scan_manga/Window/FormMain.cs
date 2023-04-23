@@ -11,6 +11,7 @@ using HtmlAgilityPack;
 using System.Security.Policy;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 using System;
+using scan_manga.Utilities.BackgroudWorker;
 
 namespace scan_manga
 {
@@ -135,32 +136,39 @@ namespace scan_manga
         {
             if (listBoxManga.SelectedIndex != -1)
             {
-                Manga manga = MangaUtility.GetManga(listBoxManga.Text, MangaUtility.Mangas);
-                foreach (string chapter in MangaUtility.Get(MangaUtility.Root, "Manga", manga.Nom))
-                {
-                    MangaUtility.CreateDirectory(MangaUtility.Root, "Temp", manga.Nom, MangaUtility.GetName(chapter));
-                    foreach (string page in MangaUtility.Get(chapter))
-                    {
-                        File.Copy(page, MangaUtility.GetPath(MangaUtility.Root, "Temp", manga.Nom, MangaUtility.GetName(chapter), MangaUtility.GetName(page)));
-                    }
-
-                }
+                MangaUtility.Progress(new BackGroundUpload(listBoxManga.Text), this);
             }
 
         }
 
         private void extractToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach (string manga in MangaUtility.Get("E:", "Drive", "Mon Drive", "Manga Scan"))
+            //foreach (string manga in MangaUtility.Get("E:", "Drive", "Mon Drive", "Manga Scan"))
+            //{
+            //    MangaUtility.CreateDirectory(MangaUtility.Root, "Temp", Path.GetFileName(manga));
+            //    foreach (string chapter in Directory.GetFiles(manga))
+            //    {
+            //        File.Copy(chapter, MangaUtility.GetPath(MangaUtility.Root, Path.GetFileName(manga), Path.GetFileName(chapter)));
+            //    }
+            //}
+            //Process.Start("powershell", MangaUtility.GetPath("E:", "Manga Scan", "TestExtract.ps1"));
+            FolderBrowserDialog dialog = new();
+            if(dialog.ShowDialog() == DialogResult.OK)
             {
-                MangaUtility.CreateDirectory(MangaUtility.Root, "Temp", Path.GetFileName(manga));
-                foreach (string chapter in Directory.GetFiles(manga))
+                MangaUtility.CreateDirectory(MangaUtility.RootTemp,MangaUtility.GetName(dialog.SelectedPath));
+                foreach(string path in MangaUtility.Get(dialog.SelectedPath))
                 {
-                    File.Copy(chapter, MangaUtility.GetPath(MangaUtility.Root, Path.GetFileName(manga), Path.GetFileName(chapter)));
-
+                    if (Path.GetExtension(path) == ".zip")
+                    {
+                        //File.Copy(path,
+                        //    MangaUtility.GetPath(MangaUtility.RootTemp,
+                        //    Path.GetFileName(dialog.SelectedPath), MangaUtility.GetName(path)));
+                        ZipFile.ExtractToDirectory(path,
+                            MangaUtility.GetPath(MangaUtility.RootManga,
+                            MangaUtility.GetName(dialog.SelectedPath)));
+                    }
                 }
             }
-            Process.Start("powershell", "E:\\Manga Scan\\TestExtract.ps1");
 
         }
 
