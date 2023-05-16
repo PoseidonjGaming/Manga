@@ -46,6 +46,7 @@
             charcherUnChapitreToolStripMenuItem = new ToolStripMenuItem();
             uploadToolStripMenuItem = new ToolStripMenuItem();
             extractToolStripMenuItem = new ToolStripMenuItem();
+            testToolStripMenuItem = new ToolStripMenuItem();
             pictureBoxPage = new PictureBox();
             comboBoxPage = new ComboBox();
             menuStrip.SuspendLayout();
@@ -79,7 +80,7 @@
             // menuStrip
             // 
             menuStrip.BackColor = SystemColors.ControlLightLight;
-            menuStrip.Items.AddRange(new ToolStripItem[] { menuToolStripMenuItem, téléchargementToolStripMenuItem, uploadToolStripMenuItem, extractToolStripMenuItem });
+            menuStrip.Items.AddRange(new ToolStripItem[] { menuToolStripMenuItem, téléchargementToolStripMenuItem, uploadToolStripMenuItem, extractToolStripMenuItem, testToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Size = new Size(1264, 24);
@@ -184,6 +185,13 @@
             extractToolStripMenuItem.Text = "Extract";
             extractToolStripMenuItem.Click += extractToolStripMenuItem_Click;
             // 
+            // testToolStripMenuItem
+            // 
+            testToolStripMenuItem.Name = "testToolStripMenuItem";
+            testToolStripMenuItem.Size = new Size(38, 20);
+            testToolStripMenuItem.Text = "test";
+            testToolStripMenuItem.Click += testToolStripMenuItem_Click;
+            // 
             // pictureBoxPage
             // 
             pictureBoxPage.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -222,6 +230,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Manga Library";
             FormClosed += FormMain_FormClosed;
+            Load += FormMain_Load;
             menuStrip.ResumeLayout(false);
             menuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPage).EndInit();
@@ -250,5 +259,6 @@
         private ToolStripMenuItem importExportToolStripMenuItem;
         private ToolStripMenuItem exportToolStripMenuItem;
         private ToolStripMenuItem importToolStripMenuItem;
+        private ToolStripMenuItem testToolStripMenuItem;
     }
 }

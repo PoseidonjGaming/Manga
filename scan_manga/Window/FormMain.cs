@@ -4,37 +4,22 @@ using scan_manga.Utilities;
 using scan_manga.Utilities.BackgroudWorker.BackgroundArchive;
 using scan_manga.Window;
 using scan_manga.Properties;
-using System.Diagnostics;
 using System.IO.Compression;
-using System.Text.RegularExpressions;
-using HtmlAgilityPack;
-using System.Security.Policy;
-using HtmlDocument = HtmlAgilityPack.HtmlDocument;
-using System;
 using scan_manga.Utilities.BackgroudWorker;
+using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace scan_manga
 {
     public partial class FormMain : Form
     {
-        private Manga manga;
-        private readonly List<Chapter> chapters;
-
         public FormMain()
         {
             InitializeComponent();
 
-            chapters = new();
-
-            if (!MangaUtility.Root.Equals(string.Empty))
-            {
-                listBoxManga.Items.AddRange(Populate());
-            }
         }
 
-        private void Settings_FormClosed(object sender, FormClosedEventArgs e)
+        private void Settings_FormClosed(object? sender, FormClosedEventArgs? e)
         {
-
             listBoxManga.Items.Clear();
             listBoxManga.Items.AddRange(Populate());
             MangaUtility.StartPack();
@@ -98,7 +83,7 @@ namespace scan_manga
         {
             if (listBoxManga.SelectedIndex != -1)
             {
-                manga = MangaUtility.GetManga(listBoxManga.Text, MangaUtility.Mangas);
+                Manga manga = MangaUtility.GetManga(listBoxManga.Text, MangaUtility.Mangas);
                 MangaUtility.Scan(manga, true, this);
             }
         }
@@ -123,8 +108,7 @@ namespace scan_manga
 
         private void backupToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormProgress formArchive = new(new BackGroundBackup());
-            formArchive.ShowDialog(this);
+            MangaUtility.Progress(new BackGroundBackup(), this);
         }
 
         private void restaurationToolStripMenuItem_Click(object sender, EventArgs e)
@@ -153,10 +137,10 @@ namespace scan_manga
             //}
             //Process.Start("powershell", MangaUtility.GetPath("E:", "Manga Scan", "TestExtract.ps1"));
             FolderBrowserDialog dialog = new();
-            if(dialog.ShowDialog() == DialogResult.OK)
+            if (dialog.ShowDialog() == DialogResult.OK)
             {
-                MangaUtility.CreateDirectory(MangaUtility.RootTemp,MangaUtility.GetName(dialog.SelectedPath));
-                foreach(string path in MangaUtility.Get(dialog.SelectedPath))
+                MangaUtility.CreateDirectory(MangaUtility.RootTemp, MangaUtility.GetName(dialog.SelectedPath));
+                foreach (string path in MangaUtility.Get(dialog.SelectedPath))
                 {
                     if (Path.GetExtension(path) == ".zip")
                     {
@@ -190,11 +174,17 @@ namespace scan_manga
 
         private void importToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog fileDialog = new OpenFileDialog();
+            OpenFileDialog fileDialog = new();
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
-                Settings.Default.Manga = JsonConvert.DeserializeObject<List<Manga>>(File.ReadAllText(fileDialog.FileName));
-                Settings.Default.Save();
+                List<Manga>? mangas = JsonConvert.DeserializeObject<List<Manga>>(File.ReadAllText(fileDialog.FileName));
+                if (mangas != null)
+                {
+                    MangaUtility.Save(MangaUtility.Root, mangas);
+                    listBoxManga.Items.Clear();
+                    listBoxManga.Items.AddRange(Populate());
+                }
+
             }
 
         }
@@ -203,8 +193,30 @@ namespace scan_manga
         {
             if (e.KeyValue == 13)
             {
-                manga = MangaUtility.GetManga(listBoxManga.Text, MangaUtility.Mangas);
-                MangaUtility.Scan(manga, true, this);
+                MangaUtility.Scan(MangaUtility.GetManga(listBoxManga.Text, MangaUtility.Mangas), true, this);
+            }
+        }
+
+        private void testToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //new ToastContentBuilder()
+            //.AddText("Andrew sent you a picture")
+            //.AddText("Check this out, The Enchantments in Washington!")
+            //.Show();
+            foreach(string chapter in MangaUtility.Get(MangaUtility.RootManga, listBoxManga.Text))
+            {
+                if(MangaUtility.Get(chapter).Length == 0)
+                {
+                    MessageBox.Show(chapter);
+                }
+            }
+        }
+
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+            if (MangaUtility.Mangas != null)
+            {
+                listBoxManga.Items.AddRange(Populate());
             }
         }
     }

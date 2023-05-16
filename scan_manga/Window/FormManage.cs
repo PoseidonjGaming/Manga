@@ -14,7 +14,7 @@ namespace scan_manga.Window
 
         private void FormManage_Load(object sender, EventArgs e)
         {
-            foreach (Manga manga in Settings.Default.Manga)
+            foreach (Manga manga in MangaUtility.Mangas)
             {
                 cmbManga.Items.Add(manga.Nom);
                 cmbMangaSel.Items.Add(manga.Nom);
